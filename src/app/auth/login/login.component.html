@@ -1,0 +1,27 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <mat-card class="example-card">
+     <mat-card-header>
+       <mat-card-title>Login</mat-card-title>
+     </mat-card-header>
+     <mat-card-content>
+       <form class="example-form">
+         <div class="form-group">
+           <mat-form-field class="example-full-width">
+           <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+           </mat-form-field>
+         </div>
+         <div class="form-group">
+           <mat-form-field class="example-full-width">
+             <input matInput placeholder="Password" [(ngModel)]="password"type="password" name="password" required>
+           </mat-form-field>
+         </div>
+       </form>
+       <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+     </mat-card-content>
+     <mat-card-actions>
+       <button mat-raised-button (click)="login()" color="primary">Login</button>
+     </mat-card-actions>
+     <a class="auth-navigate" [routerLink]="['/', 'forgot']">Forgot Password?</a>
+   </mat-card>
+</div>
