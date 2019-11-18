@@ -5,27 +5,35 @@ import { APIService } from 'app/api.service'
 import { MatSnackBar } from '@angular/material';
 import { CustomValidators } from 'ng2-validation';
 
-const password = new FormControl('');
-const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
-const oldPassword = new FormControl('');
+const password = new FormControl('', Validators.compose([ Validators.required ]));
+const confirmPassword = new FormControl('', Validators.compose([ Validators.required, CustomValidators.equalTo(password) ]));
+const oldPassword = new FormControl('', Validators.compose([ Validators.required ]));
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  public profileForm: FormGroup;
+  public changeEmailForm: FormGroup;
+  public changePasswordForm: FormGroup;
   constructor(private router: Router, private fb: FormBuilder, private api:APIService, private snack: MatSnackBar) { }
   userId = "";
   email = "";
   ngOnInit() {
       this.email = localStorage.getItem('username');  
-      this.profileForm = this.fb.group ( {
+      // for change email
+      this.changeEmailForm = this.fb.group ({
       email: [this.email, Validators.compose([ Validators.required, Validators.pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i) ])],
-      password: password,
-      confirmPassword: confirmPassword,
-      oldPassword: oldPassword 
-    });
+      currentEmail: [this.email],
+      });
+      
+      // for change password.
+      this.changePasswordForm = this.fb.group ({
+        password: password,
+        confirmPassword: confirmPassword,
+        oldPassword: oldPassword 
+      });
+
     this.userId = localStorage.getItem('userId');
   }
 

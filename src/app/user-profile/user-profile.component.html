@@ -1,55 +1,76 @@
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-6">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title">Edit Profile</h4>
+                      <h4 class="card-title">Change Email</h4>
                   </div>
                   <div class="card-body">
-                      <form [formGroup]="profileForm" (ngSubmit)="save(profileForm.value)">
+                      <form [formGroup]="changeEmailForm" (ngSubmit)="save(changeEmailForm.value)">
                           <div class="row">
                               <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Email ID" formControlName="email" name="email">
-                                    <mat-error class="error--handing"
-                                        *ngIf="profileForm.controls['email'].hasError('pattern') && (profileForm.controls['email'].dirty || profileForm.controls['email'].touched)">
-                                        {{ "Please Enter valid email Id." }}
-                                    </mat-error>
+                                    <input matInput placeholder="Current Email" formControlName="currentEmail" readonly>
                                   </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                                <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Current Password" type="password" formControlName="oldPassword">
-                                  </mat-form-field>
-                                </div>
-                            </div>
-
-                          <div class="row">
-                              <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Password" type="password" formControlName="password">
-                                </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" name="cofirmpassword">
-                                        <mat-error class="error--handing" *ngIf="profileForm.controls['confirmPassword'].hasError('equalTo') && profileForm.controls['confirmPassword'].touched">
-                                            {{ "Password does not match." }}
-                                            </mat-error>
-                                    </mat-form-field>
+                                        <input matInput placeholder="Email ID" formControlName="email" name="email">
+                                        <mat-error class="error--handing"
+                                            *ngIf="changeEmailForm.controls['email'].hasError('pattern') && (changeEmailForm.controls['email'].dirty || changeEmailForm.controls['email'].touched)">
+                                            {{ "Please Enter valid email Id." }}
+                                        </mat-error>
+                                      </mat-form-field>
                                 </div>
-                          </div>
-                          <button mat-raised-button type="submit" [disabled]="!profileForm.valid" class="btn btn-danger">Update Profile</button>
+                            </div>
+                          <button mat-raised-button type="submit" [disabled]="!changeEmailForm.valid" class="btn btn-danger">Update Email</button>
                           <div class="clearfix"></div>
                       </form>
                   </div>
               </div>
           </div>
+          <!--change password -->
+          <div class="col-md-6">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Change Password</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="changePasswordForm" (ngSubmit)="save(changePasswordForm.value)">
+                        <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Current Password" type="password" formControlName="oldPassword">
+                                </mat-form-field>
+                              </div>
+                          </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Password" type="password" formControlName="password">
+                              </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-md-6">
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" name="cofirmpassword">
+                                      <mat-error class="error--handing" *ngIf="changePasswordForm.controls['confirmPassword'].hasError('equalTo') && changePasswordForm.controls['confirmPassword'].touched">
+                                          {{ "Password does not match." }}
+                                      </mat-error>
+                                  </mat-form-field>
+                              </div>
+                        </div>
+                        <button mat-raised-button type="submit" [disabled]="!changePasswordForm.valid" class="btn btn-danger">Update Password</button>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
       </div>
   </div>
 </div>
