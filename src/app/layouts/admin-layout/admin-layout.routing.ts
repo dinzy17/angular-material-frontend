@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
+import { SurgicalImplantsComponent } from '../../surgical-implants/surgical-implants.component';
+import { AdminGuard } from 'app/admin.guard';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -24,7 +26,22 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }, {
   
-    { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'notifications',  component: NotificationsComponent },
+    { 
+        path: 'dashboard',
+        component: DashboardComponent 
+    },
+    { 
+        path: 'user-profile',
+        component: UserProfileComponent,
+        canActivate: [AdminGuard]
+    },
+    { 
+        path: 'notifications',
+        component: NotificationsComponent 
+    },
+    { 
+        path: 'implants',
+        component: SurgicalImplantsComponent 
+    },
+
 ];

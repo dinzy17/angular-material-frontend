@@ -1,27 +1,39 @@
 <div class="main-content">
   <div class="container-fluid">
+    <form class="example-form" [formGroup]="signInForm" (ngSubmit)="login(signInForm.value)" >
     <mat-card class="example-card">
      <mat-card-header>
        <mat-card-title>Login</mat-card-title>
      </mat-card-header>
      <mat-card-content>
-       <form class="example-form">
-         <div class="form-group">
+       <div class="form-group">
            <mat-form-field class="example-full-width">
-           <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+           <input matInput placeholder="Email ID" formControlName="email" name="email">
+            <mat-error class="error--handing"
+              *ngIf="signInForm.controls['email'].hasError('required') && (signInForm.controls['email'].dirty || signInForm.controls['email'].touched)">
+              {{ "Email Id is required." }}
+            </mat-error>
+            <mat-error class="error--handing"
+              *ngIf="signInForm.controls['email'].hasError('pattern') && (signInForm.controls['email'].dirty || signInForm.controls['email'].touched)">
+              {{ "Please Enter valid email Id." }}
+            </mat-error>
            </mat-form-field>
          </div>
          <div class="form-group">
            <mat-form-field class="example-full-width">
-             <input matInput placeholder="Password" [(ngModel)]="password"type="password" name="password" required>
+             <input matInput placeholder="Password" type="password" formControlName="password" >
+              <mat-error class="error--handing"
+                *ngIf="signInForm.controls['password'].hasError('required') && (signInForm.controls['password'].dirty || signInForm.controls['password'].touched)">
+                {{ "Password is required" }}
+              </mat-error>
            </mat-form-field>
          </div>
-       </form>
        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
      </mat-card-content>
      <mat-card-actions>
-       <button mat-raised-button (click)="login()" color="primary">Login</button>
+       <button mat-raised-button color="primary" [disabled]="!signInForm.valid" >Login</button>
      </mat-card-actions>
-     <a class="auth-navigate" [routerLink]="['/', 'forgot']">Forgot Password?</a>
+     <a class="auth-navigate" [routerLink]="['/', 'forgot']"  >Forgot Password?</a>
    </mat-card>
+  </form>
 </div>

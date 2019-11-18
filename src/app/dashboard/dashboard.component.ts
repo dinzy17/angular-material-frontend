@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { APIService } from 'app/api.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +10,7 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private api:APIService) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -66,6 +68,10 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    // check if user not login then redirect ro login page
+    if(!this.api.isLoggedIn()){
+      this.router.navigate(['/', 'login']);
+    }
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {

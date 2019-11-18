@@ -1,27 +1,38 @@
 <div class="main-content">
   <div class="container-fluid">
+      <form class="example-form" [formGroup]="resetform" (ngSubmit)="reset(resetform.value)" >
     <mat-card class="example-card">
      <mat-card-header>
        <mat-card-title>Reset Password</mat-card-title>
      </mat-card-header>
      <mat-card-content>
-       <form class="example-form">
          <div class="form-group">
            <mat-form-field class="example-full-width">
-             <input matInput placeholder="New Password" [(ngModel)]="password" type="password" name="password" required>
+             <input matInput placeholder="New Password" formControlName="password" type="password" name="password">
+             <mat-error class="error--handing"
+             *ngIf="resetform.controls['password'].hasError('required') && (resetform.controls['password'].dirty || resetform.controls['password'].touched)">
+             {{ "Password Id is required." }}
+           </mat-error>
            </mat-form-field>
          </div>
          <div class="form-group">
            <mat-form-field class="example-full-width">
-             <input matInput placeholder="Confirm Password" [(ngModel)]="cofirmpassword" type="cofirmpassword" name="cofirmpassword" required>
+             <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" name="cofirmpassword" >
+             <mat-error class="error--handing"
+             *ngIf="resetform.controls['confirmPassword'].hasError('required') && (resetform.controls['confirmPassword'].dirty || resetform.controls['confirmPassword'].touched)">
+             {{ "Password Id is required." }}
+           </mat-error>
+           <mat-error class="error--handing" *ngIf="resetform.controls['confirmPassword'].hasError('equalTo') && resetform.controls['confirmPassword'].touched">
+              {{ "Password does not match." }}
+            </mat-error>
            </mat-form-field>
          </div>
-       </form>
        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
      </mat-card-content>
      <mat-card-actions>
-       <button mat-raised-button (click)="reset()" color="primary">Reset Password</button>
+       <button mat-raised-button [disabled]="!resetform.valid" color="primary">Reset Password</button>
      </mat-card-actions>
      <a class="auth-navigate" [routerLink]="['/', 'login']">Back to login</a>
    </mat-card>
+  </form>
 </div>

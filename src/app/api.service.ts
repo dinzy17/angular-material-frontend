@@ -157,7 +157,7 @@ private removeKeyFromStorage(key): any {
 
   //function to make request to server to user login
   public login(user: any): Observable<any> {
-    return this.request('post', 'auth/signin', user)
+    return this.request('post', 'auth/adminSigin', user)
   }
 
   //function to make request to server to logout user
@@ -177,7 +177,7 @@ private removeKeyFromStorage(key): any {
     window.localStorage.clear();
     window.sessionStorage.clear();
 
-    this.router.navigate(["authentication","signin"])
+    this.router.navigate(["/","login"])
   }
 
   //function to make request to server

@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@agm/core@1.0.0-beta.6":
-  version "1.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@agm/core/-/core-1.0.0-beta.6.tgz#89a812b4b4ceb4d9cf2195400423c4b833103c5e"
-
 "@angular-devkit/architect@0.800.2":
   version "0.800.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.800.2.tgz#0924864e57d1e56bddeae257c8779a2662c34e69"
@@ -873,7 +869,7 @@ babel-messages@^6.23.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-runtime@^6.22.0, babel-runtime@^6.26.0:
+babel-runtime@^6.22.0, babel-runtime@^6.26.0, babel-runtime@^6.6.1:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
   dependencies:
@@ -983,7 +979,7 @@ blocking-proxy@^1.0.0:
   dependencies:
     minimist "^1.2.0"
 
-bluebird@^3.3.0, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5:
+bluebird@^3.3.0, bluebird@^3.4.6, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.1.tgz#df70e302b471d7473489acf26a93d63b53f874de"
 
@@ -3515,6 +3511,16 @@ less@3.9.0:
     request "^2.83.0"
     source-map "~0.6.0"
 
+libphonenumber-js@^0.4.5:
+  version "0.4.52"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-0.4.52.tgz#19aec62488f039faee243df14d68ae56d77780a6"
+  integrity sha512-Ns5FcEp8W/lZd+lKu7OB46RYBKcncN/S3C51OFh7qXbu6kOFAd75A4M0jtasK3MUWMxKsKXII4WL+GbqaLa2DQ==
+  dependencies:
+    babel-runtime "^6.6.1"
+    bluebird "^3.4.6"
+    minimist "^1.2.0"
+    xml2js "^0.4.17"
+
 license-webpack-plugin@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-2.1.1.tgz#f0ab760f7f301c76f5af52e480f320656b5721bb"
@@ -3916,6 +3922,20 @@ negotiator@0.6.2:
 neo-async@^2.5.0, neo-async@^2.6.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
+
+ng2-validation@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/ng2-validation/-/ng2-validation-4.2.0.tgz#f38d441d3fb7e862155166480045aaff9ad11dbb"
+  integrity sha1-841EHT+36GIVUWZIAEWq/5rRHbs=
+  dependencies:
+    libphonenumber-js "^0.4.5"
+
+ngx-image-cropper@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-image-cropper/-/ngx-image-cropper-2.0.2.tgz#58458248735c563bec36c2b99d39e47e191e6d97"
+  integrity sha512-YEmGhycc95oWYY6wfal+xI1jw/xYB37EwhPY4UPFF/eqlfc2jnuFeTuBRRJ9tYE0nZoA9P+915sGHyHS3BKXcg==
+  dependencies:
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
