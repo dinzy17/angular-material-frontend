@@ -9,28 +9,26 @@
                   <div class="card-body">
                       <form>
                           <div class="row">
-                              <div class="col-md-12">
-                                  <!-- <input type="file" placeholder="Implants image" name="email" (change)="preview($event)"> -->
+                              <div class="col-md-4">
                                   <input type="file" (change)="fileChangeEvent($event)" />
                               </div>
-                              <div class="col-md-12">
-                                <!-- <img [src]="previewUrl" style="max-width: 400px; max-height: 400px;"> -->
-                                <image-cropper
-                                    [imageChangedEvent]="imageChangedEvent"
-                                    [maintainAspectRatio]="true"
-                                    [aspectRatio]="4 / 3"
-                                    [resizeToWidth]="128"
-                                    format="jpg" 
-                                    (imageCropped)="imageCropped($event)"
-                                    (imageLoaded)="imageLoaded()"
-                                    (cropperReady)="cropperReady()"
-                                    (loadImageFailed)="loadImageFailed()"
-                                ></image-cropper>
+                              <div class="col-md-8">
+                                <div class="image--cropper">
+                                  <image-cropper
+                                      [imageChangedEvent]="imageChangedEvent"
+                                      [maintainAspectRatio]="false"
+                                      [aspectRatio]="1 / 1"
+                                      [resizeToWidth]="200"
+                                      [cropperMinWidth]="200"
+                                      format="jpg"
+                                      (imageCropped)="imageCropped($event)"
+                                  ></image-cropper>
+                                </div>
                               </div>
                           </div>
                           <div class="row">
                             <div class="col-md-12">
-                              <img class="cropPrivew" [src]="croppedImage" />
+                              <img class="crop-preview" [src]="croppedImage" />
                             </div>
                           </div>
                       </form>
