@@ -1,0 +1,59 @@
+<div class="main-content implant--container">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Implants</h4>
+                  </div>
+                  <div class="card-body">
+                      <form class="form mat-form-field-wrapper" [formGroup]="form" (ngSubmit)="saveImplant(form.value)" action="#">
+                          <div class="row form-group">
+                              <div class="col-lg-6">
+                                <mat-form-field class="example--full--width">
+                                  <input matInput placeholder="Label Name" formControlName="label" name="label">
+                                  <mat-error class="error--handing"
+                                      *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
+                                      {{ "Label Name is required." }}
+                                  </mat-error>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row form-group ">
+                              <div class="col-lg-4">
+                                <div class="implant--image--container">
+                                  <label for="implantImage" class="implant--image--lable">
+                                    Upload Implant image
+                                  </label>
+                                  <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
+                                </div>
+                                <div class="crop--preview">
+                                  <label *ngIf="croppedImage">Preview:</label>
+                                  <img class="" [src]="croppedImage" />
+                                </div>
+                              </div>
+                              <div class="offset-lg-1 col-lg-7">
+                                <div class="image--cropper">
+                                  <image-cropper
+                                      [imageChangedEvent]="imageChangedEvent"
+                                      [maintainAspectRatio]="false"
+                                      [aspectRatio]="1 / 1"
+                                      [resizeToWidth]="200"
+                                      [cropperMinWidth]="200"
+                                      format="jpg"
+                                      (imageCropped)="imageCropped($event)"
+                                  ></image-cropper>
+                                </div>
+                              </div>
+
+                          </div>
+                          <div class="row col-md-12 form--bottom">
+                            <button type="submit" [disabled]="!form.valid" class="btn btn-theme">Save</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
