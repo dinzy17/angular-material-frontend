@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router'
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl} from '@angular/forms';
 import { APIService } from 'app/api.service'
 import { MatSnackBar } from '@angular/material';
-import { CustomValidators } from 'ng2-validation';
-
-const password = new FormControl('', [Validators.required]);
-const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
 
 @Component({
   selector: 'app-reset',
@@ -17,6 +13,7 @@ export class ResetComponent implements OnInit {
 
   public resetform: FormGroup;
   userId: string = ""
+  passwordRegex: any = /^.{6,}$/
   constructor(private api:APIService, private fb: FormBuilder, private snack: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
@@ -24,14 +21,27 @@ export class ResetComponent implements OnInit {
       this.router.navigate(['/', 'admin', 'dashboard'])
     }
     this.resetform = this.fb.group( {
-      password: password,
-      confirmPassword: confirmPassword
+      password: [null, Validators.compose([ Validators.required, Validators.pattern(this.passwordRegex) ])],
+      confirmPassword: [null, Validators.compose([ Validators.required ])],
+    }, {
+      validator: this.comparePassword // your validation method
     });
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params.id
       console.log(this.userId)
     })
+  }
+
+   // compare password validate
+   comparePassword(control: AbstractControl){
+    let password = control.get('password').value
+    let confirmPassword = control.get('confirmPassword').value
+    if (password !== confirmPassword) {
+        control.get('confirmPassword').setErrors( {passwordCompare: true} )
+    }else{
+      return null;
+    }
   }
 
   reset(userData:any) {
