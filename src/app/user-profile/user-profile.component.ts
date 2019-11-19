@@ -1,33 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl} from '@angular/forms';
 import { APIService } from 'app/api.service'
 import { MatSnackBar } from '@angular/material';
-import { CustomValidators } from 'ng2-validation';
 
-const password = new FormControl('');
-const confirmPassword = new FormControl('', CustomValidators.equalTo(password));
-const oldPassword = new FormControl('');
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  public profileForm: FormGroup;
+  public changeEmailForm: FormGroup;
+  public changePasswordForm: FormGroup;
+  passwordRegex: any = /^.{6,}$/
   constructor(private router: Router, private fb: FormBuilder, private api:APIService, private snack: MatSnackBar) { }
   userId = "";
   email = "";
   ngOnInit() {
       this.email = localStorage.getItem('username');  
-      this.profileForm = this.fb.group ( {
-      email: [this.email, Validators.compose([ Validators.required, Validators.pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i) ])],
-      password: password,
-      confirmPassword: confirmPassword,
-      oldPassword: oldPassword 
-    });
+      // for change email
+      this.changeEmailForm = this.fb.group ({
+      email: [null, Validators.compose([ Validators.required, Validators.pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i), this.emailCompare])],
+      currentEmail: [this.email],
+      });
+      
+      // for change password.
+      this.changePasswordForm = this.fb.group ({
+        password: [null, Validators.compose([ Validators.required, Validators.pattern(this.passwordRegex) ])],
+        confirmPassword: [null, Validators.compose([ Validators.required ])],
+        oldPassword: [null, Validators.compose([ Validators.required])] 
+      }, {
+        validator: this.comparePassword // your validation method
+      });
+
     this.userId = localStorage.getItem('userId');
   }
+
+  // custome validate.
+    emailCompare(control: FormControl) { 
+    let email = control.value;
+    if (email === localStorage.getItem('username')) { 
+        return {
+          emailCompare: true
+        }
+    }
+    return null;
+  }
+
+  // compare password validate
+  comparePassword(control: AbstractControl){
+    let password = control.get('password').value
+    let confirmPassword = control.get('confirmPassword').value
+    if (password !== confirmPassword) {
+        control.get('confirmPassword').setErrors( {passwordCompare: true} )
+    }else{
+      return null;
+    }
+  }
+
 
   save(userData:any) {
     userData.userId = this.userId;
@@ -35,10 +65,15 @@ export class UserProfileComponent implements OnInit {
       if(result.status == "success"){
         if(result.data.email){
           localStorage.setItem('username', result.data.email)
+          this.changeEmailForm.setValue({
+            email: "",
+            currentEmail: result.data.email,
+          })
+          //this.email = result.data.email;
         }
-        this.snack.open("profile update successfully!", 'OK', { duration: 5000 })
+        this.snack.open(result.data.message, 'OK', { duration: 5000 })
       } else {
-        this.snack.open(result.data, 'OK', { duration: 5000 })
+        this.snack.open(result.data.message, 'OK', { duration: 5000 })
       }
     }, (err) => {
       console.error(err)

@@ -27,10 +27,10 @@ export class ForgotComponent implements OnInit {
     console.log('userData',userData);
     this.api.apiRequest('post', "auth/adminForgotPassword", userData).subscribe(result => {
       if(result.status == "success"){
-        this.router.navigate(['/', 'admin', 'dashboard'])    
+        this.router.navigate(['/', 'login'])    
+        this.snack.open(result.data, 'OK', { duration: 5000 })
       } else {
-        this.snack.open("Please check your credentials and try again. ", 'OK', { duration: 5000 })
-        this.router.navigate(['/', 'login'])
+        this.snack.open(result.data, 'OK', { duration: 5000 })
       }
     }, (err) => {
       this.snack.open("some things want to wrong. Try agin!", 'OK', { duration: 5000 })
