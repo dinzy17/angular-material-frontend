@@ -38,8 +38,6 @@
                                       [imageChangedEvent]="imageChangedEvent"
                                       [maintainAspectRatio]="false"
                                       [aspectRatio]="1 / 1"
-                                      [resizeToWidth]="200"
-                                      [cropperMinWidth]="200"
                                       format="jpg"
                                       (imageCropped)="imageCropped($event)"
                                   ></image-cropper>
@@ -48,7 +46,7 @@
 
                           </div>
                           <div class="row col-md-12 form--bottom">
-                            <button type="submit" [disabled]="!form.valid" class="btn btn-theme">Save</button>
+                            <button type="submit" [disabled]="!form.valid || sentForTraining" class="btn btn-theme">Save</button>
                           </div>
                       </form>
                   </div>

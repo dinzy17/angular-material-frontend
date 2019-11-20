@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms';
-import { APIService } from 'app/api.service'
+import { debounce } from 'lodash'
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+import { APIService } from 'app/api.service'
 
 @Component({
   selector: 'app-implants',
@@ -22,8 +24,9 @@ export class ImplantsComponent implements OnInit {
   labelHeight: any = 0
   labelOffsetX: any = 0
   labelOffsetY: any = 0
+  sentForTraining: boolean = false
 
-  constructor(private api: APIService, private snack: MatSnackBar) { }
+  constructor(private api: APIService, private snack: MatSnackBar, private router:Router) { }
 
   ngOnInit() {
 
@@ -35,7 +38,6 @@ export class ImplantsComponent implements OnInit {
   //function to get file
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
-    console.log(this.imageChangedEvent)
     let img = document.getElementById('implantImage') as HTMLInputElement
     this.uploadedFile = img.files[0]
   }
@@ -51,17 +53,11 @@ export class ImplantsComponent implements OnInit {
       this.labelHeight = (event.cropperPosition.y2 - event.cropperPosition.y1) * heightFactor
       this.labelOffsetX = event.cropperPosition.x1 * widthFactor
       this.labelOffsetY = event.cropperPosition.y1 * heightFactor
-      console.log("imageWidth => ", this.imageWidth)
-      console.log("imageHeight => ", this.imageHeight)
-      console.log("labelWidth => ", this.labelWidth)
-      console.log("labelHeight => ", this.labelHeight)
-      console.log("labelOffsetX => ", this.labelOffsetX)
-      console.log("labelOffsetY => ", this.labelOffsetY)
-      console.log(event)
   }
 
   //function to save details
-  saveImplant(implantData) {
+  saveImplant = debounce((implantData) => {
+    this.sentForTraining = true
     const formData = {
       userId: this.userId,
       labelName: implantData.label,
@@ -74,22 +70,22 @@ export class ImplantsComponent implements OnInit {
     }
     const fd = new FormData()
     fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
-    for (var key in formData) {
-      console.log(key, formData[key])
-      fd.append(key, formData[key])
-    }
-    new Response(fd).text().then(console.log)
-
+    
     this.api.apiRequest('post', 'implant/test', fd).subscribe(result => {
       if(result.status == "success"){
-        this.snack.open("Successfully!", 'OK', { duration: 5000 })
+        this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
+        setTimeout(() => {
+          this.router.navigate(["/", "admin", "dashboard"])
+        }, 3000)
       } else {
-        this.snack.open(result.data, 'OK', { duration: 5000 })
+        this.snack.open(result.data, 'OK', { duration: 3000 })
       }
+      this.sentForTraining = false
     }, (err) => {
       console.error(err)
+      this.sentForTraining = false
     })
-  }
+  }, 1000)
 
 
 }
