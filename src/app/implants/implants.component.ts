@@ -24,7 +24,7 @@ export class ImplantsComponent implements OnInit {
   labelHeight: any = 0
   labelOffsetX: any = 0
   labelOffsetY: any = 0
-  sentForTraining: boolean = false
+  disabledSave: boolean = false
 
   constructor(private api: APIService, private snack: MatSnackBar, private router:Router) { }
 
@@ -56,8 +56,8 @@ export class ImplantsComponent implements OnInit {
   }
 
   //function to save details
-  saveImplant = debounce((implantData) => {
-    this.sentForTraining = true
+  saveImplant(implantData) {
+    this.disabledSave = true
     const formData = {
       userId: this.userId,
       labelName: implantData.label,
@@ -70,22 +70,26 @@ export class ImplantsComponent implements OnInit {
     }
     const fd = new FormData()
     fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
-    
-    this.api.apiRequest('post', 'implant/test', fd).subscribe(result => {
+    for (var key in formData) {
+      fd.append(key, formData[key])
+    }
+
+    this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
       if(result.status == "success"){
         this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         setTimeout(() => {
           this.router.navigate(["/", "admin", "dashboard"])
+          this.disabledSave = false
         }, 3000)
       } else {
         this.snack.open(result.data, 'OK', { duration: 3000 })
+        this.disabledSave = false
       }
-      this.sentForTraining = false
+
     }, (err) => {
       console.error(err)
-      this.sentForTraining = false
+      this.disabledSave = false
     })
-  }, 1000)
-
+  }
 
 }
