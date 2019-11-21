@@ -1,7 +1,19 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
-        Dashboard
-    </div>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title learning--status">
+                        Machine Learning Status
+                        <i class="material-icons" (click)="getCollectionStatus()">refresh</i>
+                      </h4>
+                  </div>
+                  <div class="card-body">
+                      {{collectionStatus}}
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
