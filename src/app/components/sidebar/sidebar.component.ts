@@ -10,7 +10,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/admin/user-profile', title: 'User Profile',  icon:'person', class: '' },
     { path: '/admin/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/admin/implants', title: 'Implants',  icon:'assignment_ind', class: '' },
+    { path: '/admin/implants', title: 'Add Implant Image',  icon:'image', class: '' },
+    { path: '/admin/analyze', title: 'Analyze Image',  icon:'image_search', class: '' },
 ]
 
 @Component({
