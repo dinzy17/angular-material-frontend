@@ -6,6 +6,13 @@
        <mat-card-title>Reset Password</mat-card-title>
      </mat-card-header>
      <mat-card-content>
+
+        <div class="form-group">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" readonly disabled formControlName="email" type="text" value="{{ emailId }}">
+            </mat-form-field>
+          </div>
+
          <div class="form-group">
            <mat-form-field class="example-full-width">
              <input matInput placeholder="New Password" formControlName="password" type="password" name="password">
