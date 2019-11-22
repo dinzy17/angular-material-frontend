@@ -1,0 +1,45 @@
+<div class="main-content implant--container">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Search Implants</h4>
+                  </div>
+                  <div class="card-body">
+                      <form class="form mat-form-field-wrapper" [formGroup]="form" (ngSubmit)="searchImplant()" action="#">
+                          <div class="row form-group ">
+                              <div class="col-lg-4">
+                                <div class="implant--image--container">
+                                  <label for="implantImage" class="implant--image--lable">
+                                    {{ imageName == "" ? "Upload image to analyze" : imageName}}
+                                  </label>
+                                  <input type="file" formControlName="image" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
+                                </div>
+                              </div>
+                              <div class="col-lg-4 offset-lg-1">
+                                <div class="img--preview" *ngIf="img_preview">
+                                  <label>Image Preview: </label>
+                                  <img id="preview_image"  />
+                                </div>
+                              </div>
+                          </div>
+                          <div class="row form-group result--container" *ngIf="objects.length > 0">
+                            <div class="col-lg-6">
+                              <h3>Result:</h3>
+                              <div class="object--container" *ngFor="let o of objects">
+                                <div class="object--attr"><b>Object name:</b> {{o.object}}</div>
+                                <div class="object--attr"><b>Score:</b> {{o.score}}</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row col-md-12 form--bottom">
+                            <button type="submit" [disabled]="!form.valid || disabledSave" class="btn btn-theme">Analyze</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

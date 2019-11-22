@@ -4,6 +4,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { ImplantsComponent } from '../../implants/implants.component';
+import { AnalyzeComponent } from '../../analyze/analyze.component';
 import { AdminGuard } from 'app/admin.guard';
 
 export const AdminLayoutRoutes: Routes = [
@@ -43,6 +44,10 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'implants',
         component: ImplantsComponent
+    },
+    {
+        path: 'analyze',
+        component: AnalyzeComponent
     },
 
 ];

@@ -7,6 +7,7 @@ import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { ImplantsComponent } from '../../implants/implants.component';
+import { AnalyzeComponent } from '../../analyze/analyze.component';
 import { AdminGuard } from 'app/admin.guard';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -37,7 +38,8 @@ import {
     DashboardComponent,
     UserProfileComponent,
     NotificationsComponent,
-    ImplantsComponent
+    ImplantsComponent,
+    AnalyzeComponent,
   ],
   providers: [AdminGuard],
 })

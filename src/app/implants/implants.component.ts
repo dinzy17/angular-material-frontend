@@ -40,6 +40,7 @@ export class ImplantsComponent implements OnInit {
     this.imageChangedEvent = event;
     let img = document.getElementById('implantImage') as HTMLInputElement
     this.uploadedFile = img.files[0]
+    this.disabledSave = false
   }
 
   //function to assign cropper
@@ -77,19 +78,30 @@ export class ImplantsComponent implements OnInit {
     this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
       if(result.status == "success"){
         this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
-        setTimeout(() => {
-          this.router.navigate(["/", "admin", "dashboard"])
-          this.disabledSave = false
-        }, 3000)
+        // setTimeout(() => {
+        //   this.router.navigate(["/", "admin", "dashboard"])
+        // }, 3000)
       } else {
         this.snack.open(result.data, 'OK', { duration: 3000 })
-        this.disabledSave = false
       }
-
+      this.resetValues()
     }, (err) => {
       console.error(err)
       this.disabledSave = false
     })
+  }
+
+  resetValues() {
+    this.uploadedFile = null
+    this.imageWidth = 0
+    this.imageHeight = 0
+    this.labelWidth = 0
+    this.labelHeight = 0
+    this.labelOffsetX = 0
+    this.labelOffsetY = 0
+    let img = document.getElementById('implantImage') as HTMLInputElement
+    img.value = ""
+    // this.croppedImage = null
   }
 
 }
