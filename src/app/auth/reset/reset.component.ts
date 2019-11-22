@@ -13,6 +13,7 @@ export class ResetComponent implements OnInit {
 
   public resetform: FormGroup;
   userId: string = ""
+  emailId: string = ""
   passwordRegex: any = /^.{6,}$/
   constructor(private api:APIService, private fb: FormBuilder, private snack: MatSnackBar, private router: Router, private activatedRoute: ActivatedRoute) {}
 
@@ -21,6 +22,7 @@ export class ResetComponent implements OnInit {
       this.router.navigate(['/', 'admin', 'dashboard'])
     }
     this.resetform = this.fb.group( {
+      email:[''],
       password: [null, Validators.compose([ Validators.required, Validators.pattern(this.passwordRegex) ])],
       confirmPassword: [null, Validators.compose([ Validators.required ])],
     }, {
@@ -29,8 +31,8 @@ export class ResetComponent implements OnInit {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.userId = params.id
-      console.log(this.userId)
     })
+    this.getEmail();
   }
 
    // compare password validate
@@ -44,12 +46,26 @@ export class ResetComponent implements OnInit {
     }
   }
 
+  getEmail(){
+    this.api.apiRequest('post', 'auth/getUserEmail', { userId: this.userId }).subscribe(result => {
+      if(result.status == "success") {
+        this.emailId = result.data.email;
+      } else {
+        //this.snack.open(result.data.message, 'OK', { duration: 5000 });
+      }
+    }, (err) => {
+      console.error(err)
+    })
+  }
+
   reset(userData:any) {
     userData.userId = this.userId;
     this.api.apiRequest('post', 'auth/adminResetPassword', userData).subscribe(result => {
       if(result.status == "success"){
         this.snack.open("Your password sucessfully reste. Now login with this password!", 'OK', { duration: 5000 })
-        this.router.navigate (['', 'login']);
+        if(result.data.userType == "adminUser"){
+          this.router.navigate (['', 'login']);
+        }
       } else {
         this.snack.open(result.data.message, 'OK', { duration: 5000 })
       }
