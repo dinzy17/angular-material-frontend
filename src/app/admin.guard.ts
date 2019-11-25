@@ -16,7 +16,6 @@ export class AdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
-      console.log(this.auth.isLoggedIn())
       if(!this.auth.isLoggedIn()){
         this.router.navigate(['/', 'login']);
         return false;

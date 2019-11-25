@@ -67,7 +67,7 @@ export class AnalyzeComponent implements OnInit {
     })
   }
 
-  resetValues() {
+  resetValues() { 
     this.uploadedFile = null
     let img = document.getElementById('implantImage') as HTMLInputElement
     img.value = ""
