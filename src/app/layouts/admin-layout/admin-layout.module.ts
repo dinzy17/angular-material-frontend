@@ -8,8 +8,11 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { ImplantsComponent } from '../../implants/implants.component';
 import { AnalyzeComponent } from '../../analyze/analyze.component';
+import { UsersComponent } from '../../users/users.component';
 import { AdminGuard } from 'app/admin.guard';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ConfirmModelComponent } from 'app/confirm-model/confirm-model.component';
+import { UserDetailComponent } from 'app/users/user-detail/user-detail.component';
 
 
 import {
@@ -18,7 +21,13 @@ import {
   MatRippleModule,
   MatFormFieldModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatTableModule,
+  MatIconModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatSlideToggleModule,
+  MatDialogModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -32,16 +41,26 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    ImageCropperModule
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSlideToggleModule,
+    ImageCropperModule,
+    MatDialogModule
   ],
+  entryComponents: [ ConfirmModelComponent, UserDetailComponent ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
     NotificationsComponent,
     ImplantsComponent,
     AnalyzeComponent,
+    UsersComponent,
+    ConfirmModelComponent,
+    UserDetailComponent
   ],
-  providers: [AdminGuard],
+  providers: [ AdminGuard ],
 })
 
 export class AdminLayoutModule {}

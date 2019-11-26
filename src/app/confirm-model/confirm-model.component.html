@@ -1,0 +1,14 @@
+<div class="confirm--header">
+  <mat-icon (click)="closeModal()" class="modal--close icon--cross cursor-pointer">cancel</mat-icon>
+</div>
+
+
+
+  <div class="confirm--body" >
+      <p class="mb-0">{{message}}</p>
+  </div>
+
+  <div class="text-center confirm--footer">
+      <button type="button" mat-raised-button class="btn btn-danger" (click)="reject()">No</button>
+      <button type="button" mat-raised-button class="btn btn-theme"  [mat-dialog-close]="true" (click)="accept()">Yes</button>
+</div>
