@@ -27,7 +27,10 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatSlideToggleModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatAutocompleteModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -46,6 +49,9 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatSlideToggleModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatAutocompleteModule,
     ImageCropperModule,
     MatDialogModule
   ],
