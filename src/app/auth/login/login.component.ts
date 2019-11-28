@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { APIService } from 'app/api.service'
@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('loginform', {static: false}) loginform;
   public signInForm: FormGroup;
   showSpinner = false
   constructor(private router: Router, private fb: FormBuilder, private api:APIService, private snack: MatSnackBar) { }
@@ -33,9 +34,11 @@ export class LoginComponent implements OnInit {
       if (result.status == "success") {
         this.router.navigate(['/', 'admin', 'dashboard'])    
       } else {
-        this.snack.open("Please check your credentials and try again. ", 'OK', { duration: 5000 })
+        this.loginform.resetForm()
+        this.snack.open("Please check your login credentials and try again. ", 'OK', { duration: 5000 })
       }
     }, (err) => {
+      this.loginform.resetForm()
       console.error(err)
     })
   }

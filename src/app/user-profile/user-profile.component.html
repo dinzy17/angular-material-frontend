@@ -7,7 +7,7 @@
                       <h4 class="card-title">Change Email</h4>
                   </div>
                   <div class="card-body">
-                      <form [formGroup]="changeEmailForm" (ngSubmit)="save(changeEmailForm.value)">
+                      <form [formGroup]="changeEmailForm" (ngSubmit)="save(changeEmailForm.value)" #emialForm="ngForm">
                           <div class="row">
                               <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
@@ -18,7 +18,11 @@
                           <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Email ID" formControlName="email" name="email">
+                                        <input matInput placeholder="New email id" formControlName="email" name="email">
+                                        <mat-error class="error--handing"
+                                            *ngIf="changeEmailForm.controls['email'].hasError('required') && (changeEmailForm.controls['email'].dirty || changeEmailForm.controls['email'].touched)">
+                                            {{ "New email id is required." }}
+                                        </mat-error>
                                         <mat-error class="error--handing"
                                             *ngIf="changeEmailForm.controls['email'].hasError('pattern') && (changeEmailForm.controls['email'].dirty || changeEmailForm.controls['email'].touched)">
                                             {{ "Please Enter valid email Id." }}
@@ -43,14 +47,14 @@
                     <h4 class="card-title">Change Password</h4>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="changePasswordForm" (ngSubmit)="save(changePasswordForm.value)">
+                    <form [formGroup]="changePasswordForm" (ngSubmit)="save(changePasswordForm.value)" #form="ngForm">
                         <div class="row">
                               <div class="col-md-6">
                                 <mat-form-field class="example-full-width">
-                                  <input matInput placeholder="Current Password" type="password" formControlName="oldPassword">
+                                  <input matInput placeholder="Current password" type="password" formControlName="oldPassword">
                                   <mat-error class="required" *ngIf="changePasswordForm.controls['oldPassword'].hasError('required') && (changePasswordForm.controls['oldPassword'].dirty || changePasswordForm.controls['oldPassword'].touched )">
                                     {{ "Current password is required." }}
-                                </mat-error>
+                                  </mat-error>
                                 </mat-form-field>
                               </div>
                           </div>
@@ -58,12 +62,16 @@
                         <div class="row">
                             <div class="col-md-6">
                               <mat-form-field class="example-full-width">
-                                <input matInput placeholder="Password" type="password" formControlName="password">
+                                <input matInput placeholder="New password" type="password" formControlName="password">
                                     <mat-error class="required" *ngIf="changePasswordForm.controls['password'].hasError('required') && (changePasswordForm.controls['password'].dirty || changePasswordForm.controls['password'].touched )">
-                                        {{ "New Password is required." }}
+                                        {{ "New password is required." }}
                                     </mat-error>
                                     <mat-error class="required" *ngIf="changePasswordForm.controls['password'].hasError('pattern') && (changePasswordForm.controls['password'].dirty || changePasswordForm.controls['password'].touched )">
-                                        {{ "New Password must be minimum 6 charecter long." }}
+                                        {{ "New password must be minimum 6 charecter long." }}
+                                    </mat-error>
+                                    <mat-error class="error--handing"
+                                        *ngIf="changePasswordForm.controls['password'].hasError('whitespace') && (changePasswordForm.controls['password'].dirty || changePasswordForm.controls['password'].touched)">
+                                        {{ "Only blank space not allow in password."}}
                                     </mat-error>
                               </mat-form-field>
                             </div>
@@ -72,7 +80,10 @@
                         <div class="row">
                               <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" name="cofirmpassword">
+                                      <input matInput placeholder="Confirm password" formControlName="confirmPassword" type="password" name="cofirmpassword">
+                                      <mat-error class="required" *ngIf="changePasswordForm.controls['confirmPassword'].hasError('required') && (changePasswordForm.controls['confirmPassword'].dirty || changePasswordForm.controls['confirmPassword'].touched )">
+                                            {{ "Confirm password is required." }}
+                                        </mat-error>
                                       <mat-error class="error--handing" *ngIf="changePasswordForm.controls['confirmPassword'].hasError('passwordCompare') && ( changePasswordForm.controls['confirmPassword'].dirty || changePasswordForm.controls['confirmPassword'].touched )">
                                           {{ "Password does not match." }}
                                       </mat-error>

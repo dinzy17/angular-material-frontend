@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router'
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl} from '@angular/forms';
 import { APIService } from 'app/api.service'
 import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -10,6 +11,9 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  @ViewChild('form', {static: false}) form;
+  @ViewChild('emialForm', {static: false}) emialForm
+
   public changeEmailForm: FormGroup;
   public changePasswordForm: FormGroup;
   passwordRegex: any = /^.{6,}$/
@@ -19,32 +23,41 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
       this.email = localStorage.getItem('username');  
       // for change email
-      this.changeEmailForm = this.fb.group ({
+    this.changeEmailForm = this.fb.group ({
       email: [null, Validators.compose([ Validators.required, Validators.pattern(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i), this.emailCompare])],
       currentEmail: [this.email],
-      });
-      
-      // for change password.
-      this.changePasswordForm = this.fb.group ({
-        password: [null, Validators.compose([ Validators.required, Validators.pattern(this.passwordRegex) ])],
-        confirmPassword: [null, Validators.compose([ Validators.required ])],
-        oldPassword: [null, Validators.compose([ Validators.required])] 
-      }, {
-        validator: this.comparePassword // your validation method
-      });
+    })
+    this.createChangePasswordForm()
+    this.userId = localStorage.getItem('userId')
+  }
 
-    this.userId = localStorage.getItem('userId');
+  //function to crreate change password form
+  createChangePasswordForm() {
+    this.changePasswordForm = this.fb.group ({
+      password: [null, Validators.compose([ Validators.required, Validators.pattern(this.passwordRegex), this.whitespace ])],
+      confirmPassword: [null, Validators.compose([ Validators.required ])],
+      oldPassword: [null, Validators.compose([ Validators.required])] 
+    }, {
+      validator: this.comparePassword
+    })
   }
 
   // custome validate.
     emailCompare(control: FormControl) { 
-    let email = control.value;
+    let email = control.value
     if (email === localStorage.getItem('username')) { 
         return {
           emailCompare: true
         }
     }
-    return null;
+    return null
+  }
+
+  // custome validate.
+  whitespace(control: FormControl) { 
+    const isWhitespace = (control.value || '').trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
   }
 
   // compare password validate
@@ -70,9 +83,21 @@ export class UserProfileComponent implements OnInit {
             currentEmail: result.data.email,
           })
           //this.email = result.data.email;
+        } else {
+          this.form.resetForm();
+        }
+        if (userData.email) {
+          this.emialForm.resetForm();
+        } else {
+          this.form.resetForm();
         }
         this.snack.open(result.data.message, 'OK', { duration: 5000 })
       } else {
+        if (userData.email) {
+          this.emialForm.resetForm();
+        } else {
+          this.form.resetForm();
+        }
         this.snack.open(result.data.message, 'OK', { duration: 5000 })
       }
     }, (err) => {
