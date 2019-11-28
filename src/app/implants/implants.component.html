@@ -35,9 +35,9 @@
                                             {{ "Implant name/brand is required." }}
                                         </mat-error>
                                         <mat-autocomplete #autoName="matAutocomplete">
-                                            <mat-option *ngFor="let state of filteredStates | async" [value]="state.objectName" (click)="getDetail()" >
-                                              <img class="example-option-img" aria-hidden [src]="state.imgName" height="25">
-                                              <span>{{state.objectName}}</span> |
+                                            <mat-option *ngFor="let name of filteredNames | async" [value]="name.objectName" (click)="getDetail()" >
+                                              <img class="example-option-img" aria-hidden [src]="name.imgName" height="25">
+                                              <span>{{name.objectName}}</span> |
                                             </mat-option>
                                         </mat-autocomplete>
                                         </mat-form-field>

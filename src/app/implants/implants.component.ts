@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { debounce } from 'lodash'
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { APIService } from 'app/api.service'
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 export interface Manufature {
   implantManufacture: string;
 }
 
-export interface State {
+export interface Name {
   imgName: string;
   objectName: string;
 }
@@ -41,10 +43,11 @@ export class ImplantsComponent implements OnInit {
   searchName: any;
   options: Manufature[] = [];
   filteredOptions: Observable<Manufature[]>;
-  filteredStates: Observable<State[]>;
-  states: State[] = [];
+  filteredNames: Observable<Name[]>;
+  names: Name[] = [];
   imageError: boolean = false;
-  constructor(private api: APIService, private snack: MatSnackBar, private router:Router) { }
+  dialogRef:any ="";
+  constructor(private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -61,10 +64,10 @@ export class ImplantsComponent implements OnInit {
         map(implantManufacture => implantManufacture ? this._filter(implantManufacture) : this.options.slice())
       );
 
-      this.filteredStates = this.form.controls['label'].valueChanges
+      this.filteredNames = this.form.controls['label'].valueChanges
       .pipe(
         startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
+        map(name => name ? this._filterName(name) : this.names.slice())
       );
   }
 
@@ -94,6 +97,7 @@ export class ImplantsComponent implements OnInit {
   //function to save details
   saveImplant(implantData) {
     if(this.uploadedFile && this.uploadedFile.name !="") {
+      this.loader();
       this.disabledSave = true
       const formData = {
         userId: this.userId,
@@ -116,6 +120,7 @@ export class ImplantsComponent implements OnInit {
       }
   
       this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
+        this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
            setTimeout(() => {
@@ -126,6 +131,7 @@ export class ImplantsComponent implements OnInit {
         }
         this.resetValues()
       }, (err) => {
+        this.loaderHide();
         console.error(err)
         this.disabledSave = false
       })
@@ -158,7 +164,7 @@ export class ImplantsComponent implements OnInit {
   getImplantName(implantManufacture: String){
     this.api.apiRequest('post', 'implant/getImplantName', { implantManufacture:implantManufacture }).subscribe(result => {
       if (result.status == "success") {
-        this.states = result.data.implantList;
+        this.names = result.data.implantList;
       }
     }) 
   }
@@ -178,10 +184,10 @@ export class ImplantsComponent implements OnInit {
       if (nameSearch.length > 1) {
         this.getImplantName(this.searchByString.trim())
       } else {
-        this.states = [];
+        this.names = [];
       }
     } else {
-      this.states = [];
+      this.names = [];
     }
   }
 
@@ -202,10 +208,22 @@ export class ImplantsComponent implements OnInit {
     return this.options.filter(option => option.implantManufacture.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  private _filterStates(value: string): State[] {
+  private _filterName(value: string): Name[] {
     const filterValue = value.toLowerCase();
 
-    return this.states.filter(state => state.objectName.toLowerCase().indexOf(filterValue) === 0);
+    return this.names.filter(name => name.objectName.toLowerCase().indexOf(filterValue) === 0);
   }
 
+// for loder
+  loader(){
+    this.dialogRef = this.dialog.open(SidLoderComponentComponent,{
+       panelClass: 'lock--panel',
+       backdropClass: 'lock--backdrop',
+       disableClose: true
+     });    
+   }
+ 
+   loaderHide(){
+     this.dialogRef.close();
+   }
 }
