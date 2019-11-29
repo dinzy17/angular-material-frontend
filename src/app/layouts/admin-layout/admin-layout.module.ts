@@ -13,6 +13,7 @@ import { AdminGuard } from 'app/admin.guard';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ConfirmModelComponent } from 'app/confirm-model/confirm-model.component';
 import { UserDetailComponent } from 'app/users/user-detail/user-detail.component';
+import { CMSComponent } from 'app/cms/cms.component';
 
 
 import {
@@ -30,7 +31,8 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatTabsModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -53,7 +55,8 @@ import {
     MatNativeDateModule,
     MatAutocompleteModule,
     ImageCropperModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule
   ],
   entryComponents: [ ConfirmModelComponent, UserDetailComponent ],
   declarations: [
@@ -64,7 +67,8 @@ import {
     AnalyzeComponent,
     UsersComponent,
     ConfirmModelComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    CMSComponent
   ],
   providers: [ AdminGuard ],
 })

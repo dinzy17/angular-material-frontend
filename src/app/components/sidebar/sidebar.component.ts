@@ -12,6 +12,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/admin/implants', title: 'Add Implant Image',  icon:'image', class: '' },
     { path: '/admin/analyze', title: 'Analyze Image',  icon:'image_search', class: '' },
+    { path: '/admin/cms', title: 'App CMS',  icon:'description', class: '' },
 ]
 
 @Component({
