@@ -19,7 +19,7 @@
                                                 {{ "Implant Manufacture is required." }}
                                             </mat-error>
                                             <mat-autocomplete #auto = "matAutocomplete" >
-                                                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.implantManufacture">
+                                                <mat-option *ngFor="let option of filteredOptions" [value]="option.implantManufacture">
                                                     {{ option.implantManufacture }}
                                                 </mat-option>
                                             </mat-autocomplete>
@@ -35,9 +35,9 @@
                                             {{ "Implant name/brand is required." }}
                                         </mat-error>
                                         <mat-autocomplete #autoName="matAutocomplete">
-                                            <mat-option *ngFor="let state of filteredStates | async" [value]="state.objectName" (click)="getDetail()" >
-                                              <img class="example-option-img" aria-hidden [src]="state.imgName" height="25">
-                                              <span>{{state.objectName}}</span> |
+                                            <mat-option class="autocomplete--option" *ngFor="let name of filteredNames" [value]="name.objectName" >
+                                              <img class="example-option-img" aria-hidden [src]="name.imgName" height="25">
+                                              <span>{{name.objectName}}</span>
                                             </mat-option>
                                         </mat-autocomplete>
                                         </mat-form-field>

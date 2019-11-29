@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms';
-import { debounce } from 'lodash'
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { debounce, cloneDeep } from 'lodash'
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { APIService } from 'app/api.service'
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 export interface Manufature {
   implantManufacture: string;
 }
 
-export interface State {
+export interface Name {
   imgName: string;
   objectName: string;
 }
@@ -40,11 +42,12 @@ export class ImplantsComponent implements OnInit {
   searchByString:any;
   searchName: any;
   options: Manufature[] = [];
-  filteredOptions: Observable<Manufature[]>;
-  filteredStates: Observable<State[]>;
-  states: State[] = [];
+  filteredOptions: Manufature[];
+  names: Name[] = [];
+  filteredNames: Name[];
   imageError: boolean = false;
-  constructor(private api: APIService, private snack: MatSnackBar, private router:Router) { }
+  dialogRef:any ="";
+  constructor(private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -55,17 +58,7 @@ export class ImplantsComponent implements OnInit {
       surgeryLocation: new FormControl('', [ Validators.required ]),
       removalProcess: new FormControl('', [ Validators.required ])
     })
-    this.filteredOptions = this.form.controls['implantManufacture'].valueChanges
-      .pipe(
-        startWith(''),
-        map(implantManufacture => implantManufacture ? this._filter(implantManufacture) : this.options.slice())
-      );
-
-      this.filteredStates = this.form.controls['label'].valueChanges
-      .pipe(
-        startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
-      );
+    this.getManufacture()
   }
 
 
@@ -94,6 +87,7 @@ export class ImplantsComponent implements OnInit {
   //function to save details
   saveImplant(implantData) {
     if(this.uploadedFile && this.uploadedFile.name !="") {
+      this.loader();
       this.disabledSave = true
       const formData = {
         userId: this.userId,
@@ -116,6 +110,7 @@ export class ImplantsComponent implements OnInit {
       }
   
       this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
+        this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
            setTimeout(() => {
@@ -126,6 +121,7 @@ export class ImplantsComponent implements OnInit {
         }
         this.resetValues()
       }, (err) => {
+        this.loaderHide();
         console.error(err)
         this.disabledSave = false
       })
@@ -148,64 +144,54 @@ export class ImplantsComponent implements OnInit {
   }
 
   getManufacture() {
-    this.api.apiRequest('post', 'implant/getManufacture', {}).subscribe(result => { //manufactureName:manufactureSearch
+    this.api.apiRequest('post', 'implant/getManufacture', {}).subscribe(result => {
       if (result.status == "success") {
         this.options = result.data.implantList;
       }
-    }) 
-  }
-
-  getImplantName(implantManufacture: String){
-    this.api.apiRequest('post', 'implant/getImplantName', { implantManufacture:implantManufacture }).subscribe(result => {
-      if (result.status == "success") {
-        this.states = result.data.implantList;
-      }
-    }) 
-  }
-
-  filterManufacture(){
-    let manufactureSearch = this.searchByString.trim();
-    if (manufactureSearch.length > 1) {
-      this.getManufacture();
-   } else {
-    this.options = [];
-   }
-  }
-
-  filterName(){
-    if(this.searchByString){
-      let nameSearch = this.searchName.trim();
-      if (nameSearch.length > 1) {
-        this.getImplantName(this.searchByString.trim())
-      } else {
-        this.states = [];
-      }
-    } else {
-      this.states = [];
-    }
-  }
-
-  getDetail() {
-    let manufacture = this.form.controls['implantManufacture'].value
-    let name = this.form.controls['label'].value
-    this.api.apiRequest('post', 'implant/getImplantDetail', { implantManufacture: manufacture , objectName: name }).subscribe(result => {
-      if (result.status == "success") {
-        this.form.get('surgeryLocation').setValue(result.data.surgeryLocation);
-        this.form.get('removalProcess').setValue(result.data.removalProcess);
-      }
     })
   }
+
+  //function to filter manufacturer
+  filterManufacture = debounce(() => {
+    let manufactureSearch = this.searchByString.trim().toLowerCase()
+    if (manufactureSearch.length > 2) {
+      let allOptions = cloneDeep(this.options)
+      this.filteredOptions = allOptions.filter((o)=> {
+        return o.implantManufacture.toLowerCase().indexOf(manufactureSearch) > -1
+      })  
+    }
+  }, 500)
+
+  filterName = debounce(() => {
+    if(this.searchByString){
+      let nameSearch = this.searchName.trim().toLowerCase()
+      let manufactureSearch = this.searchByString.trim().toLowerCase()
+      if (nameSearch.length > 2) {
+          this.api.apiRequest('post', 'implant/getImplantName', { implantManufacture: manufactureSearch }).subscribe(result => {
+          if (result.status == "success") {
+            this.names = result.data.implantList
+            let allNames = cloneDeep(this.names)
+            this.filteredNames = allNames.filter(o => o.objectName.toLowerCase().indexOf(nameSearch) > -1 )
+          }
+        }) 
+      } else {
+        this.names = [];
+      }
+    } else {
+      this.names = [];
+    }
+  }, 500)
+
+// for loder
+  loader(){
+    this.dialogRef = this.dialog.open(SidLoderComponentComponent,{
+       panelClass: 'lock--panel',
+       backdropClass: 'lock--backdrop',
+       disableClose: true
+     });    
+   }
  
-  private _filter(implantManufacture: string): Manufature[] {
-    const filterValue = implantManufacture.toLowerCase();
-
-    return this.options.filter(option => option.implantManufacture.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter(state => state.objectName.toLowerCase().indexOf(filterValue) === 0);
-  }
-
+   loaderHide(){
+     this.dialogRef.close();
+   }
 }

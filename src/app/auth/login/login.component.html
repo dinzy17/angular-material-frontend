@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="container-fluid">
-    <form class="example-form" [formGroup]="signInForm" (ngSubmit)="login(signInForm.value)" >
+    <form class="example-form" [formGroup]="signInForm" (ngSubmit)="login(signInForm.value)" #loginform="ngForm" >
     <mat-card class="example-card">
      <mat-card-header>
        <mat-card-title>Login</mat-card-title>
