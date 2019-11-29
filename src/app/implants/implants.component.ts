@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { debounce } from 'lodash'
+import { debounce, cloneDeep } from 'lodash'
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { APIService } from 'app/api.service'
@@ -42,9 +42,9 @@ export class ImplantsComponent implements OnInit {
   searchByString:any;
   searchName: any;
   options: Manufature[] = [];
-  filteredOptions: Observable<Manufature[]>;
-  filteredNames: Observable<Name[]>;
+  filteredOptions: Manufature[];
   names: Name[] = [];
+  filteredNames: Name[];
   imageError: boolean = false;
   dialogRef:any ="";
   constructor(private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
@@ -58,17 +58,7 @@ export class ImplantsComponent implements OnInit {
       surgeryLocation: new FormControl('', [ Validators.required ]),
       removalProcess: new FormControl('', [ Validators.required ])
     })
-    this.filteredOptions = this.form.controls['implantManufacture'].valueChanges
-      .pipe(
-        startWith(''),
-        map(implantManufacture => implantManufacture ? this._filter(implantManufacture) : this.options.slice())
-      );
-
-      this.filteredNames = this.form.controls['label'].valueChanges
-      .pipe(
-        startWith(''),
-        map(name => name ? this._filterName(name) : this.names.slice())
-      );
+    this.getManufacture()
   }
 
 
@@ -154,11 +144,11 @@ export class ImplantsComponent implements OnInit {
   }
 
   getManufacture() {
-    this.api.apiRequest('post', 'implant/getManufacture', {}).subscribe(result => { //manufactureName:manufactureSearch
+    this.api.apiRequest('post', 'implant/getManufacture', {}).subscribe(result => {
       if (result.status == "success") {
         this.options = result.data.implantList;
       }
-    }) 
+    })
   }
 
   getImplantName(implantManufacture: String){
@@ -169,50 +159,36 @@ export class ImplantsComponent implements OnInit {
     }) 
   }
 
-  filterManufacture(){
-    let manufactureSearch = this.searchByString.trim();
-    if (manufactureSearch.length > 1) {
-      this.getManufacture();
-   } else {
-    this.options = [];
-   }
-  }
+  //function to filter manufacturer
+  filterManufacture = debounce(() => {
+    let manufactureSearch = this.searchByString.trim().toLowerCase()
+    if (manufactureSearch.length > 2) {
+      let allOptions = cloneDeep(this.options)
+      this.filteredOptions = allOptions.filter((o)=> {
+        return o.implantManufacture.toLowerCase().indexOf(manufactureSearch) > -1
+      })  
+    }
+  }, 500)
 
-  filterName(){
+  filterName = debounce(() => {
     if(this.searchByString){
-      let nameSearch = this.searchName.trim();
-      if (nameSearch.length > 1) {
-        this.getImplantName(this.searchByString.trim())
+      let nameSearch = this.searchName.trim().toLowerCase()
+      let manufactureSearch = this.searchByString.trim().toLowerCase()
+      if (nameSearch.length > 2) {
+          this.api.apiRequest('post', 'implant/getImplantName', { implantManufacture: manufactureSearch }).subscribe(result => {
+          if (result.status == "success") {
+            this.names = result.data.implantList
+            let allNames = cloneDeep(this.names)
+            this.filteredNames = allNames.filter(o => o.objectName.toLowerCase().indexOf(nameSearch) > -1 )
+          }
+        }) 
       } else {
         this.names = [];
       }
     } else {
       this.names = [];
     }
-  }
-
-  getDetail() {
-    let manufacture = this.form.controls['implantManufacture'].value
-    let name = this.form.controls['label'].value
-    this.api.apiRequest('post', 'implant/getImplantDetail', { implantManufacture: manufacture , objectName: name }).subscribe(result => {
-      if (result.status == "success") {
-        this.form.get('surgeryLocation').setValue(result.data.surgeryLocation);
-        this.form.get('removalProcess').setValue(result.data.removalProcess);
-      }
-    })
-  }
- 
-  private _filter(implantManufacture: string): Manufature[] {
-    const filterValue = implantManufacture.toLowerCase();
-
-    return this.options.filter(option => option.implantManufacture.toLowerCase().indexOf(filterValue) === 0);
-  }
-
-  private _filterName(value: string): Name[] {
-    const filterValue = value.toLowerCase();
-
-    return this.names.filter(name => name.objectName.toLowerCase().indexOf(filterValue) === 0);
-  }
+  }, 500)
 
 // for loder
   loader(){
