@@ -151,14 +151,6 @@ export class ImplantsComponent implements OnInit {
     })
   }
 
-  getImplantName(implantManufacture: String){
-    this.api.apiRequest('post', 'implant/getImplantName', { implantManufacture:implantManufacture }).subscribe(result => {
-      if (result.status == "success") {
-        this.names = result.data.implantList;
-      }
-    }) 
-  }
-
   //function to filter manufacturer
   filterManufacture = debounce(() => {
     let manufactureSearch = this.searchByString.trim().toLowerCase()
