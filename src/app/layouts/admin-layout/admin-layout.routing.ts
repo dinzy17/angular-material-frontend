@@ -5,6 +5,7 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { ImplantsComponent } from '../../implants/implants.component';
 import { AnalyzeComponent } from '../../analyze/analyze.component';
+import { CMSComponent } from '../../cms/cms.component';
 import { UsersComponent } from '../../users/users.component';
 import { AdminGuard } from 'app/admin.guard';
 import { SupportsComponent } from 'app/supports/supports.component';
@@ -59,5 +60,9 @@ export const AdminLayoutRoutes: Routes = [
         path: 'supports',
         component: SupportsComponent
     },
+    {
+        path: 'cms',
+        component: CMSComponent
+    }
 
 ];
