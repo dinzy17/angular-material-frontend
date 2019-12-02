@@ -7,6 +7,7 @@ import { ImplantsComponent } from '../../implants/implants.component';
 import { AnalyzeComponent } from '../../analyze/analyze.component';
 import { UsersComponent } from '../../users/users.component';
 import { AdminGuard } from 'app/admin.guard';
+import { SupportsComponent } from 'app/supports/supports.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -53,6 +54,10 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'users',
         component: UsersComponent
+    },
+    {
+        path: 'supports',
+        component: SupportsComponent
     },
 
 ];

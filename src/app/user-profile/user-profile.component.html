@@ -69,14 +69,13 @@
                                     <mat-error class="required" *ngIf="changePasswordForm.controls['password'].hasError('pattern') && (changePasswordForm.controls['password'].dirty || changePasswordForm.controls['password'].touched )">
                                         {{ "New password must be minimum 6 charecter long." }}
                                     </mat-error>
-                                    <mat-error class="error--handing"
+                                    <mat-error class="error--handing" style="margin-bottom: 10px"
                                         *ngIf="changePasswordForm.controls['password'].hasError('whitespace') && (changePasswordForm.controls['password'].dirty || changePasswordForm.controls['password'].touched)">
                                         {{ "Only blank space not allow in password."}}
                                     </mat-error>
                               </mat-form-field>
                             </div>
                         </div>
-
                         <div class="row">
                               <div class="col-md-6">
                                   <mat-form-field class="example-full-width">

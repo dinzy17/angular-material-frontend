@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, FormBuilder, FormArray, Validators,  ValidationErrors } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { debounce, cloneDeep } from 'lodash'
 import { MatSnackBar } from '@angular/material';
@@ -26,7 +26,6 @@ export interface Name {
   styleUrls: ['./implants.component.scss']
 })
 export class ImplantsComponent implements OnInit {
-  myControl = new FormControl();
   userId: string = localStorage.getItem("userId") || ""
   imageChangedEvent: any = ''
   croppedImage: any = ''
@@ -47,18 +46,46 @@ export class ImplantsComponent implements OnInit {
   filteredNames: Name[];
   imageError: boolean = false;
   dialogRef:any ="";
-  constructor(private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
+  constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
+    /* Initiate the form structure */
 
-    this.form = new FormGroup({
-      label: new FormControl('', [ Validators.required ]),
-      implantManufacture: new FormControl('', [ Validators.required ]),
-      surgeryDate: new FormControl('', [ Validators.required ]),
-      surgeryLocation: new FormControl('', [ Validators.required ]),
-      removalProcess: new FormControl('', [ Validators.required ])
+    this.form = this.fb.group({
+      label: ['', [ Validators.required ]],
+      implantManufacture: ['', [ Validators.required ]],
+      removalSection: this.fb.array([
+        this.getRemovalProcess()
+     ])  
     })
+    
+
+    // call get manufacture for auto complete.
     this.getManufacture()
+  }
+
+  /**
+   * Create form Removal Process.
+   */
+  private getRemovalProcess() {
+    return this.fb.group({
+      removalProcess: ['', Validators.required],
+      surgeryDate: ["", [Validators.required]],
+      surgeryLocation: ['', [Validators.required]]
+    });
+  }
+
+  /*
+  add removal process
+  */ 
+  addRow() {
+    const control = <FormArray>this.form.controls['removalSection'];
+    control.push(this.getRemovalProcess());
+  }
+
+  delete(i) {
+    const control = <FormArray>this.form.controls['removalSection'];
+    control.removeAt(i);
   }
 
 
@@ -93,9 +120,6 @@ export class ImplantsComponent implements OnInit {
         userId: this.userId,
         labelName: implantData.label,
         implantManufacture: implantData.implantManufacture,
-        surgeryDate: implantData.surgeryDate,
-        surgeryLocation: implantData.surgeryLocation,
-        removalProcess: implantData.removalProcess,
         imageWidth: this.imageWidth,
         imageHeight: this.imageHeight,
         labelWidth: this.labelWidth,
@@ -108,14 +132,15 @@ export class ImplantsComponent implements OnInit {
       for (var key in formData) {
         fd.append(key, formData[key])
       }
-  
-      this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
+        fd.append('removeImplant', JSON.stringify(implantData.removalSection));
+
+        this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
         this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
-           setTimeout(() => {
+            setTimeout(() => {
             location.reload();
-           }, 3000)
+            }, 3000)
         } else {
           this.snack.open(result.data, 'OK', { duration: 3000 })
         }

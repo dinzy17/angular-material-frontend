@@ -88,6 +88,7 @@ export class UserProfileComponent implements OnInit {
         }
         if (userData.email) {
           this.emialForm.resetForm();
+          this.changeEmailForm.get('currentEmail').setValue(result.data.email);
         } else {
           this.form.resetForm();
         }

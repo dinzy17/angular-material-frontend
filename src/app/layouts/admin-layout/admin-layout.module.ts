@@ -14,7 +14,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ConfirmModelComponent } from 'app/confirm-model/confirm-model.component';
 import { UserDetailComponent } from 'app/users/user-detail/user-detail.component';
 import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
-
+import { SupportsComponent } from 'app/supports/supports.component';
 
 import {
   MatButtonModule,
@@ -68,7 +68,8 @@ import {
     UsersComponent,
     ConfirmModelComponent,
     UserDetailComponent,
-    SidLoderComponentComponent
+    SidLoderComponentComponent,
+    SupportsComponent
   ],
   providers: [ AdminGuard ],
 })
