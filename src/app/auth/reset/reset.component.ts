@@ -62,7 +62,7 @@ export class ResetComponent implements OnInit {
     userData.userId = this.userId;
     this.api.apiRequest('post', 'auth/adminResetPassword', userData).subscribe(result => {
       if(result.status == "success"){
-        this.snack.open("Your password sucessfully reste. Now login with this password!", 'OK', { duration: 5000 })
+        this.snack.open("Your password sucessfully reset. Now login with this password!", 'OK', { duration: 5000 })
         if(result.data.userType == "adminUser"){
           this.router.navigate (['', 'login']);
         }

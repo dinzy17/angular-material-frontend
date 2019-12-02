@@ -54,10 +54,16 @@ export class UserProfileComponent implements OnInit {
   }
 
   // custome validate.
-  whitespace(control: FormControl) { 
-    const isWhitespace = (control.value || '').trim().length === 0;
-    const isValid = !isWhitespace;
-    return isValid ? null : { 'whitespace': true };
+  whitespace(control: FormControl) {
+    let password =  control.value
+    var inValid = /\s/;
+    var k = inValid.test(password);
+    if(k){
+      return {
+        whitespace: true
+      }  
+    }
+    return null
   }
 
   // compare password validate
