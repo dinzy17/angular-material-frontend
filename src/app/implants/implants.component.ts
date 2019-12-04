@@ -40,11 +40,14 @@ export class ImplantsComponent implements OnInit {
   disabledSave: boolean = false
   searchByString:any;
   searchName: any;
+  imageValidExtensions: string[] = ['jpg', 'png', 'jpeg']
+  optionsAllData: Manufature[] = [];
   options: Manufature[] = [];
   filteredOptions: Manufature[];
   names: Name[] = [];
   filteredNames: Name[];
   imageError: boolean = false;
+  imageValidError: boolean = false;
   dialogRef:any ="";
   constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
@@ -92,10 +95,18 @@ export class ImplantsComponent implements OnInit {
   //function to get file
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
+    this.imageValidError = false
     let img = document.getElementById('implantImage') as HTMLInputElement
-    this.uploadedFile = img.files[0]
-    this.disabledSave = false
-    this.imageError = false;
+    const filename = img.files[0].name
+      const fileExt = filename.split(".").splice(-1)[0].toLowerCase()
+        if(this.imageValidExtensions.indexOf(fileExt) == -1) {
+          this.resetValues()
+          this.imageValidError = true
+        } else {
+          this.uploadedFile = img.files[0]
+          this.disabledSave = false
+          this.imageError = false;
+        }
   }
 
   //function to assign cropper
@@ -165,13 +176,14 @@ export class ImplantsComponent implements OnInit {
     this.labelOffsetY = 0
     let img = document.getElementById('implantImage') as HTMLInputElement
     img.value = ""
-    // this.croppedImage = null
+     this.croppedImage = ""
   }
 
   getManufacture() {
     this.api.apiRequest('post', 'implant/getManufacture', {}).subscribe(result => {
       if (result.status == "success") {
         this.options = result.data.implantList;
+        this.optionsAllData = result.data.implantList;
       }
     })
   }
@@ -184,6 +196,8 @@ export class ImplantsComponent implements OnInit {
       this.filteredOptions = allOptions.filter((o)=> {
         return o.implantManufacture.toLowerCase().indexOf(manufactureSearch) > -1
       })  
+    } else {
+      this.filteredOptions = []
     }
   }, 500)
 

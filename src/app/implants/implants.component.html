@@ -14,12 +14,12 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width">
-                                                    <input matInput placeholder="Implant manufacture" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
+                                                    <input matInput placeholder="Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['implantManufacture'].hasError('required') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
                                                         {{ "Implant Manufacture is required." }}
                                                     </mat-error>
-                                                    <mat-autocomplete #auto = "matAutocomplete" >
+                                                    <mat-autocomplete #auto = "matAutocomplete"  #MatAutocompleteTrigger >
                                                         <mat-option *ngFor="let option of filteredOptions" [value]="option.implantManufacture">
                                                             {{ option.implantManufacture }}
                                                         </mat-option>
@@ -30,7 +30,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width">
-                                                    <input matInput placeholder="Implant name/brand" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" >
+                                                    <input matInput placeholder="Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
                                                         {{ "Implant name/brand is required." }}
@@ -54,7 +54,7 @@
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width">
-                                                                    <textarea matInput placeholder="Removal Process" formControlName="removalProcess" name="removalProcess"  rows="5" ></textarea>
+                                                                    <textarea matInput placeholder="Removal Process" class="capitalize" formControlName="removalProcess" name="removalProcess"  rows="5" ></textarea>
                                                                     <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['removalProcess'].hasError('required') && (unit.controls['removalProcess'].dirty || unit.controls['removalProcess'].touched)">
                                                                             {{ "Removal process is required." }}
@@ -78,7 +78,7 @@
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width">
-                                                                        <input matInput placeholder="Surgery Location" formControlName="surgeryLocation" name="surgeryLocation">
+                                                                        <input matInput placeholder="Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation">
                                                                         <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['surgeryLocation'].hasError('required') && (unit.controls['surgeryLocation'].dirty || unit.controls['surgeryLocation'].touched)">
                                                                             {{ "Surgery location is required." }}
@@ -96,6 +96,9 @@
                                                 </div>
                                             </div>
                                     </div>
+                                <div class="row col-md-12 form--bottom">
+                                    <button type="submit" [disabled]="!form.valid || disabledSave" class="btn btn-theme">Save</button>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="row form-group ">
@@ -109,6 +112,9 @@
                                       <mat-error class="error--handing" *ngIf= "imageError" >
                                           {{ "Image is required." }}
                                       </mat-error>
+                                      <mat-error class="error--handing" *ngIf= "imageValidError" >
+                                        {{ "Only png and jpg file allowed." }}
+                                    </mat-error>
                                       <div class="crop--preview">
                                         <label *ngIf="croppedImage">Preview:</label>
                                         <img class="" [src]="croppedImage" />
@@ -128,9 +134,6 @@
                                 </div>
                             </div>
                         </div>
-                          <div class="row col-md-12 form--bottom">
-                            <button type="submit" [disabled]="!form.valid || disabledSave" class="btn btn-theme">Save</button>
-                          </div>
                       </form>
                   </div>
               </div>
