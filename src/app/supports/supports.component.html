@@ -1,5 +1,58 @@
 <div class="main-content">
   <div class="container-fluid">
-     <h1>Hello Support</h1>
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Support List</h4>
+              </div>
+              <div class="card-body">
+                  <div class="row" >
+                      <form class="full-width">
+                        <mat-form-field class="full--width">
+                          <input matInput placeholder="Search by Sender Email, Quary and replay ans" name="searchByString" [(ngModel)]="searchByString" (keyup)="searchBy()">
+                        </mat-form-field>
+                      </form>
+                    </div>
+                <div class="row" >
+                  <table *ngIf="recordsExists" mat-table [dataSource]="supportList" matSort class="mat-elevation-z8 full-width">
+                    <ng-container matColumnDef="senderEmail">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header>Sender Email</th>
+                      <td mat-cell *matCellDef="let element"> {{element.senderEmail}} </td>
+                    </ng-container>
+              
+                    <ng-container matColumnDef="query">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Query</th>
+                      <td mat-cell *matCellDef="let element"> {{element.query}} </td>
+                    </ng-container>
+              
+                    <ng-container matColumnDef="sendReplay">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> sendReplay</th>
+                      <td mat-cell *matCellDef="let element"> {{ element.sendReplay }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="createdOn">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> createdOn</th>
+                      <td mat-cell *matCellDef="let element"> {{ element.createdOn | date: 'MM/dd/yyyy' }}</td>
+                    </ng-container>
+              
+                    <ng-container matColumnDef="_id">
+                      <th mat-header-cell *matHeaderCellDef> Action </th>
+                      <td mat-cell *matCellDef="let element">
+                        <a class="cursor-pointer btn btn-theme white-color" (click)="view(element)">Replay</a>
+                      </td>
+                    </ng-container>
+              
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                  <mat-paginator class="full-width" *ngIf="recordsExists" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+                <div class="row" *ngIf="recordsExists < 1">
+                    No record found!
+                </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>
+

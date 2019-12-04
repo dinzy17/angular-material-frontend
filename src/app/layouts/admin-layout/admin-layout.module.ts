@@ -16,6 +16,7 @@ import { UserDetailComponent } from 'app/users/user-detail/user-detail.component
 import { CMSComponent } from 'app/cms/cms.component';
 import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 import { SupportsComponent } from 'app/supports/supports.component';
+import { SupportEditComponent } from 'app/supports/support-edit/support-edit.component';
 
 import {
   MatButtonModule,
@@ -61,7 +62,7 @@ import {
     MatTabsModule,
     MatProgressSpinnerModule
   ],
-  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SidLoderComponentComponent],
+  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SidLoderComponentComponent, SupportEditComponent],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -74,6 +75,7 @@ import {
     SidLoderComponentComponent,
     SupportsComponent,
     CMSComponent,
+    SupportEditComponent
   ],
   providers: [ AdminGuard ],
 })

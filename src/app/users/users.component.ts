@@ -18,12 +18,8 @@ export class UsersComponent implements OnInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   constructor(
     private api: APIService,
-    private _snackBar: MatSnackBar,
     private dialog: MatDialog,
-   // @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
-
-  panelOpenState: boolean = false;
 
   usersList:any=[]
   dbUsersList:any=[]

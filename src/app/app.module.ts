@@ -15,6 +15,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
