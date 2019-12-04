@@ -13,7 +13,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <mat-form-field class="example--full--width">
+                                                <mat-form-field class="example--full--width mat-headline">
                                                     <input matInput placeholder="Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['implantManufacture'].hasError('required') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
@@ -29,7 +29,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <mat-form-field class="example--full--width">
+                                                <mat-form-field class="example--full--width mat-headline">
                                                     <input matInput placeholder="Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
@@ -53,7 +53,7 @@
                                                             <mat-icon class="cursor--pointer" (click)="delete(i);" *ngIf="i > 0" >delete</mat-icon>
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
-                                                                    <mat-form-field class="example--full--width">
+                                                                    <mat-form-field class="example--full--width mat-headline">
                                                                     <textarea matInput placeholder="Removal Process" class="capitalize" formControlName="removalProcess" name="removalProcess"  rows="5" ></textarea>
                                                                     <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['removalProcess'].hasError('required') && (unit.controls['removalProcess'].dirty || unit.controls['removalProcess'].touched)">
@@ -64,7 +64,7 @@
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
-                                                                    <mat-form-field class="example--full--width">
+                                                                    <mat-form-field class="example--full--width mat-headline">
                                                                         <input matInput placeholder="Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate" name="surgeryDate">
                                                                         <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['surgeryDate'].hasError('required') && (unit.controls['surgeryDate'].dirty || unit.controls['surgeryDate'].touched)">
@@ -77,7 +77,7 @@
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
-                                                                    <mat-form-field class="example--full--width">
+                                                                    <mat-form-field class="example--full--width mat-headline">
                                                                         <input matInput placeholder="Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation">
                                                                         <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['surgeryLocation'].hasError('required') && (unit.controls['surgeryLocation'].dirty || unit.controls['surgeryLocation'].touched)">

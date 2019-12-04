@@ -26,7 +26,7 @@
         justify-content: center;
         cursor: pointer;
         color: #176aba;
-        font-size: 16px;
+        font-size: 20px;
     }
   }
   .crop--preview {
@@ -66,4 +66,8 @@
 }
 .capitalize{
   text-transform: capitalize;
+}
+
+.mat-headline {
+  font-size: 20px !important;
 }
