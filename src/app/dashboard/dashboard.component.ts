@@ -13,8 +13,8 @@ import { debounce } from 'lodash'
 export class DashboardComponent implements OnInit {
 
   collectionStatus: string = "Waiting...."
-  totalUser: any = "0";
-  totalImplant: any = "0";
+  totalUser: any = "No registerd users";
+  totalImplant: any = "No implant added";
   constructor(private router: Router, private api:APIService, private snack: MatSnackBar,) { }
   ngOnInit() {
     this.getTotalUser()
@@ -59,7 +59,9 @@ export class DashboardComponent implements OnInit {
     
     this.api.apiRequest("post", "user/list", req_vars).subscribe(
       result => {
-        this.totalUser = result.data.totalUsers
+        if(result.data.totalUsers > 0){
+          this.totalUser = result.data.totalUsers + "Total users"
+        }
       },
       err => {
         console.error(err);
@@ -77,7 +79,9 @@ export class DashboardComponent implements OnInit {
     }
     this.api.apiRequest("post", "implant/list", req_vars).subscribe(
       result => {
-        this.totalImplant = result.data.totalImplant
+        if(result.data.totalImplant > 0) {
+          this.totalImplant = result.data.totalImplant + " Total Implant"
+        }
       },
       err => {
         
