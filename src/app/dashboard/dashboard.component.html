@@ -21,5 +21,42 @@
               <button class="btn btn-theme" (click)="startCollectionTraining()">Start Machine Learning</button>
           </div>
         </div>
+        <!-- start blocks-->
+        <div class="row">
+            <div class="offset-md-1"></div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body card-body-custome">
+                        3 New Verification Request
+                    </div>
+                </div>
+            </div>
+            <div class="offset-md-1"></div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body card-body-custome">
+                        5 New Support messages Received
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="offset-md-1"></div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body card-body-custome">
+                            {{ totalUser }} Total Users  
+                        </div>
+                    </div>
+                </div>
+                <div class="offset-md-1"></div>
+                <div class="col-md-4 cursor-pointer" (click)="implant()">
+                    <div class="card">
+                        <div class="card-body card-body-custome">
+                            {{ totalImplant }} Total Implant
+                        </div>
+                    </div>
+                </div>       
+        </div>
   </div>
 </div>

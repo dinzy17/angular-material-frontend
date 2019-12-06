@@ -2,3 +2,10 @@
     float: right;
     cursor: pointer;
 }
+.card-body-custome {
+    margin: 90px;
+    text-align: center;
+}
+.cursor-pointer {
+ cursor: pointer;
+}

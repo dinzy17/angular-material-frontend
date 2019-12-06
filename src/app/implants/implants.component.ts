@@ -94,6 +94,7 @@ export class ImplantsComponent implements OnInit {
 
   //function to get file
   fileChangeEvent(event: any): void {
+    console.log('event test', event);
     this.imageChangedEvent = event;
     this.imageValidError = false
     let img = document.getElementById('implantImage') as HTMLInputElement

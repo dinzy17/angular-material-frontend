@@ -13,10 +13,14 @@ import { debounce } from 'lodash'
 export class DashboardComponent implements OnInit {
 
   collectionStatus: string = "Waiting...."
-
+  totalUser: any = "0";
+  totalImplant: any = "0";
   constructor(private router: Router, private api:APIService, private snack: MatSnackBar,) { }
   ngOnInit() {
-      this.getCollectionStatus()
+    this.getTotalUser()
+    this.getTotalImplant()
+    this.getCollectionStatus()
+
   }
 
   getCollectionStatus = debounce(() => {
@@ -43,5 +47,46 @@ export class DashboardComponent implements OnInit {
       console.error(err)
     })
   }, 2000)
+
+  getTotalUser() {
+    const req_vars = {
+      query: Object.assign({ userType: "appUser"}),
+      fields: { _id:1 },
+      offset: '',
+      limit: '',
+      order: {"createdOn": -1},
+    }
+    
+    this.api.apiRequest("post", "user/list", req_vars).subscribe(
+      result => {
+        this.totalUser = result.data.totalUsers
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  getTotalImplant() {
+    const req_vars = {
+      query: Object.assign({}),
+      fields: { _id:1 },
+      offset: '',
+      limit: '',
+      order: {"createdOn": -1},
+    }
+    this.api.apiRequest("post", "implant/list", req_vars).subscribe(
+      result => {
+        this.totalImplant = result.data.totalImplant
+      },
+      err => {
+        
+      }
+    );
+  }
+
+  implant(){
+    this.router.navigate(['/', 'admin', 'implant-list'])
+  }
 
 }
