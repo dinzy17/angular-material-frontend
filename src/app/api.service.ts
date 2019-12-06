@@ -176,8 +176,7 @@ private removeKeyFromStorage(key): any {
 
     window.localStorage.clear();
     window.sessionStorage.clear();
-
-    this.router.navigate(["/","login"])
+    this.router.navigate(["login"])
   }
 
   //function to make request to server
