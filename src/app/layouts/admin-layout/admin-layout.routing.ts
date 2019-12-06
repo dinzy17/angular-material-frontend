@@ -9,27 +9,10 @@ import { CMSComponent } from '../../cms/cms.component';
 import { UsersComponent } from '../../users/users.component';
 import { AdminGuard } from 'app/admin.guard';
 import { SupportsComponent } from 'app/supports/supports.component';
+import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.component';
+import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
 
 export const AdminLayoutRoutes: Routes = [
-    // {
-    //   path: '',
-    //   children: [ {
-    //     path: 'dashboard',
-    //     component: DashboardComponent
-    // }]}, {
-    // path: '',
-    // children: [ {
-    //   path: 'userprofile',
-    //   component: UserProfileComponent
-    // }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'notifications',
-    //         component: NotificationsComponent
-    //     }]
-    // }, {
-
     {
         path: 'dashboard',
         component: DashboardComponent,
@@ -63,6 +46,13 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'cms',
         component: CMSComponent
+    },
+    {
+        path: 'implant-list',
+        component: ImplantsListComponent
+    },
+    {
+        path: 'implant-view/:id',
+        component: ImplantsDetailsComponent
     }
-
 ];

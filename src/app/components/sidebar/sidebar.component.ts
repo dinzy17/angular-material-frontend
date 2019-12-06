@@ -8,11 +8,12 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/admin/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/admin/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/admin/notifications', title: 'Notifications',  icon:'notifications', class: '' },
+    // { path: '/admin/user-profile', title: 'User Profile',  icon:'person', class: '' },
+    // { path: '/admin/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/admin/implants', title: 'Add Implant Image',  icon:'image', class: '' },
-    { path: '/admin/analyze', title: 'Analyze Image',  icon:'image_search', class: '' },
-    { path: '/admin/cms', title: 'App CMS',  icon:'description', class: '' },
+    { path: '/admin/implant-list', title: 'Implant Image listing',  icon:'image', class: '' },
+    // { path: '/admin/analyze', title: 'Analyze Image',  icon:'image_search', class: '' },
+    // { path: '/admin/cms', title: 'App CMS',  icon:'description', class: '' },
 ]
 
 @Component({

@@ -1,0 +1,79 @@
+<div class="main-content implant--container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Implants View</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="form mat-form-field-wrapper">
+                          <div class="row">
+                              <div class="col-md-6">
+                                      <div class="row">
+                                          <div class="col-md-12">
+                                              <div class="form-group">
+                                                  <mat-form-field class="example--full--width mat-headline">
+                                                      <input matInput placeholder="Implant manufacture" class="capitalize" value="{{ implantData.implantManufacture }}" readonly >
+                                                  </mat-form-field>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                                <mat-form-field class="example--full--width mat-headline">
+                                                    <input matInput placeholder="Implant name/brand" class="capitalize" value="{{ implantData.objectName }}" readonly >
+                                                </mat-form-field>
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="row" >
+                                        <div class="col-md-12">
+                                            <div>
+                                                <div class="removal--process" *ngFor = "let removalData of implantData.removImplant; let i=index">
+                                                    <div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-12">
+                                                                <mat-form-field class="example--full--width mat-headline">
+                                                                    <textarea matInput placeholder="Removal Process" [(ngModel)]="removalData.removalProcess" name="{{ i }}" rows="5" readonly ></textarea>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-12">
+                                                                <mat-form-field class="example--full--width mat-headline">
+                                                                    <input matInput placeholder="Surgery date" value="{{ removalData.surgeryDate | date: 'MM/dd/yyyy' }}" readonly >
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row form-group">
+                                                            <div class="col-lg-12">
+                                                                <mat-form-field class="example--full--width mat-headline">
+                                                                    <input matInput placeholder="Surgery Location" class="capitalize" value="{{ removalData.surgeryLocation }}" readonly />
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="row col-md-12 form--bottom">
+                                    <button type="button" (click)="cancel()" class="btn cancelBtn">Cancel</button>
+                                </div>  
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="row form-group ">
+                                    <div class="col-md-12">
+                                        <img class="detailImage" [src]= "implantData.imgName">
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

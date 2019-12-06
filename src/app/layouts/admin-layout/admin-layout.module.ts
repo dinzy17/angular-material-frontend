@@ -17,6 +17,8 @@ import { CMSComponent } from 'app/cms/cms.component';
 import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 import { SupportsComponent } from 'app/supports/supports.component';
 import { SupportEditComponent } from 'app/supports/support-edit/support-edit.component';
+import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.component';
+import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
 
 import {
   MatButtonModule,
@@ -75,7 +77,9 @@ import {
     SidLoderComponentComponent,
     SupportsComponent,
     CMSComponent,
-    SupportEditComponent
+    SupportEditComponent,
+    ImplantsListComponent,
+    ImplantsDetailsComponent
   ],
   providers: [ AdminGuard ],
 })

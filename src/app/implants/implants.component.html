@@ -17,7 +17,11 @@
                                                     <input matInput placeholder="Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['implantManufacture'].hasError('required') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
-                                                        {{ "Implant Manufacture is required." }}
+                                                        {{ "The implant's manufactuerer name cannot be blank ." }}
+                                                    </mat-error>
+                                                    <mat-error class="error--handing"
+                                                        *ngIf="form.controls['implantManufacture'].hasError('maxlength') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
+                                                        {{ "The implant's manufactuerer name cannot be greater than 150 characters." }}
                                                     </mat-error>
                                                     <mat-autocomplete #auto = "matAutocomplete"  #MatAutocompleteTrigger >
                                                         <mat-option *ngFor="let option of filteredOptions" [value]="option.implantManufacture">
@@ -33,8 +37,13 @@
                                                     <input matInput placeholder="Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
-                                                        {{ "Implant name/brand is required." }}
+                                                        {{ "The implant's name/brand cannot be blank " }}
                                                     </mat-error>
+                                                    <mat-error class="error--handing"
+                                                        *ngIf="form.controls['label'].hasError('maxlength') && (form.controls['label'].dirty || form.controls['label'].touched)">
+                                                        {{ "The implant's name/brand cannot be greater than 150 characters." }}
+                                                    </mat-error>
+                                                    
                                                     <mat-autocomplete #autoName="matAutocomplete">
                                                         <mat-option class="autocomplete--option" *ngFor="let name of filteredNames" [value]="name.objectName" >
                                                             <img class="example-option-img" aria-hidden [src]="name.imgName" height="25">
@@ -54,7 +63,7 @@
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width mat-headline">
-                                                                    <textarea matInput placeholder="Removal Process" class="capitalize" formControlName="removalProcess" name="removalProcess"  rows="5" ></textarea>
+                                                                    <textarea matInput placeholder="Removal Process" formControlName="removalProcess" name="removalProcess"  rows="5" ></textarea>
                                                                     <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['removalProcess'].hasError('required') && (unit.controls['removalProcess'].dirty || unit.controls['removalProcess'].touched)">
                                                                             {{ "Removal process is required." }}
@@ -110,7 +119,7 @@
                                          <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
                                       </div>
                                       <mat-error class="error--handing" *ngIf= "imageError" >
-                                          {{ "Image is required." }}
+                                          {{ "Select at least one image to uplaod." }}
                                       </mat-error>
                                       <mat-error class="error--handing" *ngIf= "imageValidError" >
                                         {{ "Only png and jpg file allowed." }}

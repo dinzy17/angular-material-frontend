@@ -13,9 +13,6 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { APIService } from './api.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
-
-
-
 @NgModule({
   imports: [
     BrowserAnimationsModule,

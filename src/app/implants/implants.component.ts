@@ -55,8 +55,8 @@ export class ImplantsComponent implements OnInit {
     /* Initiate the form structure */
 
     this.form = this.fb.group({
-      label: ['', [ Validators.required ]],
-      implantManufacture: ['', [ Validators.required ]],
+      label: ['', [ Validators.required, Validators.maxLength(150)]],
+      implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]],
       removalSection: this.fb.array([
         this.getRemovalProcess()
      ])  
@@ -204,7 +204,7 @@ export class ImplantsComponent implements OnInit {
   filterName = debounce(() => {
     if(this.searchByString){
       let nameSearch = this.searchName.trim().toLowerCase()
-      let manufactureSearch = this.searchByString.trim().toLowerCase()
+      let manufactureSearch = this.searchByString.trim()
       if (nameSearch.length > 2) {
           this.api.apiRequest('post', 'implant/getImplantName', { implantManufacture: manufactureSearch }).subscribe(result => {
           if (result.status == "success") {

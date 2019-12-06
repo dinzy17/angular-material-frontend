@@ -8,8 +8,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatSnackBar, MatDialogRef } from '@angular/
 })
 export class UserDetailComponent implements OnInit {
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog) {
     if(data){
       
     } 
