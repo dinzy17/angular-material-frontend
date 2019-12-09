@@ -7,7 +7,7 @@
      </mat-card-header>
      <mat-card-content>
        <div class="form-group">
-           <mat-form-field class="example-full-width">
+           <mat-form-field class="example-full-width mat-headline">
            <input matInput placeholder="Email ID" formControlName="email" name="email">
             <mat-error class="error--handing"
               *ngIf="signInForm.controls['email'].hasError('required') && (signInForm.controls['email'].dirty || signInForm.controls['email'].touched)">
@@ -20,7 +20,7 @@
            </mat-form-field>
          </div>
          <div class="form-group">
-           <mat-form-field class="example-full-width">
+           <mat-form-field class="example-full-width mat-headline">
              <input matInput placeholder="Password" type="password" formControlName="password" >
               <mat-error class="error--handing"
                 *ngIf="signInForm.controls['password'].hasError('required') && (signInForm.controls['password'].dirty || signInForm.controls['password'].touched)">

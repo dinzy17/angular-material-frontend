@@ -10,14 +10,14 @@
                       <form [formGroup]="changeEmailForm" (ngSubmit)="save(changeEmailForm.value)" #emialForm="ngForm">
                           <div class="row">
                               <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
+                                  <mat-form-field class="example-full-width mat-headline">
                                     <input matInput placeholder="Current Email" formControlName="currentEmail" readonly>
                                   </mat-form-field>
                               </div>
                           </div>
                           <div class="row">
                                 <div class="col-md-6">
-                                    <mat-form-field class="example-full-width">
+                                    <mat-form-field class="example-full-width mat-headline">
                                         <input matInput placeholder="New email id" formControlName="email" name="email">
                                         <mat-error class="error--handing"
                                             *ngIf="changeEmailForm.controls['email'].hasError('required') && (changeEmailForm.controls['email'].dirty || changeEmailForm.controls['email'].touched)">
@@ -50,7 +50,7 @@
                     <form [formGroup]="changePasswordForm" (ngSubmit)="save(changePasswordForm.value)" #form="ngForm">
                         <div class="row">
                               <div class="col-md-6">
-                                <mat-form-field class="example-full-width">
+                                <mat-form-field class="example-full-width mat-headline">
                                   <input matInput placeholder="Current password" type="password" formControlName="oldPassword">
                                   <mat-error class="required" *ngIf="changePasswordForm.controls['oldPassword'].hasError('required') && (changePasswordForm.controls['oldPassword'].dirty || changePasswordForm.controls['oldPassword'].touched )">
                                     {{ "Current password is required." }}
@@ -61,7 +61,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                              <mat-form-field class="example-full-width">
+                              <mat-form-field class="example-full-width mat-headline">
                                 <input matInput placeholder="New password" type="password" formControlName="password">
                                     <mat-error class="required" *ngIf="changePasswordForm.controls['password'].hasError('required') && (changePasswordForm.controls['password'].dirty || changePasswordForm.controls['password'].touched )">
                                         {{ "New password is required." }}
@@ -78,7 +78,7 @@
                         </div>
                         <div class="row">
                               <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
+                                  <mat-form-field class="example-full-width mat-headline">
                                       <input matInput placeholder="Confirm password" formControlName="confirmPassword" type="password" name="cofirmpassword">
                                       <mat-error class="required" *ngIf="changePasswordForm.controls['confirmPassword'].hasError('required') && (changePasswordForm.controls['confirmPassword'].dirty || changePasswordForm.controls['confirmPassword'].touched )">
                                             {{ "Confirm password is required." }}
