@@ -224,6 +224,7 @@ export class ImplantsComponent implements OnInit {
 
 // for loder
   loader(){
+
     this.dialogRef = this.dialog.open(SidLoderComponentComponent,{
        panelClass: 'lock--panel',
        backdropClass: 'lock--backdrop',
@@ -234,4 +235,9 @@ export class ImplantsComponent implements OnInit {
    loaderHide(){
      this.dialogRef.close();
    }
+
+   test(){
+     window.alert('asdasdad');  
+   }
+
 }

@@ -12,7 +12,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { APIService } from './api.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -24,13 +26,17 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     RouterModule,
     AppRoutingModule,
     MatSnackBarModule,
-    ImageCropperModule
+    ImageCropperModule,
+    CKEditorModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    SidLoderComponentComponent
   ],
+  entryComponents: [SidLoderComponentComponent],
   providers: [
     APIService
   ],

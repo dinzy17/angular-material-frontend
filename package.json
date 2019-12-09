@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "8.0.0",
     "@angular/platform-server": "8.0.0",
     "@angular/router": "8.0.0",
+    "@ckeditor/ckeditor5-angular": "^1.1.2",
+    "@ckeditor/ckeditor5-build-classic": "^16.0.0",
     "ajv": "6.10.0",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",

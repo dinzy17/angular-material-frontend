@@ -15,6 +15,7 @@ import {
   MatTooltipModule,
   MatSelectModule,
   MatCardModule,
+  MatDialogModule,
   MatProgressSpinnerModule
 } from '@angular/material';
 @NgModule({
@@ -30,13 +31,15 @@ import {
     MatSelectModule,
     MatTooltipModule,
     MatCardModule,
+    MatDialogModule,
     MatProgressSpinnerModule
   ],
   declarations: [
     LoginComponent,
     ForgotComponent,
-    ResetComponent,
-  ]
+    ResetComponent
+  ],
+  
 })
 
 export class AuthLayoutModule {}

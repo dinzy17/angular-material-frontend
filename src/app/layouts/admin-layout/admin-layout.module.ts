@@ -14,11 +14,12 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ConfirmModelComponent } from 'app/confirm-model/confirm-model.component';
 import { UserDetailComponent } from 'app/users/user-detail/user-detail.component';
 import { CMSComponent } from 'app/cms/cms.component';
-import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
+//import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 import { SupportsComponent } from 'app/supports/supports.component';
 import { SupportEditComponent } from 'app/supports/support-edit/support-edit.component';
 import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.component';
 import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import {
   MatButtonModule,
@@ -62,9 +63,10 @@ import {
     ImageCropperModule,
     MatDialogModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CKEditorModule
   ],
-  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SidLoderComponentComponent, SupportEditComponent],
+  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SupportEditComponent], //SidLoderComponentComponent,
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -74,7 +76,7 @@ import {
     UsersComponent,
     ConfirmModelComponent,
     UserDetailComponent,
-    SidLoderComponentComponent,
+    //SidLoderComponentComponent,
     SupportsComponent,
     CMSComponent,
     SupportEditComponent,

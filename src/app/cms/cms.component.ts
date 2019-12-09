@@ -4,6 +4,7 @@ import { APIService } from 'app/api.service';
 import { Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material';
 import { debounce } from 'lodash'
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-cms',
@@ -11,6 +12,7 @@ import { debounce } from 'lodash'
   styleUrls: ['./cms.component.css']
 })
 export class CMSComponent implements OnInit {
+  public Editor = ClassicEditor;  
   pages: any[] = []
   constructor(private router: Router, private api:APIService, private snack: MatSnackBar,) { }
   ngOnInit() {
