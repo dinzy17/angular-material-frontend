@@ -28,7 +28,7 @@ export class CMSComponent implements OnInit {
   save(){
     this.api.apiRequest('post', 'cms/modify', this.pages).subscribe(result => {
       if(result.status == "success"){
-        this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
+        this.snack.open("content successfully modifyed!", 'OK', { duration: 3000 })
       } else {
         this.snack.open(result.data, 'OK', { duration: 3000 })
       }
