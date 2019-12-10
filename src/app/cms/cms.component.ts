@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import { APIService } from 'app/api.service';
 import { Router } from '@angular/router'
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { debounce } from 'lodash'
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -13,27 +14,40 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class CMSComponent implements OnInit {
   public Editor = ClassicEditor;  
+  public cmsForm: FormGroup;
   pages: any[] = []
-  constructor(private router: Router, private api:APIService, private snack: MatSnackBar,) { }
+  editorData: any[] = []
+  public model = {
+    editorData: '<p>Hello, world!</p>'
+  };
+  constructor(private router: Router, private fb: FormBuilder, private api:APIService, private snack: MatSnackBar,) { }
   ngOnInit() {
-    this.pages = [{
-      id: "1",
-      pageName: "Terms of Service",
-      content: "Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget."
-    },{
-      id: "2",
-      pageName: "About Us",
-      content: "Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget."
-    },{
-      id: "1",
-      pageName: "Privacy Policy",
-      content: "Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget."
-    },{
-      id: "1",
-      pageName: "Privacy Policy",
-      content: "Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget."
-    }
-  ]
+  this.getCmsPages()
+  }
+
+  save(){
+    this.api.apiRequest('post', 'cms/modify', this.pages).subscribe(result => {
+      if(result.status == "success"){
+        this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
+      } else {
+        this.snack.open(result.data, 'OK', { duration: 3000 })
+      }
+    }, (err) => {
+      console.error(err)
+    })
+  }
+
+  getCmsPages() {
+    this.api.apiRequest('post', 'cms/getPages', this.pages).subscribe(result => {
+      if(result.status == "success"){
+        this.pages = result.data.cmsList
+        console.log(this.pages);
+      } else {
+        this.snack.open(result.data, 'OK', { duration: 3000 })
+      }
+    }, (err) => {
+      console.error(err)
+    })
   }
 
 }

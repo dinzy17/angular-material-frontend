@@ -1,39 +1,21 @@
 <div class="main-content">
   <div class="container-fluid">
-      <!-- <div class="row">
-          <div class="col-md-12">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title learning--status">
-                        Machine Learning Status
-                        <i class="material-icons">refresh</i>
-                      </h4>
-                  </div>
-                  <div class="card-body">
-                      {{collectionStatus}}
-                  </div>
-              </div>
-          </div>
-      </div> <!-- End of Machine Learning Status -->
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
             <mat-tab-group>
-              <mat-tab *ngFor="let page of pages">
+              <mat-tab *ngFor="let page of pages; let i=index">
                 <ng-template mat-tab-label>
                   {{page.pageName}}
                 </ng-template>
-                {{page.content}}
-              </mat-tab>
+                <ckeditor [(ngModel)]="pages[i].content"  [editor]="Editor" ></ckeditor>
+                </mat-tab>
             </mat-tab-group>
+            <button type="button" class="btn btn-theme" (click)="save()">Save</button>
           </div>
         </div>
-        <ckeditor [editor]="Editor" data="<p>Hello, csharp corner!</p><br/><br/> <b>This is demo for ckeditor 5 with angular 8</br>"></ckeditor>   
-
-
       </div>
     </div>
-
   </div>
 </div>
