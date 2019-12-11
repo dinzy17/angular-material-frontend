@@ -10,3 +10,24 @@
     background-color: #ffff;
     padding: 9px 7px 7px 7px;
 }
+.mat-header-cell{
+    font-size: 20px !important;
+    color: rgba(0, 0, 0, 0.70);
+}
+.mat-headline {
+    font-size: 20px !important;
+  }
+  .mat-headline-color{
+    color: rgba(0, 0, 0, 0.70) !important;
+  }
+
+  table {
+    table-layout: fixed;
+  }
+  
+  th, td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

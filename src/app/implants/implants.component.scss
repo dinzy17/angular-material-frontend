@@ -47,6 +47,11 @@
     top: 50px;
     left: 50px;
   }
+  .cropper .move {
+    width: 100%;
+    cursor: move;
+    border: 2px solid red !important;
+  }
 }
 .autocomplete--option {
   height: 70px;

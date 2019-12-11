@@ -12,42 +12,14 @@ import { debounce } from 'lodash'
 })
 export class DashboardComponent implements OnInit {
 
-  collectionStatus: string = "Waiting...."
   totalUser: any = "No registerd users";
   totalImplant: any = "No implant added";
-  constructor(private router: Router, private api:APIService, private snack: MatSnackBar,) { }
+  constructor(private router: Router, private api:APIService, private snack: MatSnackBar) { }
   ngOnInit() {
     this.getTotalUser()
     this.getTotalImplant()
-    this.getCollectionStatus()
-
   }
-
-  getCollectionStatus = debounce(() => {
-    this.api.apiRequest('post', 'implant/getCollectionStatus', {}).subscribe(result => {
-      if(result.status == "success"){
-        this.collectionStatus = result.data.description
-      } else {
-        this.snack.open("Something went wrong while fetching machine learning status!", 'OK', { duration: 3000 })
-      }
-    }, (err) => {
-      console.error(err)
-    })
-  }, 2000)
-
-  startCollectionTraining = debounce(() => {
-    this.api.apiRequest('post', 'implant/startCollectionTraining', {}).subscribe(result => {
-      if(result.status == "success"){
-        this.collectionStatus = result.data.description
-      } else {
-        this.snack.open("Something went wrong while startimg machine learning!", 'OK', { duration: 3000 })
-      }
-      // this.getCollectionStatus()
-    }, (err) => {
-      console.error(err)
-    })
-  }, 2000)
-
+  
   getTotalUser() {
     const req_vars = {
       query: Object.assign({ userType: "appUser"}),

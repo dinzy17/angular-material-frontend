@@ -7,14 +7,15 @@
                       <h4 class="card-title">Implants</h4>
                   </div>
                   <div class="card-body">
-                      <form class="form mat-form-field-wrapper" [formGroup]="form" (ngSubmit)="saveImplant(form.value)" action="#">
+                      <span>Fields marked with the asterisk (*) are mandatory</span>
+                      <form class="form mat-form-field-wrapper" [formGroup]="form" (ngSubmit)="saveImplant(form.value)" #implantForm="ngForm" action="#">
                         <div class="row">
                             <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width mat-headline">
-                                                    <input matInput placeholder="Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
+                                                    <input matInput placeholder="* Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['implantManufacture'].hasError('required') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
                                                         {{ "The implant's manufactuerer name cannot be blank ." }}
@@ -34,7 +35,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width mat-headline">
-                                                    <input matInput placeholder="Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" >
+                                                    <input matInput placeholder="* Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" >
                                                     <mat-error class="error--handing"
                                                         *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
                                                         {{ "The implant's name/brand cannot be blank " }}
@@ -63,7 +64,10 @@
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width mat-headline">
-                                                                    <textarea matInput placeholder="Removal Process" formControlName="removalProcess" name="removalProcess"  rows="5" ></textarea>
+                                                                    <textarea matInput placeholder="* Removal Process" formControlName="removalProcess" name="removalProcess" cdkTextareaAutosize
+                                                                    #autosize="cdkTextareaAutosize"
+                                                                    cdkAutosizeMinRows="5"
+                                                                    cdkAutosizeMaxRows="5" ></textarea>
                                                                     <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['removalProcess'].hasError('required') && (unit.controls['removalProcess'].dirty || unit.controls['removalProcess'].touched)">
                                                                             {{ "Removal process is required." }}
@@ -74,7 +78,7 @@
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width mat-headline">
-                                                                        <input matInput placeholder="Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate" name="surgeryDate">
+                                                                        <input matInput placeholder="* Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate" name="surgeryDate">
                                                                         <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['surgeryDate'].hasError('required') && (unit.controls['surgeryDate'].dirty || unit.controls['surgeryDate'].touched)">
                                                                             {{ "Surgery date is required." }}
@@ -87,7 +91,7 @@
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width mat-headline">
-                                                                        <input matInput placeholder="Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation">
+                                                                        <input matInput placeholder="* Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation">
                                                                         <mat-error class="error--handing"
                                                                             *ngIf="unit.controls['surgeryLocation'].hasError('required') && (unit.controls['surgeryLocation'].dirty || unit.controls['surgeryLocation'].touched)">
                                                                             {{ "Surgery location is required." }}
@@ -114,7 +118,7 @@
                                     <div class="col-md-12">
                                       <div class="implant--image--container" (focus)="test()">
                                         <label for="implantImage" class="implant--image--lable">
-                                          Upload Implant image
+                                            Drop image or click to upload
                                         </label>
                                          <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
                                       </div>
@@ -125,7 +129,7 @@
                                         {{ "Only png and jpg file allowed." }}
                                     </mat-error>
                                       <div class="crop--preview">
-                                        <label *ngIf="croppedImage">Preview:</label>
+                                        <label *ngIf="croppedImage">Outline the implant to highlight it on the image below:</label>
                                         <img class="" [src]="croppedImage" />
                                       </div>
                                     </div>

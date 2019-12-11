@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { FormsModule, FormGroup, FormControl, FormBuilder, FormArray, Validators,  ValidationErrors } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -26,6 +27,8 @@ export interface Name {
   styleUrls: ['./implants.component.scss']
 })
 export class ImplantsComponent implements OnInit {
+  @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
+  @ViewChild('implantForm', {static: false}) implantForm
   userId: string = localStorage.getItem("userId") || ""
   imageChangedEvent: any = ''
   croppedImage: any = ''
@@ -150,9 +153,7 @@ export class ImplantsComponent implements OnInit {
         this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
-            setTimeout(() => {
-            location.reload();
-            }, 3000)
+          this.implantForm.resetForm();
         } else {
           this.snack.open(result.data, 'OK', { duration: 3000 })
         }
@@ -169,6 +170,8 @@ export class ImplantsComponent implements OnInit {
 
   resetValues() {
     this.uploadedFile = null
+    this.croppedImage = ""
+    this.imageChangedEvent = null
     this.imageWidth = 0
     this.imageHeight = 0
     this.labelWidth = 0
@@ -177,7 +180,12 @@ export class ImplantsComponent implements OnInit {
     this.labelOffsetY = 0
     let img = document.getElementById('implantImage') as HTMLInputElement
     img.value = ""
-     this.croppedImage = ""
+    const control = <FormArray>this.form.controls['removalSection'];
+    for(let i = 0; i <= control.length; i++ ){
+      if(i > 0){
+        this.delete(i);
+      }
+    }
   }
 
   getManufacture() {
@@ -222,7 +230,7 @@ export class ImplantsComponent implements OnInit {
     }
   }, 500)
 
-// for loder
+  // for loder
   loader(){
 
     this.dialogRef = this.dialog.open(SidLoderComponentComponent,{
@@ -234,10 +242,6 @@ export class ImplantsComponent implements OnInit {
  
    loaderHide(){
      this.dialogRef.close();
-   }
-
-   test(){
-     window.alert('asdasdad');  
    }
 
 }

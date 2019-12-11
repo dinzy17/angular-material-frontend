@@ -11,6 +11,7 @@ import { AdminGuard } from 'app/admin.guard';
 import { SupportsComponent } from 'app/supports/supports.component';
 import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.component';
 import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
+import { MachineLearningComponent } from 'app/implants/machine-learning/machine-learning.component';
 
 export const AdminLayoutRoutes: Routes = [
     {
@@ -54,5 +55,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'implant-view/:id',
         component: ImplantsDetailsComponent
+    },
+    {
+        path: 'machine-learning',
+        component: MachineLearningComponent
     }
 ];

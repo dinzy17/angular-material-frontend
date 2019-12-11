@@ -20,6 +20,7 @@ import { SupportEditComponent } from 'app/supports/support-edit/support-edit.com
 import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.component';
 import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MachineLearningComponent } from 'app/implants/machine-learning/machine-learning.component';
 
 import {
   MatButtonModule,
@@ -81,7 +82,8 @@ import {
     CMSComponent,
     SupportEditComponent,
     ImplantsListComponent,
-    ImplantsDetailsComponent
+    ImplantsDetailsComponent,
+    MachineLearningComponent
   ],
   providers: [ AdminGuard ],
 })
