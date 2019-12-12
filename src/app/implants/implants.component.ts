@@ -189,7 +189,7 @@ export class ImplantsComponent implements OnInit {
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
           this.implantForm.resetForm();
         } else {
-          this.snack.open(result.data, 'OK', { duration: 3000 })
+          this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         }
         this.resetValues()
       }, (err) => {
