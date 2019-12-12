@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { FormsModule, FormGroup, FormControl, FormBuilder, FormArray, Validators,  ValidationErrors } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, FormBuilder, FormArray, Validators,  ValidationErrors, AbstractControl } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { debounce, cloneDeep } from 'lodash'
 import { MatSnackBar } from '@angular/material';
@@ -52,6 +52,8 @@ export class ImplantsComponent implements OnInit {
   imageError: boolean = false;
   imageValidError: boolean = false;
   dialogRef:any ="";
+  removaProcessError: any = [];
+  validationError: boolean = false;
   constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -61,7 +63,11 @@ export class ImplantsComponent implements OnInit {
       label: ['', [ Validators.required, Validators.maxLength(150)]],
       implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]],
       removalSection: this.fb.array([
-        this.getRemovalProcess()
+        this.fb.group({
+          removalProcess: ['', Validators.required],
+          surgeryDate: ["", [Validators.required]],
+          surgeryLocation: ['', [Validators.required]]
+        })
      ])  
     })
     
@@ -75,10 +81,25 @@ export class ImplantsComponent implements OnInit {
    */
   private getRemovalProcess() {
     return this.fb.group({
-      removalProcess: ['', Validators.required],
-      surgeryDate: ["", [Validators.required]],
-      surgeryLocation: ['', [Validators.required]]
+      removalProcess: ['', ],
+      surgeryDate: [""],
+      surgeryLocation: ['']
     });
+  }
+
+
+  // compare password validate
+  removaProcessValidation(control: AbstractControl){
+    let removalProcess = control.get('removalProcess').value
+    let surgeryDate = control.get('surgeryDate').value
+    let surgeryLocation = control.get('surgeryLocation').value
+    if ((removalProcess.trim() == "") && (surgeryDate.trim() == "") && (surgeryLocation.trim() == "")) {
+        control.get('removalProcess').setErrors( { requiredProcess: true } )
+        control.get('surgeryDate').setErrors( { requiredProcess: true } )
+        control.get('surgeryLocation').setErrors( { requiredProcess: true } )
+    } else {
+      return null;
+    }
   }
 
   /*
@@ -128,7 +149,20 @@ export class ImplantsComponent implements OnInit {
 
   //function to save details
   saveImplant(implantData) {
-    if(this.uploadedFile && this.uploadedFile.name !="") {
+    console.log(implantData.removalSection);
+    this.validationError = false
+    for(let index in implantData.removalSection){
+      if((implantData.removalSection[index].removalProcess =="") && (implantData.removalSection[index].surgeryDate == "") && (implantData.removalSection[index].surgeryLocation == "")){
+        delete implantData.removalSection[index];  
+      } else if ((implantData.removalSection[index].removalProcess =="") || (implantData.removalSection[index].surgeryDate == "") || (implantData.removalSection[index].surgeryLocation == "")) {
+        this.removaProcessError[index] = true
+        this.validationError = true
+      } else {
+        this.removaProcessError[index] = false
+      }
+    }
+    
+    if(this.uploadedFile && this.uploadedFile.name !="" && !this.validationError ) {
       this.loader();
       this.disabledSave = true
       const formData = {
@@ -165,7 +199,7 @@ export class ImplantsComponent implements OnInit {
       })
     } else {
       this.imageError = true;
-    }
+    } 
   }
 
   resetValues() {

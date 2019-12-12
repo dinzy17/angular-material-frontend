@@ -28,6 +28,11 @@ export class ImplantsDetailsComponent implements OnInit {
     this.api.apiRequest('post', 'implant/implantView', { id: this.id }).subscribe(result => {
       if(result.status == "success") {
           this.implantData = result.data.details
+          //  this.implantData.objectLocation.height = ( 800 / this.implantData.objectLocation.height )
+          //  this.implantData.objectLocation.left = ( 800 / this.implantData.objectLocation.left )
+          //  this.implantData.objectLocation.top = ( 800 / this.implantData.objectLocation.top )
+          //  this.implantData.objectLocation.width = (800 / this.implantData.objectLocation.width )
+          console.log('test',this.implantData )
       } else {
         //this.snack.open(result.data.message, 'OK', { duration: 5000 });
       }
