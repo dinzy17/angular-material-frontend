@@ -29,6 +29,7 @@ export class AnalyzeComponent implements OnInit {
       image: new FormControl('', [ Validators.required ]),
     })
   }
+  
   fileChangeEvent(e) {
     this.objects = []
     let img = document.getElementById('implantImage') as HTMLInputElement

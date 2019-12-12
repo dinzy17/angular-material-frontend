@@ -8,7 +8,7 @@ import { debounce } from 'lodash'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     this.api.apiRequest("post", "user/list", req_vars).subscribe(
       result => {
         if(result.data.totalUsers > 0){
-          this.totalUser = result.data.totalUsers + "Total users"
+          this.totalUser = result.data.totalUsers
         }
       },
       err => {
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
     this.api.apiRequest("post", "implant/list", req_vars).subscribe(
       result => {
         if(result.data.totalImplant > 0) {
-          this.totalImplant = result.data.totalImplant + " Total Implant"
+          this.totalImplant = result.data.totalImplant
         }
       },
       err => {

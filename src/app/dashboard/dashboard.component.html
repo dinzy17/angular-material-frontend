@@ -1,41 +1,76 @@
 <div class="main-content">
-  <div class="container-fluid">
-      <!-- start blocks-->
-        <div class="row">
-            <div class="offset-md-2"></div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body card-body-custome">
-                        3 New Verification Request
-                    </div>
-                </div>
-            </div>
-            <div class="offset-md-1"></div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body card-body-custome">
-                        5 New Support messages Received
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+    <div class="container-fluid">
+        <!-- start blocks-->
+        <!-- <div class="row">
                 <div class="offset-md-2"></div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body card-body-custome">
-                            {{ totalUser }}
+                            3 New Verification Request
                         </div>
                     </div>
                 </div>
                 <div class="offset-md-1"></div>
-                <div class="col-md-3 cursor-pointer" (click)="implant()">
+                <div class="col-md-3">
                     <div class="card">
                         <div class="card-body card-body-custome">
-                            {{ totalImplant }}
+                            5 New Support messages Received
                         </div>
                     </div>
-                </div>       
+                </div>
+            </div> -->
+        <!-- <div class="row">
+                    <div class="offset-md-2"></div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body card-body-custome">
+                                {{ totalUser }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offset-md-1"></div>
+                    <div class="col-md-3 cursor-pointer" (click)="implant()">
+                        <div class="card">
+                            <div class="card-body card-body-custome">
+                                {{ totalImplant }}
+                            </div>
+                        </div>
+                    </div>       
+            </div> -->
+
+        <div class="dashboard--wrapper col-sm-10 col-md-10 col-lg-10 col-xl-8">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="card">
+                    <div class="card-body card-body-custome">
+                        <h3>3</h3>
+                        <p> New Verification Request</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="card">
+                    <div class="card-body card-body-custome">
+                        <h3>5</h3>
+                        <p>New Support messages Received</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                <div class="card">
+                    <div class="card-body card-body-custome">
+                            <h3>{{ totalUser }}</h3>
+                            <p>Total Users</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 cursor-pointer" (click)="implant()">
+                    <div class="card">
+                        <div class="card-body card-body-custome">
+                                <h3>{{ totalImplant }}</h3>
+                                <p>Total Implant </p>
+                        </div>
+                    </div>
+                </div>
         </div>
-  </div>
+    </div>
 </div>
