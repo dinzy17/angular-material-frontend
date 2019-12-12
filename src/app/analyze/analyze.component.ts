@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'
+import { FormsModule, FormGroup, FormControl, Validators,  ValidationErrors } from '@angular/forms'
+import { MatDialog, MAT_DIALOG_DATA, MatSnackBar, MatDialogRef } from '@angular/material'
 import { debounce } from 'lodash'
 import * as $ from 'jquery'
-import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
 import { APIService } from 'app/api.service'
+import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component'
 
 @Component({
   selector: 'app-analyze',
@@ -20,8 +21,10 @@ export class AnalyzeComponent implements OnInit {
   imageName: string = ""
   objects: any[] = []
   img_preview: boolean = false
+  implantData: any [] = []
+  dialogRef:any ="";
 
-  constructor(private api: APIService, private snack: MatSnackBar, private router:Router) { }
+  constructor(private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog ) { }
 
   ngOnInit() {
 
@@ -29,7 +32,7 @@ export class AnalyzeComponent implements OnInit {
       image: new FormControl('', [ Validators.required ]),
     })
   }
-  
+
   fileChangeEvent(e) {
     this.objects = []
     let img = document.getElementById('implantImage') as HTMLInputElement
@@ -47,14 +50,17 @@ export class AnalyzeComponent implements OnInit {
 
   //function to save details
   searchImplant() {
+    this.loader();
     this.disabledSave = true
     const fd = new FormData()
     fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
 
     this.api.apiRequest('post', 'implant/analyzeImage', fd).subscribe(result => {
+      this.loaderHide()
       if(result.status == "success"){
-        if(result.data.images && result.data.images[0] && result.data.images[0].objects.collections && result.data.images[0].objects.collections.length > 0 ) {
-          this.objects = result.data.images[0].objects.collections[0].objects
+        if(result.data.wastson.images && result.data.wastson.images[0] && result.data.wastson.images[0].objects.collections && result.data.wastson.images[0].objects.collections.length > 0 ) {
+          this.objects = result.data.wastson.images[0].objects.collections[0].objects
+          this.implantData = result.data.implantData
           this.snack.open("Image analysis complete!", 'OK', { duration: 3000 })
         } else {
           this.snack.open("Sorry! we could not match image with any of provided resources!", 'OK', { duration: 3000 })
@@ -64,6 +70,7 @@ export class AnalyzeComponent implements OnInit {
       }
       this.resetValues()
     }, (err) => {
+      this.loaderHide()
       console.error(err)
     })
   }
@@ -73,5 +80,19 @@ export class AnalyzeComponent implements OnInit {
     let img = document.getElementById('implantImage') as HTMLInputElement
     img.value = ""
   }
+
+  // for loder
+  loader(){
+
+    this.dialogRef = this.dialog.open(SidLoderComponentComponent,{
+       panelClass: 'lock--panel',
+       backdropClass: 'lock--backdrop',
+       disableClose: true
+     });    
+   }
+ 
+   loaderHide(){
+     this.dialogRef.close();
+   }
 
 }
