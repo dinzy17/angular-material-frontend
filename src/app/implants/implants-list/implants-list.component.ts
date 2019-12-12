@@ -28,7 +28,7 @@ export class ImplantsListComponent implements OnInit {
   implantList:any=[]
   dbImplantList:any=[]
   searchByString:any;
-  displayedColumns: string[] = ['manufacturer', 'name', 'createdOn', '_id'];
+  displayedColumns: string[] = ['implantManufacture', 'objectName', 'createdOn', '_id'];
   noRecords = false
   showErrorDetails: boolean = false
   recordsExists:boolean = true
