@@ -31,7 +31,7 @@
                                 <div class="object--attr capitalize"><b>Object name:</b> {{o.object}}</div>
                                 <div class="object--attr"><b>Score:</b> {{o.score}}</div>
                                 <div class="object--more" *ngFor="let v of implantData">
-                                    <div class="object--attr capitalize manufacturer--label"><b>Manufacturer:</b> {{ v.implantManufacture }}</div>
+                                    <div class="object--attr capitalize"><b class="manufacturer--label--b">Manufacturer:</b> {{ v.implantManufacture }}</div>
                                     <div class="object-removal" *ngFor="let val of v.removImplant">
                                         <div class="object--attr"><b>Removal Steps:</b> {{ val.removalProcess }}</div>
                                         <div class="object--attr"><b>Surgery Date:</b> {{ val.surgeryDate | date: 'MM/dd/yyyy' }}</div>
