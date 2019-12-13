@@ -12,8 +12,8 @@ import { debounce } from 'lodash'
 })
 export class DashboardComponent implements OnInit {
 
-  totalUser: any = "No registerd users";
-  totalImplant: any = "No implant added";
+  totalUser: any = "0";
+  totalImplant: any = "0";
   constructor(private router: Router, private api:APIService, private snack: MatSnackBar) { }
   ngOnInit() {
     this.getTotalUser()
