@@ -56,6 +56,9 @@
 .object-removal{
   border: 1px solid #cccccc;
   margin: 15px;
+  b {
+    min-width: 175px;
+  }
 }
 .object--more {
   border: 1px dotted #3F51B5;
@@ -66,4 +69,5 @@
 }
 .manufacturer--label--b{
  margin-left: 5px !important;
+ min-width: 185px;
 }
