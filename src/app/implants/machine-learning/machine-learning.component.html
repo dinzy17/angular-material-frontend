@@ -17,7 +17,7 @@
     </div> <!-- End of Machine Learning Status -->
     <div class="row">
       <div class="col-md-12">
-          <button class="btn btn-theme" (click)="startCollectionTraining()">Start Machine Learning</button>
+          <button class="btn btn-theme" [disabled]="isDisabled" (click)="startCollectionTraining()">Start Machine Learning</button>
       </div>
     </div>
     <!-- lerning status -->
