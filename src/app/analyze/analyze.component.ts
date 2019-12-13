@@ -17,7 +17,7 @@ export class AnalyzeComponent implements OnInit {
   userId: string = localStorage.getItem("userId") || ""
   form: FormGroup
   uploadedFile: File
-  disabledSave: boolean = false
+  disabledSave: boolean = true
   imageName: string = ""
   objects: any[] = []
   img_preview: boolean = false

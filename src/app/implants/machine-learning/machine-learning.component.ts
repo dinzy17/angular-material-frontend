@@ -42,4 +42,17 @@ export class MachineLearningComponent implements OnInit {
       console.error(err)
     })
   }, 2000)
+
+  getImagelist = debounce(() => {
+    this.api.apiRequest('post', 'implant/listImage', {}).subscribe(result => {
+      if(result.status == "success"){
+        console.log(result);
+      } else {
+        console.log(result);
+        this.snack.open("Something went wrong while fetching machine learning status!", 'OK', { duration: 3000 })
+      }
+    }, (err) => {
+      console.error(err)
+    })
+  }, 2000)
 }
