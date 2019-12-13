@@ -34,6 +34,7 @@ export class MachineLearningComponent implements OnInit {
   }, 2000)
 
   startCollectionTraining = debounce(() => {
+    this.isDisabled = true
     this.api.apiRequest('post', 'implant/startCollectionTraining', {}).subscribe(result => {
       if(result.status == "success"){
         this.collectionStatus = result.data.description

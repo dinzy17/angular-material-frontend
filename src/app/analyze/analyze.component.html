@@ -28,14 +28,14 @@
                             <div class="col-lg-6">
                               <h3>Result:</h3>
                               <div class="object--container" *ngFor="let o of objects">
-                                <div class="object--attr"><b>Object name:</b> {{o.object}}</div>
+                                <div class="object--attr capitalize"><b>Object name:</b> {{o.object}}</div>
                                 <div class="object--attr"><b>Score:</b> {{o.score}}</div>
                                 <div class="object--more" *ngFor="let v of implantData">
-                                    <div class="object--attr"><b>Manufacture:</b> {{ v.implantManufacture }}</div>
+                                    <div class="object--attr capitalize manufacturer--label"><b>Manufacturer:</b> {{ v.implantManufacture }}</div>
                                     <div class="object-removal" *ngFor="let val of v.removImplant">
-                                        <div class="object--attr"><b>Remova Step:</b> {{ val.removalProcess }}</div>
+                                        <div class="object--attr"><b>Removal Steps:</b> {{ val.removalProcess }}</div>
                                         <div class="object--attr"><b>Surgery Date:</b> {{ val.surgeryDate | date: 'MM/dd/yyyy' }}</div>
-                                        <div class="object--attr"><b>Surgery Location:</b> {{ val.surgeryLocation }}</div>
+                                        <div class="object--attr capitalize "><b>Surgery Location:</b> {{ val.surgeryLocation }}</div>
                                     </div>
                                 </div>
                               </div>
