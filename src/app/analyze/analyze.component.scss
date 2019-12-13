@@ -57,7 +57,7 @@
   border: 1px solid #cccccc;
   margin: 15px;
   b {
-    min-width: 175px;
+    min-width: 175px !important;
   }
 }
 .object--more {
@@ -69,5 +69,5 @@
 }
 .manufacturer--label--b{
  margin-left: 5px !important;
- min-width: 185px;
+ min-width: 185px !important;
 }
