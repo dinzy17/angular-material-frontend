@@ -53,6 +53,7 @@ export class AnalyzeComponent implements OnInit {
     this.loader();
     this.disabledSave = true
     const fd = new FormData()
+    fd.append('accessToken', localStorage.getItem('token'))
     fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
 
     this.api.apiRequest('post', 'implant/analyzeImage', fd).subscribe(result => {

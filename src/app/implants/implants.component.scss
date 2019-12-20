@@ -81,3 +81,13 @@
   font-size: 20px;
   font-weight: 500;
 }
+.cropper > span {
+  color: red !important;
+}
+.image--cropper > .cropper > .resize-bar{
+  color: red !important;
+}
+
+[_nghost-ukt-c11] .cropper[_ngcontent-ukt-c11]{
+  color: #ef1c06 !important;
+}

@@ -181,6 +181,11 @@ private removeKeyFromStorage(key): any {
 
   //function to make request to server
   public apiRequest(method, apiUrl, req_vars: any): Observable<any> {
+   // console.log('access toekn', localStorage.getItem('token'));
+   let token = localStorage.getItem('token');
+   if(token !== undefined && token != ""){
+    req_vars.accessToken = token;
+   }
     return this.request(method, apiUrl, req_vars)
   }
 

@@ -26,38 +26,47 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'notifications',
-        component: NotificationsComponent
+        component: NotificationsComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'implants',
-        component: ImplantsComponent
+        component: ImplantsComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'analyze',
-        component: AnalyzeComponent
+        component: AnalyzeComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'supports',
-        component: SupportsComponent
+        component: SupportsComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'cms',
-        component: CMSComponent
+        component: CMSComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'implant-list',
-        component: ImplantsListComponent
+        component: ImplantsListComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'implant-view/:id',
-        component: ImplantsDetailsComponent
+        component: ImplantsDetailsComponent,
+        canActivate: [AdminGuard]
     },
     {
         path: 'machine-learning',
-        component: MachineLearningComponent
+        component: MachineLearningComponent,
+        canActivate: [AdminGuard]
     }
 ];

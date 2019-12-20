@@ -58,7 +58,6 @@ export class ImplantsComponent implements OnInit {
 
   ngOnInit() {
     /* Initiate the form structure */
-
     this.form = this.fb.group({
       label: ['', [ Validators.required, Validators.maxLength(150)]],
       implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]],
@@ -149,7 +148,6 @@ export class ImplantsComponent implements OnInit {
 
   //function to save details
   saveImplant(implantData) {
-    console.log(implantData.removalSection);
     this.validationError = false
     for(let index in implantData.removalSection){
       if((implantData.removalSection[index].removalProcess =="") && (implantData.removalSection[index].surgeryDate == "") && (implantData.removalSection[index].surgeryLocation == "")){
@@ -166,6 +164,7 @@ export class ImplantsComponent implements OnInit {
       this.loader();
       this.disabledSave = true
       const formData = {
+        accessToken: localStorage.getItem('token'),
         userId: this.userId,
         labelName: implantData.label,
         implantManufacture: implantData.implantManufacture,

@@ -28,11 +28,21 @@ export class ImplantsDetailsComponent implements OnInit {
     this.api.apiRequest('post', 'implant/implantView', { id: this.id }).subscribe(result => {
       if(result.status == "success") {
           this.implantData = result.data.details
-          //  this.implantData.objectLocation.height = ( 800 / this.implantData.objectLocation.height )
-          //  this.implantData.objectLocation.left = ( 800 / this.implantData.objectLocation.left )
-          //  this.implantData.objectLocation.top = ( 800 / this.implantData.objectLocation.top )
-          //  this.implantData.objectLocation.width = (800 / this.implantData.objectLocation.width )
-          console.log('test',this.implantData )
+          let img = new Image();
+          img.onload = () => {
+            var height = img.height;
+            var width = img.width;
+            // code here to use the dimensions
+            let dispyaImgage = document.getElementById('displayImage') as HTMLInputElement
+            var currWidth = dispyaImgage.clientWidth;
+            var currHeight = dispyaImgage.clientHeight;
+            const a = this.implantData.objectLocation.height
+            this.implantData.objectLocation.height = ( currHeight * this.implantData.objectLocation.height ) / height
+            this.implantData.objectLocation.top = ( currHeight * this.implantData.objectLocation.top ) / height
+            this.implantData.objectLocation.left = ( currWidth * this.implantData.objectLocation.left ) / width
+            this.implantData.objectLocation.width = (currWidth * this.implantData.objectLocation.width ) / width
+          }
+          img.src = this.implantData.imgName;
       } else {
         //this.snack.open(result.data.message, 'OK', { duration: 5000 });
       }
