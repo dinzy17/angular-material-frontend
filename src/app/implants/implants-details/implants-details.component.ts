@@ -41,12 +41,13 @@ export class ImplantsDetailsComponent implements OnInit {
             this.implantData.objectLocation.top = ( currHeight * this.implantData.objectLocation.top ) / height
             this.implantData.objectLocation.left = ( currWidth * this.implantData.objectLocation.left ) / width
             this.implantData.objectLocation.width = (currWidth * this.implantData.objectLocation.width ) / width
+            this.loaderHide()
           }
           img.src = this.implantData.imgName;
       } else {
+        this.loaderHide()
         //this.snack.open(result.data.message, 'OK', { duration: 5000 });
       }
-      this.loaderHide()
     }, (err) => {
       this.loaderHide()
       console.error(err)
