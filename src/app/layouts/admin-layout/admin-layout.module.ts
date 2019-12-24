@@ -21,7 +21,8 @@ import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.
 import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MachineLearningComponent } from 'app/implants/machine-learning/machine-learning.component';
-
+import { ImplantAppTestComponent } from 'app/implant-app-test/implant-app-test.component';
+import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.component';
 import {
   MatButtonModule,
   MatInputModule,
@@ -83,7 +84,9 @@ import {
     SupportEditComponent,
     ImplantsListComponent,
     ImplantsDetailsComponent,
-    MachineLearningComponent
+    MachineLearningComponent,
+    ImplantAppTestComponent,
+    ImplantsEditComponent
   ],
   providers: [ AdminGuard ],
 })

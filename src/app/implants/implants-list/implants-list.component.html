@@ -30,10 +30,16 @@
                       <td mat-cell *matCellDef="let element"> {{element.createdOn | date: 'MM/dd/yyyy'}} </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="modifiedOn">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Modified Date</strong></th>
+                      <td mat-cell *matCellDef="let element"> {{element.modifiedOn | date: 'MM/dd/yyyy'}} </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="_id">
                       <th mat-header-cell *matHeaderCellDef><strong>Action</strong></th>
                       <td mat-cell *matCellDef="let element">
-                        <a class="cursor-pointer btn implantView" (click)="view(element)">View</a>
+                        <a class="cursor-pointer btn implantView" (click)="view(element)"><mat-icon>remove_red_eye</mat-icon></a>
+                        <a class="cursor-pointer btn implantEdit" (click)="edit(element)"><mat-icon>edit</mat-icon></a>
                       </td>
                     </ng-container>
               

@@ -13,6 +13,7 @@ export class ImplantsDetailsComponent implements OnInit {
   id: any ="";
   implantData: any ={};
   dialogRef:any ="";
+  displayHighlite: boolean = false
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private api:APIService, private dialog: MatDialog ) {
    }
 
@@ -41,6 +42,7 @@ export class ImplantsDetailsComponent implements OnInit {
             this.implantData.objectLocation.top = ( currHeight * this.implantData.objectLocation.top ) / height
             this.implantData.objectLocation.left = ( currWidth * this.implantData.objectLocation.left ) / width
             this.implantData.objectLocation.width = (currWidth * this.implantData.objectLocation.width ) / width
+            this.displayHighlite = true
             this.loaderHide()
           }
           img.src = this.implantData.imgName;

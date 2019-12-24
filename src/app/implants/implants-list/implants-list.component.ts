@@ -28,7 +28,7 @@ export class ImplantsListComponent implements OnInit {
   implantList:any=[]
   dbImplantList:any=[]
   searchByString:any;
-  displayedColumns: string[] = ['implantManufacture', 'objectName', 'createdOn', '_id'];
+  displayedColumns: string[] = ['implantManufacture', 'objectName', 'createdOn', 'modifiedOn', '_id'];
   noRecords = false
   showErrorDetails: boolean = false
   recordsExists:boolean = true
@@ -44,7 +44,7 @@ export class ImplantsListComponent implements OnInit {
       fields: {},
       offset: '',
       limit: '',
-      order: {"createdOn": -1},
+      order: {"modifiedOn": -1},
     }
     if(searchString) {
       let searchTrim = this.searchByString.trim();
@@ -85,8 +85,11 @@ export class ImplantsListComponent implements OnInit {
   }
 
   view(implantData: any) {
-   // implantData._id= new Buffer(implantData._id.toString()).toString('base64');
     this.router.navigate(['/', 'admin', 'implant-view', implantData._id]) 
   }
+
+  edit(implantData: any) {
+     this.router.navigate(['/', 'admin', 'implant-edit', implantData._id])
+   }
   
 }

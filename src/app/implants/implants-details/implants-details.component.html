@@ -66,7 +66,7 @@
                                     <div class="col-md-12">
                                         <div style="" id="img-container" >
                                             <img class="detailImage" id="displayImage" [src]= "implantData.imgName">
-                                            <div id="area-border" [style.width.px] = "implantData.objectLocation.width ? implantData.objectLocation.width : 0"
+                                            <div *ngIf="displayHighlite" id="area-border" [style.width.px] = "implantData.objectLocation.width ? implantData.objectLocation.width : 0"
                                             [style.height.px] = "implantData.objectLocation.height ? implantData.objectLocation.height : 0"
                                             [style.top.px] = "implantData.objectLocation.top ? implantData.objectLocation.top : 0"
                                             [style.left.px] = "implantData.objectLocation.left ? implantData.objectLocation.left : 0"

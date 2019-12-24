@@ -12,6 +12,8 @@ import { SupportsComponent } from 'app/supports/supports.component';
 import { ImplantsListComponent } from 'app/implants/implants-list/implants-list.component';
 import { ImplantsDetailsComponent } from 'app/implants/implants-details/implants-details.component';
 import { MachineLearningComponent } from 'app/implants/machine-learning/machine-learning.component';
+import { ImplantAppTestComponent } from 'app/implant-app-test/implant-app-test.component';
+import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.component';
 
 export const AdminLayoutRoutes: Routes = [
     {
@@ -65,8 +67,18 @@ export const AdminLayoutRoutes: Routes = [
         canActivate: [AdminGuard]
     },
     {
+        path: 'implant-edit/:id',
+        component: ImplantsEditComponent,
+        canActivate: [AdminGuard]
+    },
+    {
         path: 'machine-learning',
         component: MachineLearningComponent,
+        canActivate: [AdminGuard]
+    },
+    {
+        path: 'addImplantTestApp',
+        component: ImplantAppTestComponent,
         canActivate: [AdminGuard]
     }
 ];

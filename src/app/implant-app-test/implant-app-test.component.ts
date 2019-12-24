@@ -22,11 +22,11 @@ export interface Name {
 
 
 @Component({
-  selector: 'app-implants',
-  templateUrl: './implants.component.html',
-  styleUrls: ['./implants.component.scss']
+  selector: 'app-implant-app-test',
+  templateUrl: './implant-app-test.component.html',
+  styleUrls: ['./implant-app-test.component.scss']
 })
-export class ImplantsComponent implements OnInit {
+export class ImplantAppTestComponent implements OnInit {
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
   @ViewChild('implantForm', {static: false}) implantForm
   userId: string = localStorage.getItem("userId") || ""
@@ -181,7 +181,6 @@ export class ImplantsComponent implements OnInit {
         fd.append(key, formData[key])
       }
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
-        fd.append('addBy', "admin");
 
         this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
         this.loaderHide();

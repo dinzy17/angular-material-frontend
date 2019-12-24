@@ -5,7 +5,7 @@ import { FormsModule, FormGroup, FormControl, FormBuilder, FormArray, Validators
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { debounce, cloneDeep } from 'lodash'
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { APIService } from 'app/api.service'
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -19,16 +19,15 @@ export interface Name {
   objectName: string;
 }
 
-
-
 @Component({
-  selector: 'app-implants',
-  templateUrl: './implants.component.html',
-  styleUrls: ['./implants.component.scss']
+  selector: 'app-implants-edit',
+  templateUrl: './implants-edit.component.html',
+  styleUrls: ['./implants-edit.component.scss']
 })
-export class ImplantsComponent implements OnInit {
+export class ImplantsEditComponent implements OnInit {
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
   @ViewChild('implantForm', {static: false}) implantForm
+  id: any =""
   userId: string = localStorage.getItem("userId") || ""
   imageChangedEvent: any = ''
   croppedImage: any = ''
@@ -54,25 +53,76 @@ export class ImplantsComponent implements OnInit {
   dialogRef:any ="";
   removaProcessError: any = [];
   validationError: boolean = false;
-  constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
+  implantDetail: any ={};
+  changeImage: boolean = false
+  displayHighlite: boolean = false
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.loader()
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params.id
+      this.getDetail()
+    })
     /* Initiate the form structure */
     this.form = this.fb.group({
-      label: ['', [ Validators.required, Validators.maxLength(150)]],
-      implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]],
+      label: ["", [ Validators.required, Validators.maxLength(150)]],
+      implantManufacture: ["", [ Validators.required, Validators.maxLength(150)]],
       removalSection: this.fb.array([
         this.fb.group({
-          removalProcess: ['', Validators.required],
+          removalProcess: ["", Validators.required],
           surgeryDate: ["", [Validators.required]],
-          surgeryLocation: ['', [Validators.required]]
+          surgeryLocation: ["", [Validators.required]]
         })
      ])  
     })
-    
-
     // call get manufacture for auto complete.
     this.getManufacture()
+  }
+
+  getDetail(){
+    this.api.apiRequest('post', 'implant/implantView', { id: this.id }).subscribe(result => {
+      if(result.status == "success") {
+        this.implantDetail = result.data.details
+        this.form.controls.label.setValue(this.implantDetail.objectName)
+        this.form.controls.implantManufacture.setValue(this.implantDetail.implantManufacture)
+        for ( let i = 0; i < this.implantDetail.removImplant.length; i++ ) {
+          if (i > 0){
+            this.addRow();
+          }
+          this.form.controls.removalSection['controls'][i]['controls']['removalProcess'].setValue(this.implantDetail.removImplant[i].removalProcess);
+          this.form.controls.removalSection['controls'][i]['controls']['surgeryDate'].setValue(this.implantDetail.removImplant[i].surgeryDate);    
+          this.form.controls.removalSection['controls'][i]['controls']['surgeryLocation'].setValue(this.implantDetail.removImplant[i].surgeryLocation);    
+        }
+
+        // for image display.
+        let img = new Image();
+          img.onload = () => {
+            var height = img.height;
+            var width = img.width;
+            // code here to use the dimensions
+            let dispyaImgage = document.getElementById('displayImage') as HTMLInputElement
+            var currWidth = dispyaImgage.clientWidth;
+            var currHeight = dispyaImgage.clientHeight;
+            const a = this.implantDetail.objectLocation.height
+            this.implantDetail.objectLocation.height = ( currHeight * this.implantDetail.objectLocation.height ) / height
+            this.implantDetail.objectLocation.top = ( currHeight * this.implantDetail.objectLocation.top ) / height
+            this.implantDetail.objectLocation.left = ( currWidth * this.implantDetail.objectLocation.left ) / width
+            this.implantDetail.objectLocation.width = (currWidth * this.implantDetail.objectLocation.width ) / width
+            this.displayHighlite = true
+            this.loaderHide()
+          }
+          img.src = this.implantDetail.imgName;
+
+
+       // this.loaderHide()
+      } else {
+        this.loaderHide()
+      }
+    }, (err) => {
+      this.loaderHide()
+      console.error(err)
+    })
   }
 
   /**
@@ -159,8 +209,14 @@ export class ImplantsComponent implements OnInit {
         this.removaProcessError[index] = false
       }
     }
-    
-    if(this.uploadedFile && this.uploadedFile.name !="" && !this.validationError ) {
+  
+    if (this.changeImage) {
+      if ((this.uploadedFile === undefined || this.uploadedFile.name == "")) { 
+          this.imageError = true;
+      }
+    }
+
+    if (!this.imageError && !this.imageValidError && !this.validationError){
       this.loader();
       this.disabledSave = true
       const formData = {
@@ -176,18 +232,23 @@ export class ImplantsComponent implements OnInit {
         labelOffsetY: this.labelOffsetY
       }
       const fd = new FormData()
-      fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
+      if (this.changeImage) {
+        fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
+      }
+      
       for (var key in formData) {
         fd.append(key, formData[key])
       }
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
         fd.append('addBy', "admin");
-
-        this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
+        fd.append('implantId', this.id);
+        
+        this.api.apiRequest('post', 'implant/editImageToCollection', fd).subscribe(result => {
         this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
-          this.implantForm.resetForm();
+          this.router.navigate(['/', 'admin', 'implant-list'])
+          //this.implantForm.resetForm();
         } else {
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         }
@@ -197,9 +258,7 @@ export class ImplantsComponent implements OnInit {
         console.error(err)
         this.disabledSave = false
       })
-    } else {
-      this.imageError = true;
-    } 
+    }
   }
 
   resetValues() {
@@ -266,7 +325,6 @@ export class ImplantsComponent implements OnInit {
 
   // for loder
   loader(){
-
     this.dialogRef = this.dialog.open(SidLoderComponentComponent,{
        panelClass: 'lock--panel',
        backdropClass: 'lock--backdrop',
@@ -277,5 +335,21 @@ export class ImplantsComponent implements OnInit {
    loaderHide(){
      this.dialogRef.close();
    }
+
+   imageChange(){
+    this.changeImage = true
+    this.imageError = false
+    this.imageValidError = false
+   }  
+
+   cancelImageChange(){
+    this.changeImage = false
+    this.imageError = false
+    this.imageValidError = false
+   }
+
+   cancel(){
+    this.router.navigate(['/', 'admin', 'implant-list'])
+  }
 
 }

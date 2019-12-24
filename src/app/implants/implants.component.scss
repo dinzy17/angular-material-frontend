@@ -88,6 +88,16 @@
   color: red !important;
 }
 
-[_nghost-ukt-c11] .cropper[_ngcontent-ukt-c11]{
-  color: #ef1c06 !important;
+::ng-deep {
+  .cropper{
+    color: #ef1c06 !important;
+    &::after{
+      border: 3px solid #ef1c06 !important;
+    }
+    .resize {
+      .square {
+        background: #ef1c06 !important;
+      }
+    }
+  }
 }
