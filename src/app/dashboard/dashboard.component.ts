@@ -14,15 +14,17 @@ export class DashboardComponent implements OnInit {
 
   totalUser: any = "0";
   totalImplant: any = "0";
+  totalSupports: any = "0";
   constructor(private router: Router, private api:APIService, private snack: MatSnackBar) { }
   ngOnInit() {
     this.getTotalUser()
     this.getTotalImplant()
+    this.getTotalSupports();
   }
   
   getTotalUser() {
     const req_vars = {
-      query: Object.assign({ userType: "appUser"}),
+      query: Object.assign({}),
       fields: { _id:1 },
       offset: '',
       limit: '',
@@ -61,8 +63,26 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  getTotalSupports() {
+    this.api.apiRequest("post", "support/totalUnresolved", {}).subscribe(
+      result => {
+        if(result.data.totalSupport > 0) {
+          this.totalSupports = result.data.totalSupport
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  } 
+  
+
   implant(){
     this.router.navigate(['/', 'admin', 'implant-list'])
+  }
+
+  supports() {
+    this.router.navigate(['/', 'admin', 'supports'])
   }
 
 }

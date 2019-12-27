@@ -12,6 +12,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   templateUrl: './cms.component.html',
   styleUrls: ['./cms.component.css']
 })
+
 export class CMSComponent implements OnInit {
   public Editor = ClassicEditor;  
   public cmsForm: FormGroup;
@@ -25,7 +26,9 @@ export class CMSComponent implements OnInit {
   this.getCmsPages()
   }
 
-  save(){
+  // for file upload
+
+  save() {
     this.api.apiRequest('post', 'cms/modify', this.pages).subscribe(result => {
       if(result.status == "success"){
         this.snack.open("content successfully modifyed!", 'OK', { duration: 3000 })
@@ -49,5 +52,4 @@ export class CMSComponent implements OnInit {
       console.error(err)
     })
   }
-
 }

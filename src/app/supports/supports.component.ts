@@ -25,7 +25,7 @@ export class SupportsComponent implements OnInit {
   supportList:any=[]
   dbSupportList:any=[]
   searchByString:any;
-  displayedColumns: string[] = ['senderEmail', 'query', 'sendReplay','createdOn', '_id'];
+  displayedColumns: string[] = ['name', 'senderEmail', 'query', 'sendReplay','createdOn', '_id'];
   noRecords = false
   showErrorDetails: boolean = false
   recordsExists:boolean = true
@@ -38,11 +38,11 @@ export class SupportsComponent implements OnInit {
   list(searchString = null) {
     const req_vars = {
       query: Object.assign({}),
-      fields: { senderEmail:1, query:1, replay:1, sendReplay:1, _id:1, createdOn:1 },
+      fields: { name:1, senderEmail:1, query:1, replay:1, sendReplay:1, _id:1, createdOn:1 },
       offset: '',
       limit: '',
-      order: {"createdOn": 1},
-    }
+      order: { "createdOn": -1 },
+    } 
     if(searchString) {
       let searchTrim = this.searchByString.trim();
       req_vars.query['SearchQuery'] = searchTrim;

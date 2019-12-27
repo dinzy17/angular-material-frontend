@@ -1,16 +1,29 @@
+<div class="confirm--header">
+    <mat-icon (click)="closeModal()" class="modal--close icon--cross cursor-pointer">cancel</mat-icon>
+</div>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h4 class="card-title">Replay to support</h4>
+                    <h4 class="card-title">Reply to support</h4>
                 </div>
                 <div class="card-body">
                     <form [formGroup]="form" (ngSubmit)="send(form.value)" #emialForm="ngForm">
+                            <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="example-full-width" >Raised On: </label> <span>{{ data.createdOn | date: 'MM/dd/yyyy' }}</span>
+                                    </div>
+                                </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label class="example-full-width" >Sender Email: </label> <span>{{ data.senderEmail }}</span>
+                                <label class="example-full-width" >Name: </label> <span>{{ data.name }}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="example-full-width" >Email: </label> <span>{{ data.senderEmail }}</span>
                             </div>
                         </div>
                         <div class="row">
@@ -29,7 +42,8 @@
                                   </mat-form-field>
                               </div>
                           </div>
-                        <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-theme">Send Replay</button>
+                          <button mat-raised-button type="button" (click)="closeModal()" class="btn cancelBtn">Cancel</button>
+                        <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-theme">Send</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>

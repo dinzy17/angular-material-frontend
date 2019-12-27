@@ -24,9 +24,8 @@ export class SupportEditComponent implements OnInit {
       replay: [this.data.replay, Validators.compose([ Validators.required ])],
     })
     
-    this.data.replay.replace(/<br ?\/?>/g, "\n");
-    
-    this.form.get('replay').setValue(this.data.replay); 
+    let replace = this.data.replay.replace(/<br>/gi, '\n');
+    this.form.get('replay').setValue(replace); 
   }
   
   closeModal(): void {
