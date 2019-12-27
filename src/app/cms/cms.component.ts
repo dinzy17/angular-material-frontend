@@ -28,7 +28,7 @@ export class CMSComponent implements OnInit {
 
   // for file upload
 
-  save() {
+  save(){
     this.api.apiRequest('post', 'cms/modify', this.pages).subscribe(result => {
       if(result.status == "success"){
         this.snack.open("content successfully modifyed!", 'OK', { duration: 3000 })
@@ -44,7 +44,6 @@ export class CMSComponent implements OnInit {
     this.api.apiRequest('post', 'cms/getPages', this.pages).subscribe(result => {
       if(result.status == "success"){
         this.pages = result.data.cmsList
-        console.log(this.pages);
       } else {
         this.snack.open(result.data, 'OK', { duration: 3000 })
       }
@@ -52,4 +51,5 @@ export class CMSComponent implements OnInit {
       console.error(err)
     })
   }
+
 }
