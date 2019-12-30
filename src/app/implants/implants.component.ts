@@ -183,7 +183,7 @@ export class ImplantsComponent implements OnInit {
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
         fd.append('addBy', "admin");
 
-        this.api.apiRequest('post', 'implant/addImageToCollectionTest', fd).subscribe(result => {
+        this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
         this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
