@@ -14,7 +14,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/implant-list', title: 'Implant Image Listing',  icon:'image', class: '' },
     { path: '/admin/machine-learning', title: 'Machine Learning Status',  icon:'computer', class: '' },
     { path: '/admin/analyze', title: 'Analyze Image',  icon:'image_search', class: '' },
-    { path: '/admin/cms', title: 'App CMS',  icon:'description', class: '' }
+    { path: '/admin/cms', title: 'App CMS',  icon:'description', class: '' },
+    { path: '/admin/supports', title: 'Supports',  icon:'contact_support', class: '' }
 ]
 
 @Component({
