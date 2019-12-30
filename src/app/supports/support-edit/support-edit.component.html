@@ -1,6 +1,3 @@
-<div class="confirm--header">
-    <mat-icon (click)="closeModal()" class="modal--close icon--cross cursor-pointer">cancel</mat-icon>
-</div>
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
@@ -13,22 +10,22 @@
                     <form [formGroup]="form" (ngSubmit)="send(form.value)" #emialForm="ngForm">
                             <div class="row">
                                     <div class="col-md-12">
-                                        <label class="example-full-width" >Raised On: </label> <span>{{ data.createdOn | date: 'MM/dd/yyyy' }}</span>
+                                        <label class="example-full-width" >Raised On: </label>  <span> {{ data.createdOn | date: 'MM/dd/yyyy' }}</span>
                                     </div>
                                 </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label class="example-full-width" >Name: </label> <span>{{ data.name }}</span>
+                                <label class="example-full-width" >Name: </label> <span> {{ data.name }}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label class="example-full-width" >Email: </label> <span>{{ data.senderEmail }}</span>
+                                <label class="example-full-width" >Email: </label> <span> {{ data.senderEmail }}</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <label class="example-full-width" >Query: </label> <span>{{ data.query }}</span>
+                                <label class="example-full-width" >Query: </label> <span> {{ data.query }}</span>
                             </div>
                         </div>
                         <div class="row">
@@ -43,7 +40,7 @@
                               </div>
                           </div>
                           <button mat-raised-button type="button" (click)="closeModal()" class="btn cancelBtn">Cancel</button>
-                        <button mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-theme">Send</button>
+                        <button [hidden] = "data.sendReplay == 'Yes'" mat-raised-button type="submit" [disabled]="!form.valid" class="btn btn-theme">Send</button>
                         <div class="clearfix"></div>
                     </form>
                 </div>

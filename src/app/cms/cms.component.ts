@@ -18,26 +18,44 @@ export class CMSComponent implements OnInit {
   public cmsForm: FormGroup;
   pages: any[] = []
   editorData: any[] = []
+  errorContent: any = []
   public model = {
     editorData: '<p>Hello, world!</p>'
   };
+  validationError = false;
   constructor(private router: Router, private fb: FormBuilder, private api:APIService, private snack: MatSnackBar,) { }
   ngOnInit() {
+    this.errorContent = [
+      { "id":"1", "error": false },
+      { "id":"2", "error": false },
+      { "id":"3", "error": false },
+      { "id":"4", "error": false }
+    ]
   this.getCmsPages()
+
   }
 
   // for file upload
 
-  save(){
-    this.api.apiRequest('post', 'cms/modify', this.pages).subscribe(result => {
-      if(result.status == "success"){
-        this.snack.open("content successfully modifyed!", 'OK', { duration: 3000 })
-      } else {
-        this.snack.open(result.data, 'OK', { duration: 3000 })
+  save() {
+    this.validationError = false
+    for (let prop in this.pages) {
+      if(this.pages[prop].content == ""){
+        this.errorContent[prop].error = true
+        this.validationError = true
       }
-    }, (err) => {
-      console.error(err)
-    })
+    }
+    if(!this.validationError){
+     this.api.apiRequest('post', 'cms/modify', this.pages).subscribe(result => {
+        if(result.status == "success"){
+          this.snack.open("Content updated successfully.", 'OK', { duration: 3000 })
+        } else {
+          this.snack.open(result.data, 'OK', { duration: 3000 })
+        }
+      }, (err) => {
+        console.error(err)
+      }) 
+    }
   }
 
   getCmsPages() {

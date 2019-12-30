@@ -9,7 +9,7 @@
                   <div class="row" >
                       <form class="full-width">
                         <mat-form-field class="full--width">
-                          <input matInput placeholder="Search by Sender Email, Quary and replay ans" name="searchByString" [(ngModel)]="searchByString" (keyup)="searchBy()">
+                          <input matInput placeholder="Search by sender email and query." name="searchByString" [(ngModel)]="searchByString" (keyup)="searchBy()">
                         </mat-form-field>
                       </form>
                     </div>
@@ -31,7 +31,7 @@
               
                     <ng-container matColumnDef="sendReplay">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-                      <td mat-cell *matCellDef="let element"> {{ element.sendReplay == 'Yes' ? "Resolved" : "Un-resolved" }}</td>
+                      <td mat-cell *matCellDef="let element"> {{ element.sendReplay == 'Yes' ? "Resolved" : "Unresolved" }}</td>
                     </ng-container>
 
                     <ng-container matColumnDef="createdOn">
@@ -42,7 +42,7 @@
                     <ng-container matColumnDef="_id">
                       <th mat-header-cell *matHeaderCellDef> Action </th>
                       <td mat-cell *matCellDef="let element">
-                        <a [hidden] = "element.sendReplay == 'Yes'"  class="cursor-pointer btn btn-theme white-color" (click)="view(element)">Reply</a>
+                        <a class="cursor-pointer btn btn-theme white-color" (click)="view(element)">{{ element.sendReplay == 'Yes' ? "View" : "Reply" }}</a> 
                       </td>
                     </ng-container>
               

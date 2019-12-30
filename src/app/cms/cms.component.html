@@ -10,6 +10,9 @@
                   {{page.pageName}}
                 </ng-template>
                 <ckeditor [(ngModel)]="pages[i].content"  [editor]="Editor" ></ckeditor>
+                <mat-error class="error--handing" *ngIf= "errorContent[i].error && this.validationError" >
+                    {{ "Can't blank content." }}
+                </mat-error>
                 </mat-tab>
             </mat-tab-group>
             <button type="button" class="btn btn-theme" (click)="save()">Save</button>

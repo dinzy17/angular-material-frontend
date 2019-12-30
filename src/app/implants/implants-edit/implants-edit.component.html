@@ -131,6 +131,9 @@
                             <div class="col-md-6" *ngIf = "changeImage">
                                 <div class="row form-group ">
                                     <div class="col-md-12">
+                                    <div class="row col-md-12 m-b-15">
+                                        <button type="button" (click)="cancelImageChange()" class="btn btn-theme">Cancel change image </button>
+                                    </div>
                                       <div class="implant--image--container" (focus)="test()">
                                         <label for="implantImage" class="implant--image--lable">
                                             Drop image or click to upload
@@ -159,15 +162,15 @@
                                         ></image-cropper>
                                       </div>
                                     </div>
-                                    <div class="row col-md-12 form--bottom">
-                                      <button type="button" (click)="cancelImageChange()" class="btn btn-theme m-t-50">Cancel change image </button>
-                                    </div>
                                 </div>
                             </div>
                              <!-- for display existing image -->
                              <div class="col-md-6" *ngIf="!changeImage">
                               <div class="row form-group ">
                                 <div class="col-md-12">
+                                    <div class="row col-md-12 m-b-15">
+                                        <button type="button" (click)="imageChange()" class="btn btn-theme">Change Image </button>
+                                    </div>
                                     <div style="" id="img-container" >
                                         <img class="detailImage" id="displayImage" [src]= "implantDetail.imgName">
                                         <div *ngIf="displayHighlite" id="area-border" [style.width.px] = "implantDetail.objectLocation.width ? implantDetail.objectLocation.width : 0"
@@ -175,9 +178,6 @@
                                         [style.top.px] = "implantDetail.objectLocation.top ? implantDetail.objectLocation.top : 0"
                                         [style.left.px] = "implantDetail.objectLocation.left ? implantDetail.objectLocation.left : 0"
                                         ></div>
-                                    </div>
-                                    <div class="row col-md-12 form--bottom">
-                                      <button type="button" (click)="imageChange()" class="btn btn-theme m-t-50">Change Image </button>
                                     </div>
                                 </div>
                               </div>

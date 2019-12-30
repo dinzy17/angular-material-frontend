@@ -340,6 +340,7 @@ export class ImplantsEditComponent implements OnInit {
     this.changeImage = true
     this.imageError = false
     this.imageValidError = false
+    this.resetImage()
    }  
 
    cancelImageChange(){
@@ -352,4 +353,17 @@ export class ImplantsEditComponent implements OnInit {
     this.router.navigate(['/', 'admin', 'implant-list'])
   }
 
+  resetImage() {
+    this.uploadedFile = null
+    this.croppedImage = ""
+    this.imageChangedEvent = null
+    this.imageWidth = 0
+    this.imageHeight = 0
+    this.labelWidth = 0
+    this.labelHeight = 0
+    this.labelOffsetX = 0
+    this.labelOffsetY = 0
+    let img = document.getElementById('implantImage') as HTMLInputElement
+    img.value = ""
+  }
 }
