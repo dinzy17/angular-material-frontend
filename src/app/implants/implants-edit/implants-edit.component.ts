@@ -59,7 +59,7 @@ export class ImplantsEditComponent implements OnInit {
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.loader()
+    //this.loader()
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params.id
       this.getDetail()
@@ -243,12 +243,13 @@ export class ImplantsEditComponent implements OnInit {
         fd.append('addBy', "admin");
         fd.append('implantId', this.id);
         
-        this.api.apiRequest('post', 'implant/editImageToCollection', fd).subscribe(result => {
+       // this.api.apiRequest('post', 'implant/editImageToCollection', fd).subscribe(result => {
+        this.api.apiRequest('post', 'implant/editImplantApi', fd).subscribe(result => {
         this.loaderHide();
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
           this.router.navigate(['/', 'admin', 'implant-list'])
-          //this.implantForm.resetForm();
+          this.implantForm.resetForm();
         } else {
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         }
