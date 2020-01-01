@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthHeaderComponent } from './auth-header/auth-header.component';
+import { MainSiteHeaderComponent } from './main-site-header/main-site-header.component';
 
 @NgModule({
   imports: [
@@ -16,13 +17,15 @@ import { AuthHeaderComponent } from './auth-header/auth-header.component';
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    AuthHeaderComponent
+    AuthHeaderComponent,
+    MainSiteHeaderComponent
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
-    AuthHeaderComponent
+    AuthHeaderComponent,
+    MainSiteHeaderComponent
   ]
 })
 export class ComponentsModule { }

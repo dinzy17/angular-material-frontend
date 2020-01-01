@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 
 @Component({
-  selector: 'app-forgot',
+  selector: 'app-admin-forgot',
   templateUrl: './forgot.component.html',
   styleUrls: ['./forgot.component.css']
 })

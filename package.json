@@ -1,7 +1,8 @@
 {
-  "name": "material-dashboard-angular",
+  "name": "Dinesh-Patil-custom-frontend-with-material",
   "version": "2.3.0",
   "license": "MIT",
+  "author": "Dinesh Patil",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

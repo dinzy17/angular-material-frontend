@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-"@agm/core@1.0.0-beta.6":
-  version "1.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@agm/core/-/core-1.0.0-beta.6.tgz#89a812b4b4ceb4d9cf2195400423c4b833103c5e"
-
 "@angular-devkit/architect@0.800.2":
   version "0.800.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.800.2.tgz#0924864e57d1e56bddeae257c8779a2662c34e69"

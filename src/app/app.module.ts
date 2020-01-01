@@ -9,6 +9,7 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { MainSiteLayoutComponent } from './layouts/main-site-layout/main-site-layout.component';
 import { APIService } from './api.service';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { APIService } from './api.service';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    MainSiteLayoutComponent
   ],
   providers: [
     APIService
