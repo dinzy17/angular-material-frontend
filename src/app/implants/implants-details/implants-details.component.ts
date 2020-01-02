@@ -14,11 +14,15 @@ export class ImplantsDetailsComponent implements OnInit {
   implantData: any ={};
   dialogRef:any ="";
   displayHighlite: boolean = false
+  height: any = []
+  width: any = []
+  left: any = []
+  top: any = []
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private api:APIService, private dialog: MatDialog ) {
    }
 
   ngOnInit() {
-  this.loader()
+ // this.loader()
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params.id
       this.getDetail()
@@ -29,23 +33,37 @@ export class ImplantsDetailsComponent implements OnInit {
     this.api.apiRequest('post', 'implant/implantView', { id: this.id }).subscribe(result => {
       if(result.status == "success") {
           this.implantData = result.data.details
-          let img = new Image();
-          img.onload = () => {
+          console.log(this.implantData.imageData.length);
+          for (let i = 0; i < this.implantData.imageData.length; i ++ ){
+            
+            let img = new Image();
+           img.onload = () => {
             var height = img.height;
             var width = img.width;
             // code here to use the dimensions
-            let dispyaImgage = document.getElementById('displayImage') as HTMLInputElement
+            let dispyaImgage = document.getElementById('displayImage'+i) as HTMLInputElement
             var currWidth = dispyaImgage.clientWidth;
             var currHeight = dispyaImgage.clientHeight;
-            const a = this.implantData.objectLocation.height
-            this.implantData.objectLocation.height = ( currHeight * this.implantData.objectLocation.height ) / height
-            this.implantData.objectLocation.top = ( currHeight * this.implantData.objectLocation.top ) / height
-            this.implantData.objectLocation.left = ( currWidth * this.implantData.objectLocation.left ) / width
-            this.implantData.objectLocation.width = (currWidth * this.implantData.objectLocation.width ) / width
-            this.displayHighlite = true
-            this.loaderHide()
+
+            this.height[i] = ( currHeight * this.implantData.imageData[i].objectLocation.height ) / height
+            this.width[i] = (currWidth * this.implantData.imageData[i].objectLocation.width ) / width
+            this.top[i] = ( currHeight * this.implantData.imageData[i].objectLocation.top ) / height
+            this.left[i] = ( currWidth * this.implantData.imageData[i].objectLocation.left ) / width
+            console.log(this.height[i])
+            console.log(this.width[i])
+            console.log(this.top[i])
+            console.log(this.left[i])
+
+            // this.implantData.objectLocation.height = ( currHeight * this.implantData.objectLocation.height ) / height
+            // this.implantData.objectLocation.top = ( currHeight * this.implantData.objectLocation.top ) / height
+            // this.implantData.objectLocation.left = ( currWidth * this.implantData.objectLocation.left ) / width
+            // this.implantData.objectLocation.width = (currWidth * this.implantData.objectLocation.width ) / width
+           // this.displayHighlite = true
+           }
+          img.src = this.implantData.imageData[i].imageName; 
           }
-          img.src = this.implantData.imgName;
+         // this.loaderHide();
+          this.displayHighlite = true
       } else {
         this.loaderHide()
         //this.snack.open(result.data.message, 'OK', { duration: 5000 });

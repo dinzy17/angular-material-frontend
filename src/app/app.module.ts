@@ -16,6 +16,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,

@@ -171,14 +171,17 @@
                                     <div class="row col-md-12 m-b-15">
                                         <button type="button" (click)="imageChange()" class="btn btn-theme">Change Image </button>
                                     </div>
-                                    <div style="" id="img-container" >
+                                    <div class="col-md-6" *ngFor = "let images of implantDetail.imageData; let i=index">
+                                            <img class="image--gallery" [src]= "implantDetail.imageData[i].imageName">
+                                    </div>
+                                    <!-- <div style="" id="img-container" >
                                         <img class="detailImage" id="displayImage" [src]= "implantDetail.imgName">
                                         <div *ngIf="displayHighlite" id="area-border" [style.width.px] = "implantDetail.objectLocation.width ? implantDetail.objectLocation.width : 0"
                                         [style.height.px] = "implantDetail.objectLocation.height ? implantDetail.objectLocation.height : 0"
                                         [style.top.px] = "implantDetail.objectLocation.top ? implantDetail.objectLocation.top : 0"
                                         [style.left.px] = "implantDetail.objectLocation.left ? implantDetail.objectLocation.left : 0"
                                         ></div>
-                                    </div>
+                                    </div> -->
                                 </div>
                               </div>
                           </div>

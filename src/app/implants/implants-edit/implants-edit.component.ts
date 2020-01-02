@@ -96,7 +96,7 @@ export class ImplantsEditComponent implements OnInit {
         }
 
         // for image display.
-        let img = new Image();
+        /* let img = new Image();
           img.onload = () => {
             var height = img.height;
             var width = img.width;
@@ -112,7 +112,7 @@ export class ImplantsEditComponent implements OnInit {
             this.displayHighlite = true
             this.loaderHide()
           }
-          img.src = this.implantDetail.imgName;
+          img.src = this.implantDetail.imgName; */
 
 
        // this.loaderHide()

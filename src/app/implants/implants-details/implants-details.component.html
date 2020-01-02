@@ -62,16 +62,19 @@
                                 </div>  
                               </div>
                               <div class="col-md-6">
-                                  <div class="row form-group ">
+                                  <div class="row form-group" *ngFor = "let images of implantData.imageData; let i=index">
                                     <div class="col-md-12">
-                                        <div style="" id="img-container" >
-                                            <img class="detailImage" id="displayImage" [src]= "implantData.imgName">
-                                            <div *ngIf="displayHighlite" id="area-border" [style.width.px] = "implantData.objectLocation.width ? implantData.objectLocation.width : 0"
-                                            [style.height.px] = "implantData.objectLocation.height ? implantData.objectLocation.height : 0"
-                                            [style.top.px] = "implantData.objectLocation.top ? implantData.objectLocation.top : 0"
-                                            [style.left.px] = "implantData.objectLocation.left ? implantData.objectLocation.left : 0"
+                                        <!-- <div class="col-md-6" >
+                                            <img class="image--gallery" id="displayImage" [src]= "implantData.imageData[i].imageName" />
+                                        </div> -->
+                                         <div class="img-container" >
+                                            <img class="detailImage" id="displayImage{{ i }}" [src]= "implantData.imageData[i].imageName">
+                                            <div *ngIf="displayHighlite" class="area-border" [style.width.px] = "width[i] ? width[i] : 0"
+                                            [style.height.px] = "height[i] ? height[i] : 0"
+                                            [style.top.px] = "top[i] ? top[i] : 0"
+                                            [style.left.px] = "left[i] ? left[i] : 0"
                                             ></div>
-                                        </div>
+                                        </div> 
                                     </div>
                                   </div>
                               </div>

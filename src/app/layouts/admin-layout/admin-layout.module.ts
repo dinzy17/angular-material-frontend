@@ -23,6 +23,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { MachineLearningComponent } from 'app/implants/machine-learning/machine-learning.component';
 import { ImplantAppTestComponent } from 'app/implant-app-test/implant-app-test.component';
 import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.component';
+import { AddImageImplantComponent } from 'app/implants/add-image-implant/add-image-implant.component';
 import {
   MatButtonModule,
   MatInputModule,
@@ -68,7 +69,7 @@ import {
     MatProgressSpinnerModule,
     CKEditorModule
   ],
-  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SupportEditComponent], //SidLoderComponentComponent,
+  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SupportEditComponent, AddImageImplantComponent], //SidLoderComponentComponent,
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -86,7 +87,8 @@ import {
     ImplantsDetailsComponent,
     MachineLearningComponent,
     ImplantAppTestComponent,
-    ImplantsEditComponent
+    ImplantsEditComponent,
+    AddImageImplantComponent
   ],
   providers: [ AdminGuard ],
 })

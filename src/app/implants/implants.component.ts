@@ -10,6 +10,7 @@ import { APIService } from 'app/api.service'
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
+import { AddImageImplantComponent } from 'app/implants/add-image-implant/add-image-implant.component';
 export interface Manufature {
   implantManufacture: string;
 }
@@ -264,6 +265,16 @@ export class ImplantsComponent implements OnInit {
       this.names = [];
     }
   }, 500)
+
+
+  imageUpload() {
+      const dialogRef = this.dialog.open(AddImageImplantComponent,{
+        width: "65%",
+        height:"80%",
+        disableClose: false,
+        data:"assdasd"
+      });
+  }
 
   // for loder
   loader(){
