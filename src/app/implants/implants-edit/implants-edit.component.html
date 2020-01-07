@@ -128,64 +128,26 @@
                                 </div>
                             </div>
                             <!-- for change image -->
-                            <div class="col-md-6" *ngIf = "changeImage">
-                                <div class="row form-group ">
-                                    <div class="col-md-12">
-                                    <div class="row col-md-12 m-b-15">
-                                        <button type="button" (click)="cancelImageChange()" class="btn btn-theme">Cancel change image </button>
-                                    </div>
-                                      <div class="implant--image--container" (focus)="test()">
-                                        <label for="implantImage" class="implant--image--lable">
-                                            Drop image or click to upload
+                             <!-- for display existing image -->
+                             <!-- <div class="row">
+                                    <button type="button" (click)="imageChange()" class="btn btn-theme">Change Image </button>
+                                    </div> -->
+                            <div class="col-md-6 row">       
+                                <div class="col-md-6" *ngFor = "let images of implantDetail.imageData; let i=index"> 
+                                    <mat-icon (click) ="deleteImage(implantDetail.imageData[i], implantDetail._id )" >delete_forever</mat-icon>
+                                    <img class="image--gallery" (click)="imageView(i)" [src]= "implantDetail.imageData[i].imageName">
+                                </div>
+                                <div class="col-md-6" *ngIf = "this.croppedImage == ''">
+                                    <div class="implant--image--container" (click)="imageChange()" >
+                                        <label  class="implant--image--lable"> 
+                                            click to upload
                                         </label>
-                                         <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
-                                      </div>
-                                      <mat-error class="error--handing custome-error" *ngIf= "imageError" >
-                                          {{ "Select at least one image to uplaod." }}
-                                      </mat-error>
-                                      <mat-error class="error--handing custome-error" *ngIf= "imageValidError" >
-                                        {{ "Only png and jpg file allowed." }}
-                                    </mat-error>
-                                      <div class="crop--preview">
-                                        <label *ngIf="croppedImage">Outline the implant to highlight it on the image below:</label>
-                                        <img class="" [src]="croppedImage" />
-                                      </div>
                                     </div>
-                                    <div class="offset-lg-1 col-md-12">
-                                      <div class="image--cropper">
-                                        <image-cropper
-                                            [imageChangedEvent]="imageChangedEvent"
-                                            [maintainAspectRatio]="false"
-                                            [aspectRatio]="1 / 1"
-                                            format="jpg"
-                                            (imageCropped)="imageCropped($event)"
-                                        ></image-cropper>
-                                      </div>
-                                    </div>
+                                </div>
+                                <div class="col-md-6" *ngIf = "this.croppedImage != ''">
+                                        <img style="width: 100%; height: 100%;" class="image--gallery" [src]= "this.croppedImage">
                                 </div>
                             </div>
-                             <!-- for display existing image -->
-                             <div class="col-md-6" *ngIf="!changeImage">
-                              <div class="row form-group ">
-                                <div class="col-md-12">
-                                    <div class="row col-md-12 m-b-15">
-                                        <button type="button" (click)="imageChange()" class="btn btn-theme">Change Image </button>
-                                    </div>
-                                    <div class="col-md-6" *ngFor = "let images of implantDetail.imageData; let i=index">
-                                            <img class="image--gallery" [src]= "implantDetail.imageData[i].imageName">
-                                    </div>
-                                    <!-- <div style="" id="img-container" >
-                                        <img class="detailImage" id="displayImage" [src]= "implantDetail.imgName">
-                                        <div *ngIf="displayHighlite" id="area-border" [style.width.px] = "implantDetail.objectLocation.width ? implantDetail.objectLocation.width : 0"
-                                        [style.height.px] = "implantDetail.objectLocation.height ? implantDetail.objectLocation.height : 0"
-                                        [style.top.px] = "implantDetail.objectLocation.top ? implantDetail.objectLocation.top : 0"
-                                        [style.left.px] = "implantDetail.objectLocation.left ? implantDetail.objectLocation.left : 0"
-                                        ></div>
-                                    </div> -->
-                                </div>
-                              </div>
-                          </div>
-
                         </div>
                       </form>
                   </div>

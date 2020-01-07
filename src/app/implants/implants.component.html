@@ -26,6 +26,9 @@
                                                         *ngIf="form.controls['implantManufacture'].hasError('maxlength') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
                                                         {{ "The implant's manufactuerer name cannot be greater than 150 characters." }}
                                                     </mat-error>
+                                                    <mat-error class="error--handing" *ngIf="form.controls['implantManufacture'].hasError('manufacturerValidate') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
+                                                        {{ "Manufacture is already registerd." }}
+                                                    </mat-error>
                                                     <mat-autocomplete #auto = "matAutocomplete"  #MatAutocompleteTrigger >
                                                         <mat-option *ngFor="let option of filteredOptions" [value]="option.implantManufacture">
                                                             {{ option.implantManufacture }}
@@ -125,14 +128,32 @@
                                     <button type="submit" [disabled]="!form.valid || disabledSave" class="btn btn-theme">Save</button>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3" *ngIf = "croppedImage == ''">
                                 <div class="row form-group ">
                                     <div class="col-md-12">
-                                      <div class="implant--image--container" (click)="imageUpload()">
+                                      <div class="implant--image--container" (click)="imageUpload(form.value)">
                                         <label class="implant--image--lable"> 
                                             Click to upload
                                         </label>
                                       </div>
+                                      <mat-error class="error--handing custome-error" *ngIf= "imageError" >
+                                            {{ "Select at least one image to uplaod." }}
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3" *ngIf = "croppedImage != ''">
+                                <div class="row form-group ">
+                                    <div class="col-md-12">
+                                      <div class="implant--image--container" (click)="imageUpload(form.value)">
+                                            <img class="previewImg" [src]="croppedImage" />
+                                        <!-- <label class="implant--image--lable"> 
+                                            Click to upload
+                                        </label> -->
+                                      </div>
+                                      <mat-error class="error--handing custome-error" *ngIf= "imageError" >
+                                            {{ "Select at least one image to uplaod." }}
+                                        </mat-error>
                                     </div>
                                 </div>
                             </div>

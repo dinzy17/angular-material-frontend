@@ -1,0 +1,38 @@
+.removal--process{
+    border: 1px solid #CCC;
+    margin-bottom: 10px;
+  }
+  .capitalize{
+    text-transform: capitalize;
+  }
+  
+  .mat-headline {
+    font-size: 20px !important;
+  }
+  .detailImage {
+    max-width: 700px;
+  }
+  .cancelBtn {
+    border: 2px solid #235da8;
+    color: #235da8 !important;
+    background-color: #ffff;
+  }
+
+.area-border{
+  border: 3px solid red;
+  position: absolute;
+}
+
+.img-container {
+  max-width: 500px;
+  max-height: 800px;
+  position: relative;
+}
+.img-container img {
+  width: 100%;
+  height: 100%;
+}
+.image--gallery {
+  width: 300px;
+  height: 300px;
+}

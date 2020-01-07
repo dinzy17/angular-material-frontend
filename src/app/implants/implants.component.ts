@@ -20,8 +20,6 @@ export interface Name {
   objectName: string;
 }
 
-
-
 @Component({
   selector: 'app-implants',
   templateUrl: './implants.component.html',
@@ -55,13 +53,16 @@ export class ImplantsComponent implements OnInit {
   dialogRef:any ="";
   removaProcessError: any = [];
   validationError: boolean = false;
+  data: any = [];
+  manufacturerArray: any = [];
   constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.getManufactureAndBrandname();
     /* Initiate the form structure */
     this.form = this.fb.group({
       label: ['', [ Validators.required, Validators.maxLength(150)]],
-      implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]],
+      implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]], //,[ Validators.required, Validators.maxLength(150)],this.manufacturerValidate
       removalSection: this.fb.array([
         this.fb.group({
           removalProcess: ['', Validators.required],
@@ -71,7 +72,6 @@ export class ImplantsComponent implements OnInit {
      ])  
     })
     
-
     // call get manufacture for auto complete.
     this.getManufacture()
   }
@@ -102,6 +102,24 @@ export class ImplantsComponent implements OnInit {
     }
   }
 
+  // validation for manufecture
+
+  manufacturerValidate(control: FormControl) { 
+    let manufacturer = control.value
+    let isPresent = this.manufacturerArray.some(function(el){ return el.implantManufacture == manufacturer });
+    if (isPresent) { 
+        return {
+          manufacturerValidate: true
+        }
+    }
+    return null
+  }
+
+  getArray(){
+    let manufacturerArrayTest = [{_id:"aSsaSASSA", implantManufacture:"test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}]
+    return manufacturerArrayTest
+  }
+
   /*
   add removal process
   */ 
@@ -116,35 +134,28 @@ export class ImplantsComponent implements OnInit {
   }
 
 
-  //function to get file
-  fileChangeEvent(event: any): void {
-    console.log('event test', event);
-    this.imageChangedEvent = event;
-    this.imageValidError = false
-    let img = document.getElementById('implantImage') as HTMLInputElement
-    const filename = img.files[0].name
-      const fileExt = filename.split(".").splice(-1)[0].toLowerCase()
-        if(this.imageValidExtensions.indexOf(fileExt) == -1) {
-          this.resetValues()
-          this.imageValidError = true
-        } else {
-          this.uploadedFile = img.files[0]
-          this.disabledSave = false
-          this.imageError = false;
-        }
-  }
 
-  //function to assign cropper
-  imageCropped(event: ImageCroppedEvent) {
-      this.croppedImage = event.base64;
-      this.imageWidth = event.imagePosition.x2
-      this.imageHeight = event.imagePosition.y2
-      let widthFactor = this.imageWidth / event.cropperPosition.x2
-      let heightFactor = this.imageHeight / event.cropperPosition.y2
-      this.labelWidth = (event.cropperPosition.x2 - event.cropperPosition.x1) * widthFactor
-      this.labelHeight = (event.cropperPosition.y2 - event.cropperPosition.y1) * heightFactor
-      this.labelOffsetX = event.cropperPosition.x1 * widthFactor
-      this.labelOffsetY = event.cropperPosition.y1 * heightFactor
+  imageUpload(implantData) {
+      const dialogRef = this.dialog.open(AddImageImplantComponent,{
+        width: "65%",
+        height:"80%",
+        disableClose: false,
+        data:this.data
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result != undefined){
+          this.uploadedFile = result.imageData.uploadedFile 
+          this.imageWidth = result.imageData.imageWidth
+          this.imageHeight = result.imageData.imageHeight
+          this.labelWidth = result.imageData.labelWidth
+          this.labelHeight = result.imageData.labelHeight
+          this.labelOffsetX = result.imageData.labelOffsetX
+          this.labelOffsetY = result.imageData.labelOffsetY
+          this.croppedImage = result.imageData.image
+        } else {
+          this.imageError = true;
+        } 
+      })
   }
 
   //function to save details
@@ -160,10 +171,9 @@ export class ImplantsComponent implements OnInit {
         this.removaProcessError[index] = false
       }
     }
-    
-    if(this.uploadedFile && this.uploadedFile.name !="" && !this.validationError ) {
+    if(this.uploadedFile !== undefined && this.uploadedFile.name !="" && !this.validationError) {
       this.loader();
-      this.disabledSave = true
+     // this.disabledSave = true
       const formData = {
         accessToken: localStorage.getItem('token'),
         userId: this.userId,
@@ -190,10 +200,11 @@ export class ImplantsComponent implements OnInit {
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
           this.implantForm.resetForm();
+          this.router.navigate(['/', 'admin', 'implant-edit',result.data.image._id ])
         } else {
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         }
-        this.resetValues()
+       // this.resetValues()
       }, (err) => {
         this.loaderHide();
         console.error(err)
@@ -205,9 +216,6 @@ export class ImplantsComponent implements OnInit {
   }
 
   resetValues() {
-    this.uploadedFile = null
-    this.croppedImage = ""
-    this.imageChangedEvent = null
     this.imageWidth = 0
     this.imageHeight = 0
     this.labelWidth = 0
@@ -215,7 +223,7 @@ export class ImplantsComponent implements OnInit {
     this.labelOffsetX = 0
     this.labelOffsetY = 0
     let img = document.getElementById('implantImage') as HTMLInputElement
-    img.value = ""
+  //  img.value = ""
     const control = <FormArray>this.form.controls['removalSection'];
     for(let i = 0; i <= control.length; i++ ){
       if(i > 0){
@@ -229,6 +237,16 @@ export class ImplantsComponent implements OnInit {
       if (result.status == "success") {
         this.options = result.data.implantList;
         this.optionsAllData = result.data.implantList;
+      }
+    })
+  }
+
+  getManufactureAndBrandname() {
+    this.api.apiRequest('post', 'implant/getManufactureAndBrandName', {}).subscribe(result => {
+      if (result.status == "success") {
+        this.manufacturerArray = result.data.implantList;
+        this.manufacturerArray = [{_id:"aSsaSASSA", implantManufacture:"test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}]
+        console.log('this.manufacturerArray', this.manufacturerArray);
       }
     })
   }
@@ -265,16 +283,6 @@ export class ImplantsComponent implements OnInit {
       this.names = [];
     }
   }, 500)
-
-
-  imageUpload() {
-      const dialogRef = this.dialog.open(AddImageImplantComponent,{
-        width: "65%",
-        height:"80%",
-        disableClose: false,
-        data:"assdasd"
-      });
-  }
 
   // for loder
   loader(){

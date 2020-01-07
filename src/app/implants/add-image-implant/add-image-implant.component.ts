@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MatDialog,MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { APIService } from '../../api.service';
-
+import { SidLoderComponentComponent } from 'app/sid-loder-component/sid-loder-component.component';
 
 @Component({
   selector: 'app-add-image-implant',
@@ -20,10 +20,12 @@ export class AddImageImplantComponent implements OnInit {
   labelOffsetX: any = 0
   labelOffsetY: any = 0
   disabledSave: boolean = false
+  dialogRefLoder:any ="";
   imageValidExtensions: string[] = ['jpg', 'png', 'jpeg']
   imageError: boolean = false
   imageValidError: boolean = false
-
+  returnData: any = {}
+  realImage: any = ""
   constructor( private api: APIService,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<AddImageImplantComponent>,
@@ -36,7 +38,6 @@ export class AddImageImplantComponent implements OnInit {
 
   //function to get file
   fileChangeEvent(event: any): void {
-    console.log('event test', event);
     this.imageChangedEvent = event;
     this.imageValidError = false
     let img = document.getElementById('implantImage') as HTMLInputElement
@@ -78,4 +79,24 @@ export class AddImageImplantComponent implements OnInit {
     let img = document.getElementById('implantImage') as HTMLInputElement
   }
 
+  saveDetail(){
+    if(this.uploadedFile && this.uploadedFile.name !="") {
+      this.returnData.imageWidth = this.imageWidth
+      this.returnData.imageHeight = this.imageHeight,
+      this.returnData.labelWidth = this.labelWidth,
+      this.returnData.labelHeight =  this.labelHeight,
+      this.returnData.labelOffsetX =  this.labelOffsetX,
+      this.returnData.labelOffsetY =  this.labelOffsetY,
+      this.returnData.uploadedFile = this.uploadedFile
+      this.returnData.image = this.croppedImage
+      //this.returnData.uploadedFile = this.realImage
+      this.dialogRef.close({ 'imageData': this.returnData });  
+      } else {
+      this.imageError = true;
+    } 
+  }
+
+  closeBtn(){
+    this.dialogRef.close();  
+  }
 }

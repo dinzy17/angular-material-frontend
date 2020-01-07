@@ -1,0 +1,18 @@
+<!-- <div class="header-model" ><b>Title</b></div> -->
+<div class="col-md-12" style="height: 100%;">
+    <div class="row form-group">
+      <div class="col-md-12">
+           <div class="img-container" >
+              <img class="detailImage" id="displayImage" [src]= "data.imageName">
+              <div *ngIf="displayHighlite" class="area-border" [style.width.px] = "width ? width : 0"
+              [style.height.px] = "height ? height : 0"
+              [style.top.px] = "top ? top : 0"
+              [style.left.px] = "left ? left : 0"
+              ></div>
+          </div> 
+      </div>
+    </div>
+    <div style="position: absolute; bottom: 0">
+        <button type="button" (click)="closeModel()" class="btn cancelBtn">Cancel</button>
+    </div> 
+</div>

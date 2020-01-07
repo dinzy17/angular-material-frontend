@@ -24,6 +24,9 @@ import { MachineLearningComponent } from 'app/implants/machine-learning/machine-
 import { ImplantAppTestComponent } from 'app/implant-app-test/implant-app-test.component';
 import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.component';
 import { AddImageImplantComponent } from 'app/implants/add-image-implant/add-image-implant.component';
+import { ImageViewComponent } from 'app/implants/image-view/image-view.component';
+import { ImplantVerificationComponent } from 'app/implant-verification/implant-verification.component';
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -69,7 +72,7 @@ import {
     MatProgressSpinnerModule,
     CKEditorModule
   ],
-  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SupportEditComponent, AddImageImplantComponent], //SidLoderComponentComponent,
+  entryComponents: [ ConfirmModelComponent, UserDetailComponent, SupportEditComponent, AddImageImplantComponent, ImageViewComponent], //SidLoderComponentComponent,
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -88,7 +91,9 @@ import {
     MachineLearningComponent,
     ImplantAppTestComponent,
     ImplantsEditComponent,
-    AddImageImplantComponent
+    AddImageImplantComponent,
+    ImageViewComponent,
+    ImplantVerificationComponent
   ],
   providers: [ AdminGuard ],
 })

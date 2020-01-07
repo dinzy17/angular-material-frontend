@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" style="height: 100%;">
   <div class="row form-group ">
       <div class="col-md-12">
         <div class="implant--image--container">
@@ -13,10 +13,10 @@
         <mat-error class="error--handing custome-error" *ngIf= "imageValidError" >
           {{ "Only png and jpg file allowed." }}
       </mat-error>
-        <div class="crop--preview">
+        <!-- <div class="crop--preview">
           <label *ngIf="croppedImage">Outline the implant to highlight it on the image below:</label>
           <img class="" [src]="croppedImage" />
-        </div>
+        </div> -->
       </div>
       <div class="offset-lg-1 col-md-12">
         <div class="image--cropper">
@@ -30,4 +30,8 @@
         </div>
       </div>
   </div>
+  <div style="position: absolute; bottom: 0" >
+  <button type="button" (click)="closeBtn()"  class="btn cancelBtn">Cancel</button>
+  <button type="button" (click)="saveDetail()" class="btn btn-theme">Save</button>
+</div>
 </div>
