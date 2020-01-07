@@ -356,9 +356,10 @@ export class ImplantsEditComponent implements OnInit {
     this.api.apiRequest('post', 'implant/deleteImage',implantImageData).subscribe(result => {
       this.loaderHide();
       if(result.status == "success"){
+        this.loaderHide();
         this.getDetail()
         this.snack.open("Successfully delete image !", 'OK', { duration: 3000 })
-        this.getDetail()
+        //this.getDetail()
       } else {
        // this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
       }
