@@ -3,16 +3,16 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
-                    <h4 class="card-title">Implants</h4>
+                    <h4 class="card-title">Verification Requests</h4>
                 </div>
                 <div class="card-body">
-                    <div class="row" >
+                    <!-- <div class="row" >
                         <form class="full-width">
                           <mat-form-field class="full--width mat-headline">
                             <input matInput class="mat-headline-color" placeholder="Search by manufacturer and name" name="searchByString" [(ngModel)]="searchByString" (keyup)="searchBy()">
                           </mat-form-field>
                         </form>
-                      </div>
+                      </div> -->
                   <div class="row" >
                     <table [hidden]="!recordsExists" mat-table [dataSource]="implantList" matSort class="full-width">
                       <ng-container matColumnDef="objectName">

@@ -87,6 +87,8 @@ export class ImplantVerificationViewComponent implements OnInit {
     this.api.apiRequest('post', 'implant/implantView', { id: this.id }).subscribe(result => {
       if(result.status == "success") {
         this.implantDetail = result.data.details
+        this.implantDetail.userFullName = result.data.userFullName
+        let users = result.data.users
         this.form.controls.label.setValue(this.implantDetail.objectName)
         this.form.controls.implantManufacture.setValue(this.implantDetail.implantManufacture)
         for ( let i = 0; i < this.implantDetail.removImplant.length; i++ ) {
@@ -98,6 +100,14 @@ export class ImplantVerificationViewComponent implements OnInit {
           this.form.controls.removalSection['controls'][i]['controls']['surgeryLocation'].setValue(this.implantDetail.removImplant[i].surgeryLocation);    
         }
         this.viewImageData = this.implantDetail.imageData
+        this.implantDetail.imageData.map((o)=> {
+          let user = users.find(u => u._id == o.userId)
+          o.userFullName = user.fullName
+        })
+        this.implantDetail.removImplant.map((o)=> {
+          let user = users.find(u => u._id == o.userId)
+          o.userFullName = user.fullName
+        })
         this.loaderHide()
       } else {
         this.loaderHide()
@@ -174,6 +184,7 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve implant and added for training!", 'OK', { duration: 3000 })
+          this.getDetail()
           this.loaderHide()
         }  
       },
@@ -189,6 +200,7 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully reject implant", 'OK', { duration: 3000 })
+          this.getDetail()
           this.loaderHide()
         }  
       },
@@ -204,6 +216,7 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve removal process", 'OK', { duration: 3000 })
+          this.getDetail()
           this.loaderHide()
         }  
       },
@@ -219,6 +232,7 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully reject removal process", 'OK', { duration: 3000 })
+          this.getDetail()
           this.loaderHide()
         }  
       },
@@ -234,6 +248,7 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve image and add for training", 'OK', { duration: 3000 })
+          this.getDetail()
           this.loaderHide()
         }  
       },
@@ -249,6 +264,7 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully reject image.", 'OK', { duration: 3000 })
+          this.getDetail()
           this.loaderHide()
         }  
       },

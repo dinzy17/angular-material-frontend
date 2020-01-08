@@ -6,7 +6,7 @@
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title">Implants Edit</h4>
+                      <h4 class="card-title">Verification Requests</h4>
                   </div>
                   <div class="card-body">
                       <span>Fields marked with the asterisk (*) are mandatory</span>
@@ -107,8 +107,14 @@
                                                                 </div>
                                                             </div>
                                                             <div>
-                                                              <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)"  class="btn btn-theme">Approve</button>
-                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn">reject</button>                          
+                                                              <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" class="btn btn-theme" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected" >Approve</button>
+                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected" >reject</button>
+                                                              <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected">
+                                                              <span><b>Updated By:</b>{{ implantDetail.removImplant[i].userFullName }}</span> <br />
+                                                              <span><b>Updated Date:</b>{{ implantDetail.removImplant[i].createdDate | date: 'MM/dd/yyyy' }}</span>  
+                                                              </div>
+                                                              <!-- <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected"  class="btn btn-theme">Approve</button>
+                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected" class="btn rejectBtn">reject</button> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -116,9 +122,14 @@
                                             </div>
                                     </div>
                                 <div class="row col-md-12 form--bottom">
-                                    <button type="button" (click)="approve()"  class="btn btn-theme">Approve</button>
-                                    <button type="button" (click)="reject()" class="btn rejectBtn">reject</button>
+                                    <button type="button" (click)="approve()"  class="btn btn-theme" *ngIf = "implantDetail.isNewImplant" >Approve</button>
+                                    <button type="button" (click)="reject()" class="btn rejectBtn" *ngIf = "implantDetail.isNewImplant" >reject</button>
                                     <button type="button" (click)="cancel()" class="btn cancelBtn">Cancel</button>
+                                    <br />
+                                    <div *ngIf = "implantDetail.isNewImplant" >
+                                        <span><b>Updated By:</b>{{ implantDetail.userFullName }}</span> <br />
+                                        <span><b>Updated Date:</b>{{ implantDetail.createdOn | date: 'MM/dd/yyyy' }}</span>
+                                    </div>
                                 </div>
                             </div>
                             <!-- for change image -->
@@ -126,8 +137,12 @@
                                 <div class="col-md-6" *ngFor = "let images of implantDetail.imageData; let i=index"> 
                                     <img class="image--gallery" (click)="imageView(i)" [src]= "implantDetail.imageData[i].imageName">
                                     <div>
-                                      <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)"  class="btn btn-theme">Approve</button>
-                                      <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" class="btn rejectBtn">reject</button>                          
+                                      <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected"  class="btn btn-theme">Approve</button>
+                                      <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected" class="btn rejectBtn">reject</button>                          
+                                        <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected">
+                                            <span><b>Updated By:</b>{{ implantDetail.imageData[i].userFullName }}</span> <br />
+                                            <span><b>Updated Date:</b>{{ implantDetail.imageData[i].createdDate | date: 'MM/dd/yyyy' }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
