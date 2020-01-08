@@ -15,7 +15,7 @@ import { MachineLearningComponent } from 'app/implants/machine-learning/machine-
 import { ImplantAppTestComponent } from 'app/implant-app-test/implant-app-test.component';
 import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.component';
 import { ImplantVerificationComponent } from 'app/implant-verification/implant-verification.component';
-
+import { ImplantVerificationViewComponent } from 'app/implant-verification/implant-verification-view/implant-verification-view.component';
 export const AdminLayoutRoutes: Routes = [
     {
         path: 'dashboard',
@@ -80,5 +80,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'implant-verification',
         component: ImplantVerificationComponent,
+    },
+    {
+        path: 'implant-verification-view/:id',
+        component: ImplantVerificationViewComponent,
     }
 ];

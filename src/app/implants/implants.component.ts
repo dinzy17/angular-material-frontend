@@ -54,7 +54,7 @@ export class ImplantsComponent implements OnInit {
   removaProcessError: any = [];
   validationError: boolean = false;
   data: any = [];
-  manufacturerArray: any = [];
+  manufacturerArray: any = [{_id:"aSsaSASSA", implantManufacture:"Test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}];
   constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -106,6 +106,7 @@ export class ImplantsComponent implements OnInit {
 
   manufacturerValidate(control: FormControl) { 
     let manufacturer = control.value
+    //let manufacturerArray = [{_id:"aSsaSASSA", implantManufacture:"test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}]
     let isPresent = this.manufacturerArray.some(function(el){ return el.implantManufacture == manufacturer });
     if (isPresent) { 
         return {
@@ -113,11 +114,6 @@ export class ImplantsComponent implements OnInit {
         }
     }
     return null
-  }
-
-  getArray(){
-    let manufacturerArrayTest = [{_id:"aSsaSASSA", implantManufacture:"test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}]
-    return manufacturerArrayTest
   }
 
   /*
@@ -204,7 +200,7 @@ export class ImplantsComponent implements OnInit {
         } else {
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         }
-       // this.resetValues()
+        this.resetValues()
       }, (err) => {
         this.loaderHide();
         console.error(err)
@@ -244,9 +240,8 @@ export class ImplantsComponent implements OnInit {
   getManufactureAndBrandname() {
     this.api.apiRequest('post', 'implant/getManufactureAndBrandName', {}).subscribe(result => {
       if (result.status == "success") {
-        this.manufacturerArray = result.data.implantList;
-        this.manufacturerArray = [{_id:"aSsaSASSA", implantManufacture:"test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}]
-        console.log('this.manufacturerArray', this.manufacturerArray);
+       // this.manufacturerArray = result.data.implantList;
+       // console.log('this.manufacturerArray', this.manufacturerArray);
       }
     })
   }

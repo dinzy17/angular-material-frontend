@@ -29,7 +29,7 @@ export class ImplantVerificationComponent implements OnInit {
   implantList:any=[]
   dbImplantList:any=[]
   searchByString:any;
-  displayedColumns: string[] = ['implantManufacture', 'objectName', 'createdOn', 'modifiedOn', '_id'];
+  displayedColumns: string[] = ['objectName', 'modifiedOn','isNewImplant', '_id'];
   noRecords = false
   showErrorDetails: boolean = false
   recordsExists:boolean = true
@@ -86,11 +86,7 @@ export class ImplantVerificationComponent implements OnInit {
   }
 
   view(implantData: any) {
-    this.router.navigate(['/', 'admin', 'implant-view', implantData._id]) 
+    this.router.navigate(['/', 'admin', 'implant-verification-view', implantData._id]) 
   }
 
-  // edit(implantData: any) {
-  //    this.router.navigate(['/', 'admin', 'implant-edit', implantData._id])
-  //  }
-  
 }

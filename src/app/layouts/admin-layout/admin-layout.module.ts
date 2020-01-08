@@ -26,6 +26,7 @@ import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.
 import { AddImageImplantComponent } from 'app/implants/add-image-implant/add-image-implant.component';
 import { ImageViewComponent } from 'app/implants/image-view/image-view.component';
 import { ImplantVerificationComponent } from 'app/implant-verification/implant-verification.component';
+import { ImplantVerificationViewComponent } from 'app/implant-verification/implant-verification-view/implant-verification-view.component';
 
 import {
   MatButtonModule,
@@ -93,7 +94,8 @@ import {
     ImplantsEditComponent,
     AddImageImplantComponent,
     ImageViewComponent,
-    ImplantVerificationComponent
+    ImplantVerificationComponent,
+    ImplantVerificationViewComponent
   ],
   providers: [ AdminGuard ],
 })

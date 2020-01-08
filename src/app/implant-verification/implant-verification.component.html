@@ -15,23 +15,18 @@
                       </div>
                   <div class="row" >
                     <table [hidden]="!recordsExists" mat-table [dataSource]="implantList" matSort class="full-width">
-                      <ng-container matColumnDef="implantManufacture">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> <strong>Manufacturer</strong> </th>
-                        <td mat-cell *matCellDef="let element"> {{element.implantManufacture}} </td>
-                      </ng-container>
-  
                       <ng-container matColumnDef="objectName">
                           <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Brand Name</strong></th>
                           <td mat-cell *matCellDef="let element"> {{element.objectName}} </td>
                         </ng-container>
                 
-                      <ng-container matColumnDef="createdOn">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Created Date</strong></th>
-                        <td mat-cell *matCellDef="let element"> {{element.createdOn | date: 'MM/dd/yyyy'}} </td>
+                      <ng-container matColumnDef="isNewImplant">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Status</strong></th>
+                        <td mat-cell *matCellDef="let element"> {{element.isNewImplant == true ? 'New':'Partial'}} </td>
                       </ng-container>
-  
+
                       <ng-container matColumnDef="modifiedOn">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Modified Date</strong></th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header><strong>Last update</strong></th>
                         <td mat-cell *matCellDef="let element"> {{element.modifiedOn | date: 'MM/dd/yyyy'}} </td>
                       </ng-container>
   
@@ -39,7 +34,6 @@
                         <th mat-header-cell *matHeaderCellDef><strong>Action</strong></th>
                         <td mat-cell *matCellDef="let element">
                           <a class="cursor-pointer btn implantView" (click)="view(element)"><mat-icon>remove_red_eye</mat-icon></a>
-                          <a class="cursor-pointer btn implantEdit" (click)="edit(element)"><mat-icon>edit</mat-icon></a>
                         </td>
                       </ng-container>
                 

@@ -186,7 +186,8 @@ private removeKeyFromStorage(key): any {
    if(token !== undefined && token != ""){
     req_vars.accessToken = token;
    }
-    return this.request(method, apiUrl, req_vars)
+   let responce = this.request(method, apiUrl, req_vars);
+   return responce;
   }
 
   //function to sync mails in background

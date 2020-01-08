@@ -22,7 +22,6 @@ export class ImageViewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any ) { }
 
   ngOnInit() {
-    console.log(this.data)
     let img = new Image();
     img.onload = () => {
      var height = img.height;
@@ -31,7 +30,6 @@ export class ImageViewComponent implements OnInit {
      let dispyaImgage = document.getElementById('displayImage') as HTMLInputElement
      var currWidth = dispyaImgage.clientWidth;
      var currHeight = dispyaImgage.clientHeight;
-
      this.height = ( currHeight * this.data.objectLocation.height ) / height
      this.width = (currWidth * this.data.objectLocation.width ) / width
      this.top = ( currHeight * this.data.objectLocation.top ) / height

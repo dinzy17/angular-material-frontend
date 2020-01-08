@@ -119,6 +119,13 @@
     margin-left: 25px;
   }
 
+  .rejectBtn {
+    border: 2px solid hsl(2, 66%, 40%);
+    color: hsl(2, 66%, 40%) !important;
+    background-color: #ffff;
+    margin-left: 25px;
+  }
+
   ::ng-deep {
     .cropper{
       color: #ef1c06 !important;
@@ -143,7 +150,4 @@
   }
   .m-t-15{
     margin-top: 15px;
-  }
-  .fixed-height{
-    height: 350px;
   }
