@@ -188,7 +188,7 @@ export class ImplantsComponent implements OnInit {
         fd.append(key, formData[key])
       }
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
-        fd.append('addBy', "users");
+        fd.append('addBy', "admin");
 
        // this.api.apiRequest('post', 'implant/addImageToCollection', fd).subscribe(result => {
         this.api.apiRequest('post', 'implant/addImpnatApi', fd).subscribe(result => {
