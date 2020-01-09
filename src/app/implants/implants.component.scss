@@ -68,6 +68,7 @@
 .removal--process{
   border: 1px solid #CCC;
   margin-bottom: 10px;
+  position: relative;
 }
 .capitalize{
   text-transform: capitalize;
@@ -102,7 +103,32 @@
   }
 }
 
+.add--more--btn{
+  padding: 0;
+  color: #2f7fd3;
+  margin-bottom: 30px;
+  .mat-icon{
+    margin-right: 2px;
+  }
+}
+
 .previewImg {
   width: 100%;
   height: 100%;
+}
+
+.icon--delete{
+  position: absolute;
+  right: 3px;
+  top: 5px;
+  color: #2d78cb;
+  cursor: pointer;
+  background: #ddd;
+  padding: 2px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

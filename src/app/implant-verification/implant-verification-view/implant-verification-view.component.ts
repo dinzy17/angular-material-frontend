@@ -170,9 +170,10 @@ export class ImplantVerificationViewComponent implements OnInit {
   }
 
   imageView(i){
+    this.viewImageData[i].objectName = this.implantDetail.objectName
     const dialogRefView = this.dialog.open(ImageViewComponent,{
-      width: "65%",
-      height:"80%",
+      width: "620px",
+      panelClass: "nopad--modal",
       disableClose: false,
       data:this.viewImageData[i]
     });

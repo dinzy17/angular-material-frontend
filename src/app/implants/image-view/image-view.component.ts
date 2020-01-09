@@ -22,6 +22,7 @@ export class ImageViewComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any ) { }
 
   ngOnInit() {
+    console.log('data', this.data);
     let img = new Image();
     img.onload = () => {
      var height = img.height;

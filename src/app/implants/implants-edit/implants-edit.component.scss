@@ -4,7 +4,7 @@
       max-width: 500px;
     }
     .implant--image--container {
-      height: 225px;
+      height: 350px;
       margin-bottom: 10px;
       position: relative;
   
@@ -42,8 +42,8 @@
     }
   
     .cropper {
-      width: 300px;
-      height: 300px;
+      min-width: 100%;
+      max-height: 100%;
       top: 50px;
       left: 50px;
     }
@@ -68,6 +68,7 @@
   .removal--process{
     border: 1px solid #CCC;
     margin-bottom: 10px;
+    position: relative;
   }
   .capitalize{
     text-transform: capitalize;
@@ -113,7 +114,7 @@
     margin-top: 50px;
   }
   .cancelBtn {
-    border: 2px solid #235da8;
+    border: 1px solid #235da8;
     color: #235da8 !important;
     background-color: #ffff;
     margin-left: 25px;
@@ -138,12 +139,61 @@
   }
 
   .image--gallery {
-    width: 300px;
-    height: 300px;
+    min-width: 100%;
+      max-height: 100%;
   }
   .m-t-15{
     margin-top: 15px;
   }
   .fixed-height{
     height: 350px;
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
+  .icon--delete{
+    position: absolute;
+    right: 3px;
+    top: 5px;
+    color: #2d78cb;
+    cursor: pointer;
+    background: #ddd;
+    padding: 2px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .add--more--btn{
+    padding: 0;
+    color: #2f7fd3;
+    margin-bottom: 30px;
+    .mat-icon{
+      margin-right: 2px;
+    }
+  }
+
+  @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+    .implant--container .implant--image--container,
+    .fixed-height {
+      height: 150px;
+    }
+    .implant--container .implant--image--container .implant--image--lable{
+      font-size: 16px;
+    }
+  }
+  @media only screen and (min-width: 1350px) and (max-width: 1605px){ 
+    .implant--container .implant--image--container,
+    .fixed-height {
+      height: 200px;
+    }
+    .implant--container .implant--image--container .implant--image--lable{
+      font-size: 18px;
+    }
+  } 

@@ -133,9 +133,9 @@ export class ImplantsComponent implements OnInit {
 
   imageUpload(implantData) {
       const dialogRef = this.dialog.open(AddImageImplantComponent,{
-        width: "65%",
-        height:"80%",
+        width: "620px",
         disableClose: false,
+        panelClass:"nopad--modal",
         data:this.data
       });
       dialogRef.afterClosed().subscribe(result => {

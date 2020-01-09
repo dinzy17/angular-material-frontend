@@ -91,5 +91,19 @@ export class ImplantsListComponent implements OnInit {
   edit(implantData: any) {
      this.router.navigate(['/', 'admin', 'implant-edit', implantData._id])
    }
+
+   delete(implantData: any){
+
+    this.api.apiRequest("post", "implant/deleteImplant", {id:implantData._id}).subscribe(
+      result => {
+        if(result.status =="success"){
+          this.list();
+        }
+      },
+      err => {
+        console.error(err);
+      }
+    );
+   }
   
 }

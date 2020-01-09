@@ -61,12 +61,16 @@
                                     <button type="button" (click)="cancel()" class="btn cancelBtn">Cancel</button>
                                 </div>  
                               </div>
-                              <div class="col-md-6 row">
-                                <div class="col-md-6" *ngFor = "let images of implantData.imageData; let i=index" >
-                                <img class="image--gallery" (click)="imageView(i)" [src]= "implantData.imageData[i].imageName" />
+
+                              <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height" *ngFor = "let images of implantData.imageData; let i=index">
+                                            <!-- <mat-icon class="icon--delete" (click)="deleteImage(implantDetail.imageData[i], implantDetail._id )">delete_forever</mat-icon> -->
+                                            <img class="image--gallery" (click)="imageView(i)" [src]= "implantData.imageData[i].imageName">
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
-                          </div>
+                            </div>
                         </form>
                     </div>
                 </div>

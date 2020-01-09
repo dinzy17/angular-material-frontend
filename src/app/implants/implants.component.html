@@ -65,7 +65,7 @@
                                                 <div formArrayName="removalSection">
                                                     <div class="removal--process" *ngFor="let unit of form.controls.removalSection.controls; let i=index">
                                                         <div [formGroupName]="i">
-                                                            <mat-icon class="cursor--pointer" (click)="delete(i);" *ngIf="i > 0" >delete</mat-icon>
+                                                            <mat-icon class="icon--delete cursor--pointer" (click)="delete(i);" *ngIf="i > 0" >delete</mat-icon>
                                                             <mat-error class="error--handing custome-error"
                                                                 *ngIf="(removaProcessError[i] !==undefined && removaProcessError[i])">
                                                                 {{ "If you fill one field of this section. You need to fill all field." }}

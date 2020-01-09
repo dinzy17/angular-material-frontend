@@ -294,10 +294,10 @@ export class ImplantsEditComponent implements OnInit {
    imageChange(){
     this.changeImage = true
     const dialogRef = this.dialog.open(AddImageImplantComponent,{
-      width: "65%",
-      height:"80%",
+      width: "620px",
+      panelClass: "nopad--modal",
       disableClose: false,
-      data:this.data
+      data:this.data,
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined){
@@ -359,9 +359,10 @@ export class ImplantsEditComponent implements OnInit {
   }
 
   imageView(i){
+    this.viewImageData[i].objectName = this.implantDetail.objectName  
     const dialogRefView = this.dialog.open(ImageViewComponent,{
-      width: "65%",
-      height:"80%",
+      width: "620px",
+      panelClass: "nopad--modal",
       disableClose: false,
       data:this.viewImageData[i]
     });

@@ -1,37 +1,36 @@
-<div class="col-md-12" style="height: 100%;">
-  <div class="row form-group ">
-      <div class="col-md-12">
-        <div class="implant--image--container">
-          <label for="implantImage"  class="implant--image--lable"> 
-              Drop image or click to upload
-          </label>
-            <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
-        </div>
-        <mat-error class="error--handing custome-error" *ngIf= "imageError" >
-            {{ "Select at least one image to uplaod." }}
-        </mat-error>
-        <mat-error class="error--handing custome-error" *ngIf= "imageValidError" >
-          {{ "Only png and jpg file allowed." }}
-      </mat-error>
-        <!-- <div class="crop--preview">
-          <label *ngIf="croppedImage">Outline the implant to highlight it on the image below:</label>
-          <img class="" [src]="croppedImage" />
-        </div> -->
-      </div>
-      <div class="offset-lg-1 col-md-12">
-        <div class="image--cropper">
-          <image-cropper
-              [imageChangedEvent]="imageChangedEvent"
-              [maintainAspectRatio]="false"
-              [aspectRatio]="1 / 1"
-              format="jpg"
-              (imageCropped)="imageCropped($event)"
-          ></image-cropper>
-        </div>
-      </div>
+<div class="col-12 modal--ui p-0">
+  <div class="modal--header">
+    Add Imgae
   </div>
-  <div style="position: absolute; bottom: 0" >
-  <button type="button" (click)="closeBtn()"  class="btn cancelBtn">Cancel</button>
-  <button type="button" (click)="saveDetail()" class="btn btn-theme">Save</button>
-</div>
+  <div class="col-12 modal--body">
+    <div class="col-md-12 p-0 form-group ">
+        <div class="implant--image--container">
+            <label for="implantImage" class="implant--image--lable">
+              Drop image or click to upload
+            </label>
+            <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
+          </div>
+          <mat-error class="error--handing custome-error" *ngIf="imageError">
+            {{ "Select at least one image to uplaod." }}
+          </mat-error>
+          <mat-error class="error--handing custome-error" *ngIf="imageValidError">
+            {{ "Only png and jpg file allowed." }}
+          </mat-error>
+      <div class="col-md-12">
+        <div class="image--cropper">
+          <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [aspectRatio]="1 / 1" format="jpg" (imageCropped)="imageCropped($event)"></image-cropper>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal--footer text-center">
+    <button type="button" (click)="closeBtn()" class="btn cancelBtn mr-4  ">Cancel</button>
+    <button type="button" (click)="saveDetail()" class="btn btn-theme">Save</button>
+  </div>
+
+
+
+
+
+
 </div>

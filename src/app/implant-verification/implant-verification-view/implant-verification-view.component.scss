@@ -1,153 +1,199 @@
 .implant--container{
 
-    .image--cropper{
-      max-width: 500px;
-    }
-    .implant--image--container {
-      height: 225px;
-      margin-bottom: 10px;
-      position: relative;
-  
-      .implant--image--lable {
-        display: flex;
-          margin: 10px;
-          color: #545454;
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          margin: 0;
-          border: 1px dashed #CCC;
-          text-align: center;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          color: #176aba;
-          font-size: 20px;
-      }
-    }
-    .crop--preview {
-      // display: flex;
-      label {
-        display: block;
-        margin-top: 20px;
-        color: #545454;
-      }
-      img {
-        max-width: 200px;
-      }
-    }
-  
-    .cropper {
-      width: 300px;
-      height: 300px;
-      top: 50px;
-      left: 50px;
-    }
-    .cropper .move {
-      width: 100%;
-      cursor: move;
-      border: 2px solid red !important;
-    }
-  }
-  .autocomplete--option {
-    height: 70px;
-    border-bottom: 1px solid #CCC;
-  }
-  .example-option-img {
-    height: 50px;
-    vertical-align: middle;
-    margin-right: 8px;
-  }
-  .cursor--pointer{
-    cursor: pointer;
-  }
-  .removal--process{
-    border: 1px solid #CCC;
-    margin-bottom: 10px;
-  }
-  .capitalize{
-    text-transform: capitalize;
-  }
-  
-  .mat-headline {
-    font-size: 20px !important;
-  }
-  .custome-error {
-    margin-left: 20px;
-    font-size: 20px;
-    font-weight: 500;
-  }
-  .cropper > span {
-    color: red !important;
-  }
-  .image--cropper > .cropper > .resize-bar{
-    color: red !important;
-  }
-  
-  [_nghost-ukt-c11] .cropper[_ngcontent-ukt-c11]{
-    color: #ef1c06 !important;
-  }
-
-  #area-border{
-    border: 3px solid red;
-    position: absolute;
-  }
-  
-  #img-container {
+  .image--cropper{
     max-width: 500px;
-    max-height: 800px;
+  }
+  .implant--image--container {
+    height: 350px;
+    margin-bottom: 10px;
     position: relative;
+
+    .implant--image--lable {
+      display: flex;
+        margin: 10px;
+        color: #545454;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: 1px dashed #CCC;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #176aba;
+        font-size: 20px;
+    }
   }
-  #img-container img {
+  .crop--preview {
+    // display: flex;
+    label {
+      display: block;
+      margin-top: 20px;
+      color: #545454;
+    }
+    img {
+      max-width: 200px;
+    }
+  }
+
+  .cropper {
+    min-width: 100%;
+    max-height: 100%;
+    top: 50px;
+    left: 50px;
+  }
+  .cropper .move {
     width: 100%;
-    height: 100%;
+    cursor: move;
+    border: 2px solid red !important;
   }
-  .detailImage {
-    max-width: 700px;
-  }
-  .m-t-50 {
-    margin-top: 50px;
-  }
-  .cancelBtn {
-    border: 2px solid #235da8;
-    color: #235da8 !important;
-    background-color: #ffff;
-    margin-left: 25px;
-  }
+}
+.autocomplete--option {
+  height: 70px;
+  border-bottom: 1px solid #CCC;
+}
+.example-option-img {
+  height: 50px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.cursor--pointer{
+  cursor: pointer;
+}
+.removal--process{
+  border: 1px solid #CCC;
+  margin-bottom: 10px;
+  position: relative;
+}
+.capitalize{
+  text-transform: capitalize;
+}
 
-  .rejectBtn {
-    border: 2px solid hsl(2, 66%, 40%);
-    color: hsl(2, 66%, 40%) !important;
-    background-color: #ffff;
-    margin-left: 25px;
-  }
+.mat-headline {
+  font-size: 20px !important;
+}
+.custome-error {
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.cropper > span {
+  color: red !important;
+}
+.image--cropper > .cropper > .resize-bar{
+  color: red !important;
+}
 
-  ::ng-deep {
-    .cropper{
-      color: #ef1c06 !important;
-      &::after{
-        border: 3px solid #ef1c06 !important;
-      }
-      .resize {
-        .square {
-          background: #ef1c06 !important;
-        }
+[_nghost-ukt-c11] .cropper[_ngcontent-ukt-c11]{
+  color: #ef1c06 !important;
+}
+
+#area-border{
+  border: 3px solid red;
+  position: absolute;
+}
+
+#img-container {
+  max-width: 500px;
+  max-height: 800px;
+  position: relative;
+}
+#img-container img {
+  width: 100%;
+  height: 100%;
+}
+.detailImage {
+  max-width: 700px;
+}
+.m-t-50 {
+  margin-top: 50px;
+}
+.cancelBtn {
+  border: 1px solid #235da8;
+  color: #235da8 !important;
+  background-color: #ffff;
+  margin-left: 25px;
+}
+
+::ng-deep {
+  .cropper{
+    color: #ef1c06 !important;
+    &::after{
+      border: 3px solid #ef1c06 !important;
+    }
+    .resize {
+      .square {
+        background: #ef1c06 !important;
       }
     }
   }
-  
-  .m-b-15 {
-    margin-bottom: 15px;
-  }
+}
 
-  .image--gallery {
-    width: 300px;
-    height: 300px;
+.m-b-15 {
+  margin-bottom: 15px;
+}
+
+.image--gallery {
+  min-width: 100%;
+    max-height: 100%;
+}
+.m-t-15{
+  margin-top: 15px;
+}
+.fixed-height{
+  height: 350px;
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon--delete{
+  position: absolute;
+  right: 3px;
+  top: 5px;
+  color: #2d78cb;
+  cursor: pointer;
+  background: #ddd;
+  padding: 2px;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add--more--btn{
+  padding: 0;
+  color: #2f7fd3;
+  margin-bottom: 30px;
+  .mat-icon{
+    margin-right: 2px;
   }
-  .m-t-15{
-    margin-top: 15px;
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+  .implant--container .implant--image--container,
+  .fixed-height {
+    height: 150px;
   }
+  .implant--container .implant--image--container .implant--image--lable{
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 1350px) and (max-width: 1605px){ 
+  .implant--container .implant--image--container,
+  .fixed-height {
+    height: 200px;
+  }
+  .implant--container .implant--image--container .implant--image--lable{
+    font-size: 18px;
+  }
+} 
