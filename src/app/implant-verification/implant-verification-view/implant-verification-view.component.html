@@ -152,12 +152,16 @@
                             <div class="col-6">
                                     <div class="row">
                                         <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height" *ngFor="let images of implantDetail.imageData; let i=index">
-                                            <img class="image--gallery" (click)="imageView(i)" [src]="implantDetail.imageData[i].imageName">
-                                            <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected"  class="btn btn-theme">Approve</button>
-                                            <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected" class="btn rejectBtn">reject</button>                          
-                                            <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected">
-                                                <span><b>Updated By:</b>{{ implantDetail.imageData[i].userFullName }}</span> <br />
-                                                <span><b>Updated Date:</b>{{ implantDetail.imageData[i].createdDate | date: 'MM/dd/yyyy' }}</span>
+                                            <div class="image--gallery--container">
+                                                <img class="image--gallery" (click)="imageView(i)" [src]="implantDetail.imageData[i].imageName">
+                                            </div>
+                                            <div>
+                                                <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected"  class="btn btn-theme">Approve</button>
+                                                <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected" class="btn rejectBtn">reject</button>                          
+                                                <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected">
+                                                    <span><b>Updated By:</b>{{ implantDetail.imageData[i].userFullName }}</span> <br />
+                                                    <span><b>Updated Date:</b>{{ implantDetail.imageData[i].createdDate | date: 'MM/dd/yyyy' }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
