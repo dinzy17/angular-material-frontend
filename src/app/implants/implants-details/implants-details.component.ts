@@ -93,7 +93,7 @@ export class ImplantsDetailsComponent implements OnInit {
    }
 
    imageView(i){
-    this.viewImageData[i].objectName = this.implantData.objectName
+    this.viewImageData[i].objectName = this.implantData.objectName  
     const dialogRefView = this.dialog.open(ImageViewComponent,{
       width: "620px",
       panelClass: "nopad--modal",

@@ -129,23 +129,28 @@
                                     </div>
                                 </div>
                                 <!-- for change image -->
-                                <!-- for display existing image -->
-                                <!-- <div class="row">
-                                    <button type="button" (click)="imageChange()" class="btn btn-theme">Change Image </button>
-                                    </div> -->
                                 <div class="col-6">
                                     <div class="row">
-                                        <div class="col-sm-12 col-lg-6 col-xl-6" *ngIf="this.croppedImage == ''">
-                                            <div class="implant--image--container" (click)="imageChange()">
-                                                <label class="implant--image--lable">
+                                    <!--for image upload-->
+                                        <div class="col-sm-12 col-lg-6 col-xl-6 form-group" *ngIf="this.croppedImage == ''">
+                                            <div class="implant--image--container cursor--pointer">
+                                                <label for="implantImage" class="implant--image--lable">
                                                     click to upload
                                                 </label>
                                             </div>
+                                            <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
+                                            <mat-error class="error--handing custome-error" *ngIf= "imageError" >
+                                                    {{ "Select at least one image to uplaod." }}
+                                            </mat-error>
+                                            <mat-error class="error--handing custome-error" *ngIf= "imageValidError && !imageError" >
+                                                    {{ "Only png, jpg, jpeg file allowed." }}
+                                            </mat-error>
                                         </div>
-                                        <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height" *ngIf="this.croppedImage != ''">
+                                        <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height cursor--pointer" (click)="openImageAginDemo()" *ngIf="this.croppedImage != ''">
+                                                <mat-icon class="icon--delete" (click)="canselImage()" >delete_forever</mat-icon>
                                             <img style="width: 100%; height: 100%;" class="image--gallery" [src]="this.croppedImage">
                                         </div>
-                                        <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height" *ngFor="let images of implantDetail.imageData; let i=index">
+                                        <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height cursor--pointer" *ngFor="let images of implantDetail.imageData; let i=index">
                                             <mat-icon class="icon--delete" (click)="deleteImage(implantDetail.imageData[i], implantDetail._id )">delete_forever</mat-icon>
                                             <img class="image--gallery" (click)="imageView(i)" [src]="implantDetail.imageData[i].imageName">
                                         </div>

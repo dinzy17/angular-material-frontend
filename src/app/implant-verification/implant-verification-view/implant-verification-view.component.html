@@ -17,43 +17,15 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width mat-headline">
-                                                    <input matInput placeholder="* Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete] = "auto" >
-                                                    <mat-error class="error--handing"
-                                                        *ngIf="form.controls['implantManufacture'].hasError('required') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
-                                                        {{ "The implant's manufactuerer name cannot be blank ." }}
-                                                    </mat-error>
-                                                    <mat-error class="error--handing"
-                                                        *ngIf="form.controls['implantManufacture'].hasError('maxlength') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
-                                                        {{ "The implant's manufactuerer name cannot be greater than 150 characters." }}
-                                                    </mat-error>
-                                                    <mat-autocomplete #auto = "matAutocomplete"  #MatAutocompleteTrigger >
-                                                        <mat-option *ngFor="let option of filteredOptions" [value]="option.implantManufacture">
-                                                            {{ option.implantManufacture }}
-                                                        </mat-option>
-                                                    </mat-autocomplete>
+                                                    <input matInput placeholder="* Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString" name="implantManufacture" >
                                                 </mat-form-field>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width mat-headline">
-                                                     <input matInput placeholder="* Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName" [(ngModel)]="searchName" (keyup)="filterName()" > <!-- [matAutocomplete]="autoName" [(ngModel)]="searchName" -->
-                                                    <mat-error class="error--handing"
-                                                        *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
-                                                        {{ "The implant's name/brand cannot be blank " }}
-                                                    </mat-error>
-                                                    <mat-error class="error--handing"
-                                                        *ngIf="form.controls['label'].hasError('maxlength') && (form.controls['label'].dirty || form.controls['label'].touched)">
-                                                        {{ "The implant's name/brand cannot be greater than 150 characters." }}
-                                                    </mat-error>
-                                                    
-                                                    <mat-autocomplete #autoName="matAutocomplete">
-                                                        <mat-option class="autocomplete--option" *ngFor="let name of filteredNames" [value]="name.objectName" >
-                                                            <img class="example-option-img" aria-hidden [src]="name.imgName" height="25">
-                                                            <span>{{name.objectName}}</span>
-                                                        </mat-option>
-                                                    </mat-autocomplete>
-                                                    </mat-form-field>
+                                                    <input matInput placeholder="* Implant name/brand" class="capitalize" formControlName="label" name="label" [(ngModel)]="searchName" >
+                                                </mat-form-field>
                                                 </div>
                                         </div>
                                     </div>
@@ -68,53 +40,36 @@
                                                                     <textarea matInput placeholder=" Removal Process" formControlName="removalProcess" name="removalProcess" cdkTextareaAutosize
                                                                     #autosize="cdkTextareaAutosize"
                                                                     cdkAutosizeMinRows="5"
-                                                                    cdkAutosizeMaxRows="5" *ngIf = "i > 0" ></textarea>
-                                                                    <textarea matInput placeholder="* Removal Process" formControlName="removalProcess" name="removalProcess" cdkTextareaAutosize
-                                                                    #autosize="cdkTextareaAutosize"
-                                                                    cdkAutosizeMinRows="5"
-                                                                    cdkAutosizeMaxRows="5" *ngIf = "i == 0" ></textarea>
-                                                                    <mat-error class="error--handing"
-                                                                            *ngIf="unit.controls['removalProcess'].hasError('required') && (unit.controls['removalProcess'].dirty || unit.controls['removalProcess'].touched)">
-                                                                            {{ "Removal process is required." }}
-                                                                        </mat-error>
+                                                                    cdkAutosizeMaxRows="5"></textarea>
                                                                     </mat-form-field>
                                                                 </div>
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
-                                                                    <mat-form-field class="example--full--width mat-headline">
-                                                                        <input matInput placeholder="Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate" name="surgeryDate" *ngIf="i > 0" >
-                                                                        <input matInput placeholder="* Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate" name="surgeryDate" *ngIf="i == 0" >
-                                                                        <mat-error class="error--handing"
-                                                                            *ngIf="unit.controls['surgeryDate'].hasError('required') && (unit.controls['surgeryDate'].dirty || unit.controls['surgeryDate'].touched)">
-                                                                            {{ "Surgery date is required." }}
-                                                                        </mat-error>
+                                                                <mat-form-field class="example--full--width mat-headline">
+                                                                        <input matInput placeholder="Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate"
+                                                                            name="surgeryDate" *ngIf="i > 0">
+                                                                        <input matInput placeholder="* Surgery date" [matDatepicker]="picker" (focus)="picker.open()" formControlName="surgeryDate"
+                                                                            name="surgeryDate" *ngIf="i == 0">
                                                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                                         <mat-datepicker #picker></mat-datepicker>
-                                                                    </mat-form-field>
+                                                                </mat-form-field>
                                                                 </div>
                                                             </div>
                                                             <div class="row form-group">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width mat-headline">
-                                                                        <input matInput placeholder="Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation" *ngIf="i > 0" >
-                                                                        <input matInput placeholder="* Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation" *ngIf="i == 0" >
-                                                                        <mat-error class="error--handing"
-                                                                            *ngIf="unit.controls['surgeryLocation'].hasError('required') && (unit.controls['surgeryLocation'].dirty || unit.controls['surgeryLocation'].touched)">
-                                                                            {{ "Surgery location is required." }}
-                                                                        </mat-error>
+                                                                      <input matInput placeholder="Surgery Location" class="capitalize" formControlName="surgeryLocation" name="surgeryLocation" >
                                                                     </mat-form-field>
                                                                 </div>
                                                             </div>
                                                             <div>
-                                                              <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" class="btn btn-theme" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected" >Approve</button>
-                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected" >reject</button>
-                                                              <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected">
+                                                              <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" class="btn btn-theme" *ngIf = "(implantDetail.isNewImplant !== undefined && !implantDetail.isNewImplant) && (implantDetail.removImplant[i].isApproved !== undefined && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant[i].isRejected !== undefined && !implantDetail.removImplant[i].isRejected)" >Approve</button>
+                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn" *ngIf = "(implantDetail.isNewImplant !== undefined && !implantDetail.isNewImplant) && (implantDetail.removImplant[i].isApproved !== undefined && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant[i].isRejected !== undefined && !implantDetail.removImplant[i].isRejected)" >reject</button>
+                                                              <div *ngIf = "(implantDetail.isNewImplant !== undefined && !implantDetail.isNewImplant) && (implantDetail.removImplant[i].isApproved !== undefined && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant[i].isRejected !== undefined && !implantDetail.removImplant[i].isRejected)">
                                                               <span><b>Updated By:</b>{{ implantDetail.removImplant[i].userFullName }}</span> <br />
                                                               <span><b>Updated Date:</b>{{ implantDetail.removImplant[i].createdDate | date: 'MM/dd/yyyy' }}</span>  
                                                               </div>
-                                                              <!-- <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected"  class="btn btn-theme">Approve</button>
-                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.removImplant[i].isApproved && !implantDetail.removImplant[i].isRejected" class="btn rejectBtn">reject</button> -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -136,19 +91,6 @@
                                     </div>
                             </div>
                             <!-- for change image -->
-                            <!-- <div class="col-md-6 row">       
-                                <div class="col-md-6" *ngFor = "let images of implantDetail.imageData; let i=index"> 
-                                    <img class="image--gallery" (click)="imageView(i)" [src]= "implantDetail.imageData[i].imageName">
-                                    <div>
-                                      <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected"  class="btn btn-theme">Approve</button>
-                                      <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected" class="btn rejectBtn">reject</button>                          
-                                        <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected">
-                                            <span><b>Updated By:</b>{{ implantDetail.imageData[i].userFullName }}</span> <br />
-                                            <span><b>Updated Date:</b>{{ implantDetail.imageData[i].createdDate | date: 'MM/dd/yyyy' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="col-6">
                                     <div class="row">
                                         <div class="col-sm-12 col-lg-6 col-xl-6 fixed-height" *ngFor="let images of implantDetail.imageData; let i=index">

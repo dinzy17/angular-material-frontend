@@ -131,13 +131,17 @@
                             <div class="col-md-3" *ngIf = "croppedImage == ''">
                                 <div class="row form-group ">
                                     <div class="col-md-12">
-                                      <div class="implant--image--container" (click)="imageUpload(form.value)">
-                                        <label class="implant--image--lable"> 
-                                            Click to upload
+                                      <div  class="implant--image--container cursor--pointer">
+                                        <label for="implantImage" class="implant--image--lable"> 
+                                            Drop image or click to upload
                                         </label>
                                       </div>
+                                      <input type="file" (change)="fileChangeEvent($event)" id="implantImage" accept="image/*" class="form-control" />
                                       <mat-error class="error--handing custome-error" *ngIf= "imageError" >
                                             {{ "Select at least one image to uplaod." }}
+                                        </mat-error>
+                                        <mat-error class="error--handing custome-error" *ngIf= "imageValidError && !imageError" >
+                                            {{ "Only png, jpg, jpeg file allowed." }}
                                         </mat-error>
                                     </div>
                                 </div>
@@ -145,7 +149,8 @@
                             <div class="col-md-3" *ngIf = "croppedImage != ''">
                                 <div class="row form-group ">
                                     <div class="col-md-12">
-                                      <div class="implant--image--container" (click)="imageUpload(form.value)">
+                                      <div class="implant--image--container cursor--pointer" (click)="openImageAginDemo()">
+                                            <mat-icon class="icon--delete" (click)="cansel" >delete_forever</mat-icon>
                                             <img class="previewImg" [src]="croppedImage" />
                                         <!-- <label class="implant--image--lable"> 
                                             Click to upload

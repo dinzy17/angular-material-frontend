@@ -55,6 +55,7 @@ export class ImplantsComponent implements OnInit {
   validationError: boolean = false;
   data: any = [];
   manufacturerArray: any = [{_id:"aSsaSASSA", implantManufacture:"Test"}, {_id:"aSsaSASSA2121", implantManufacture:"gaurav"}, {_id:"aSsaSASSA54vfg", implantManufacture:"shreya"}];
+  imageEvent: any
   constructor(private fb: FormBuilder, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -131,27 +132,69 @@ export class ImplantsComponent implements OnInit {
 
 
 
-  imageUpload(implantData) {
+  imageUpload(event) {
       const dialogRef = this.dialog.open(AddImageImplantComponent,{
         width: "620px",
         disableClose: false,
         panelClass:"nopad--modal",
-        data:this.data
+        data:event
       });
       dialogRef.afterClosed().subscribe(result => {
         if(result != undefined){
-          this.uploadedFile = result.imageData.uploadedFile 
+         // this.uploadedFile = result.imageData.uploadedFile 
           this.imageWidth = result.imageData.imageWidth
           this.imageHeight = result.imageData.imageHeight
           this.labelWidth = result.imageData.labelWidth
           this.labelHeight = result.imageData.labelHeight
           this.labelOffsetX = result.imageData.labelOffsetX
           this.labelOffsetY = result.imageData.labelOffsetY
-          this.croppedImage = result.imageData.image
+        //  this.croppedImage = result.imageData.image
+
+          // for image privew.
+        let reader = new FileReader();
+        reader.readAsDataURL(this.uploadedFile); 
+        reader.onload = (_event) => { 
+        this.croppedImage = reader.result; 
+        }
+
         } else {
           this.imageError = true;
+          this.croppedImage = ""; 
+          this.uploadedFile = undefined
         } 
       })
+  }
+
+  // for open modele
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    this.imageValidError = false
+    this.imageError = false;
+    let img = document.getElementById('implantImage') as HTMLInputElement
+    const filename = img.files[0].name
+      const fileExt = filename.split(".").splice(-1)[0].toLowerCase()
+        if(this.imageValidExtensions.indexOf(fileExt) == -1) {
+          this.resetImageValue()
+          this.imageValidError = true
+        } else {
+          // open model for event.
+          this.uploadedFile = img.files[0]
+          this.imageEvent = event; 
+          this.disabledSave = false
+          this.imageError = false;
+          this.imageUpload(event)
+        }
+  }
+
+  openImageAginDemo(){
+    this.imageUpload(this.imageEvent);
+  }
+
+  canselImage(){
+   // this.imageError = true;
+    this.croppedImage = ""; 
+    this.uploadedFile = undefined
+    this.resetImageValue()
   }
 
   //function to save details
@@ -226,6 +269,17 @@ export class ImplantsComponent implements OnInit {
         this.delete(i);
       }
     }
+  }
+
+  resetImageValue() {
+    this.imageWidth = 0
+    this.imageHeight = 0
+    this.labelWidth = 0
+    this.labelHeight = 0
+    this.labelOffsetX = 0
+    this.labelOffsetY = 0
+    let img = document.getElementById('implantImage') as HTMLInputElement
+    img.value = ""
   }
 
   getManufacture() {

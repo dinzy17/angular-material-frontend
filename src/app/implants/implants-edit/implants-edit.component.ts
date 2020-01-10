@@ -61,6 +61,8 @@ export class ImplantsEditComponent implements OnInit {
   displayHighlite: boolean = false
   data: any = {}
   viewImageData: any = {}
+  deleteArray: any  = ["5e15b5963481fc63ba911f70"]
+  imageEvent: any
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -189,26 +191,33 @@ export class ImplantsEditComponent implements OnInit {
         labelOffsetY: this.labelOffsetY
       }
       const fd = new FormData()
-      if ((this.uploadedFile !== undefined)) {  //&& this.uploadedFile.name != ""
+      if ((this.uploadedFile !== undefined && this.uploadedFile.name != "")) {  //&& this.uploadedFile.name != ""
         fd.append('implantPicture', this.uploadedFile, this.uploadedFile.name)
       }
       for (var key in formData) {
         fd.append(key, formData[key])
       }
+      
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
         fd.append('addBy', "admin");
         fd.append('implantId', this.id);
+        //fd.append('deletedimage', JSON.stringify(this.deleteArray ));
+        //fd.append('deletedprocess', JSON.stringify(this.deleteArray ));
         
        // this.api.apiRequest('post', 'implant/editImageToCollection', fd).subscribe(result => {
         this.api.apiRequest('post', 'implant/editImplantApi', fd).subscribe(result => {
         this.loaderHide();
         if(result.status == "success"){
-          this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
+          this.snack.open("Successfully updated implant!", 'OK', { duration: 3000 })
           this.uploadedFile = null
           this.getDetail()
           this.disabledSave = false
+          this.imageError = false;
+          this.imageValidError = false
         } else {
-          this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
+          this.imageError = false;
+          this.imageValidError = true
+          this.snack.open("Something went wrong!", 'OK', { duration: 3000 })
         }
         this.resetValues()
       }, (err) => {
@@ -234,6 +243,17 @@ export class ImplantsEditComponent implements OnInit {
         this.delete(i);
       }
     }
+  }
+
+  resetImageValue() {
+    this.imageWidth = 0
+    this.imageHeight = 0
+    this.labelWidth = 0
+    this.labelHeight = 0
+    this.labelOffsetX = 0
+    this.labelOffsetY = 0
+    let img = document.getElementById('implantImage') as HTMLInputElement
+    img.value = ""
   }
 
   getManufacture() {
@@ -291,39 +311,80 @@ export class ImplantsEditComponent implements OnInit {
      this.dialogRef.close();
    }
 
-   imageChange(){
-    this.changeImage = true
+   // for open modele
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+    this.imageValidError = false
+    this.imageError = false;
+    let img = document.getElementById('implantImage') as HTMLInputElement
+    const filename = img.files[0].name
+      const fileExt = filename.split(".").splice(-1)[0].toLowerCase()
+        if(this.imageValidExtensions.indexOf(fileExt) == -1) {
+          this.resetImageValue()
+          this.imageValidError = true
+        } else {
+          // open model for event.
+          this.uploadedFile = img.files[0]
+          this.imageEvent = event; 
+          this.disabledSave = false
+          this.imageError = false;
+          this.imageUpload(event)
+        }
+  }
+
+  openImageAginDemo(){
+    this.imageUpload(this.imageEvent);
+  }
+
+   imageUpload(event){
+   // this.changeImage = true
     const dialogRef = this.dialog.open(AddImageImplantComponent,{
       width: "620px",
       panelClass: "nopad--modal",
       disableClose: false,
-      data:this.data,
+      data:event,
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result != undefined){
-        this.uploadedFile = result.imageData.uploadedFile 
+      //  this.uploadedFile = result.imageData.uploadedFile 
         this.imageWidth = result.imageData.imageWidth
         this.imageHeight = result.imageData.imageHeight
         this.labelWidth = result.imageData.labelWidth
         this.labelHeight = result.imageData.labelHeight
         this.labelOffsetX = result.imageData.labelOffsetX
         this.labelOffsetY = result.imageData.labelOffsetY
-        this.croppedImage = result.imageData.image
+       // this.croppedImage = result.imageData.image
+       // for image privew.
+       let reader = new FileReader();
+        reader.readAsDataURL(this.uploadedFile); 
+        reader.onload = (_event) => { 
+        this.croppedImage = reader.result; 
+        }
       } else {
-        this.imageError = true;
+        //this.imageError = true;
+        this.croppedImage = ""; 
+        this.uploadedFile = undefined
+        this.resetImageValue()
       } 
     })
    }  
 
-   cancelImageChange(){
-    this.changeImage = false
-    this.imageError = false
-    this.imageValidError = false
-   }
+  //  cancelImageChange(){
+  //   this.changeImage = false
+  //   this.imageError = false
+  //   this.imageValidError = false
+  //  }
 
    cancel(){
     this.router.navigate(['/', 'admin', 'implant-list'])
   }
+
+  canselImage(){
+    // this.imageError = true;
+     this.croppedImage = ""; 
+     this.uploadedFile = undefined
+     this.resetImageValue()
+   }
   deleteImage(implantImageData, implantId){
     implantImageData._id = implantId
     this.loader();
@@ -344,19 +405,19 @@ export class ImplantsEditComponent implements OnInit {
     })
   }
 
-  resetImage() {
-    this.uploadedFile = null
-    this.croppedImage = ""
-    this.imageChangedEvent = null
-    this.imageWidth = 0
-    this.imageHeight = 0
-    this.labelWidth = 0
-    this.labelHeight = 0
-    this.labelOffsetX = 0
-    this.labelOffsetY = 0
-    let img = document.getElementById('implantImage') as HTMLInputElement
-    img.value = ""
-  }
+  // resetImage() {
+  //   this.uploadedFile = null
+  //   this.croppedImage = ""
+  //   this.imageChangedEvent = null
+  //   this.imageWidth = 0
+  //   this.imageHeight = 0
+  //   this.labelWidth = 0
+  //   this.labelHeight = 0
+  //   this.labelOffsetX = 0
+  //   this.labelOffsetY = 0
+  //   let img = document.getElementById('implantImage') as HTMLInputElement
+  //   img.value = ""
+  // }
 
   imageView(i){
     this.viewImageData[i].objectName = this.implantDetail.objectName  

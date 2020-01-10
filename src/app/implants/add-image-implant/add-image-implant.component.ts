@@ -33,24 +33,25 @@ export class AddImageImplantComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any ) { }
 
   ngOnInit() {
-    console.log(this.data)
+   // console.log(this.data)
+  this.fileChangeEvent(this.data); 
   }
 
   //function to get file
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
-    this.imageValidError = false
-    let img = document.getElementById('implantImage') as HTMLInputElement
-    const filename = img.files[0].name
-      const fileExt = filename.split(".").splice(-1)[0].toLowerCase()
-        if(this.imageValidExtensions.indexOf(fileExt) == -1) {
-          this.resetValues()
-          this.imageValidError = true
-        } else {
-          this.uploadedFile = img.files[0]
-          this.disabledSave = false
-          this.imageError = false;
-        }
+    //this.imageValidError = false
+    // let img = document.getElementById('implantImage') as HTMLInputElement
+    // const filename = img.files[0].name
+    //   const fileExt = filename.split(".").splice(-1)[0].toLowerCase()
+    //     if(this.imageValidExtensions.indexOf(fileExt) == -1) {
+    //       this.resetValues()
+    //       this.imageValidError = true
+    //     } else {
+    //       this.uploadedFile = img.files[0]
+    //       this.disabledSave = false
+    //       this.imageError = false;
+    //     }
   }
 
   //function to assign cropper
@@ -80,20 +81,20 @@ export class AddImageImplantComponent implements OnInit {
   }
 
   saveDetail(){
-    if(this.uploadedFile && this.uploadedFile.name !="") {
+   // if(this.uploadedFile && this.uploadedFile.name !="") {
       this.returnData.imageWidth = this.imageWidth
       this.returnData.imageHeight = this.imageHeight,
       this.returnData.labelWidth = this.labelWidth,
       this.returnData.labelHeight =  this.labelHeight,
       this.returnData.labelOffsetX =  this.labelOffsetX,
       this.returnData.labelOffsetY =  this.labelOffsetY,
-      this.returnData.uploadedFile = this.uploadedFile
+     // this.returnData.uploadedFile = this.uploadedFile
       this.returnData.image = this.croppedImage
       //this.returnData.uploadedFile = this.realImage
       this.dialogRef.close({ 'imageData': this.returnData });  
-      } else {
-      this.imageError = true;
-    } 
+    //  } else {
+     // this.imageError = true;
+  //  } 
   }
 
   closeBtn(){
