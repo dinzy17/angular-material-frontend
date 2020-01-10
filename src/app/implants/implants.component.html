@@ -149,9 +149,9 @@
                             <div class="col-md-3" *ngIf = "croppedImage != ''">
                                 <div class="row form-group ">
                                     <div class="col-md-12">
-                                      <div class="implant--image--container cursor--pointer" (click)="openImageAginDemo()">
-                                            <mat-icon class="icon--delete" (click)="cansel" >delete_forever</mat-icon>
-                                            <img class="previewImg" [src]="croppedImage" />
+                                      <div class="implant--image--container">
+                                            <mat-icon class="icon--delete cursor--pointer " (click)="canselImage()" >delete_forever</mat-icon>
+                                            <img class="previewImg cursor--pointer" (click)="openImageAginDemo()" [src]="croppedImage" />
                                         <!-- <label class="implant--image--lable"> 
                                             Click to upload
                                         </label> -->
