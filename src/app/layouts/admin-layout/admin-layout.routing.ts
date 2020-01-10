@@ -16,6 +16,8 @@ import { ImplantAppTestComponent } from 'app/implant-app-test/implant-app-test.c
 import { ImplantsEditComponent } from 'app/implants/implants-edit/implants-edit.component';
 import { ImplantVerificationComponent } from 'app/implant-verification/implant-verification.component';
 import { ImplantVerificationViewComponent } from 'app/implant-verification/implant-verification-view/implant-verification-view.component';
+import { AppendImagesComponent } from 'app/implants/append-images/append-images.component';
+
 export const AdminLayoutRoutes: Routes = [
     {
         path: 'dashboard',
@@ -84,5 +86,10 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'implant-verification-view/:id',
         component: ImplantVerificationViewComponent,
-    }
+    },
+    {
+        path: 'implant-add/:id',
+        component: AppendImagesComponent,
+        canActivate: [AdminGuard]
+    },
 ];

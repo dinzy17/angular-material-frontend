@@ -22,11 +22,11 @@ export interface Name {
 }
 
 @Component({
-  selector: 'app-implants-edit',
-  templateUrl: './implants-edit.component.html',
-  styleUrls: ['./implants-edit.component.scss']
+  selector: 'app-append-images',
+  templateUrl: './append-images.component.html',
+  styleUrls: ['./append-images.component.scss']
 })
-export class ImplantsEditComponent implements OnInit {
+export class AppendImagesComponent implements OnInit {
   @ViewChild('autosize', {static: false}) autosize: CdkTextareaAutosize;
   @ViewChild('implantForm', {static: false}) implantForm
   id: any =""
@@ -77,7 +77,7 @@ export class ImplantsEditComponent implements OnInit {
       implantManufacture: ["", [ Validators.required, Validators.maxLength(150)]],
       removalSection: this.fb.array([
         this.fb.group({
-          removalProcess: [""]
+          removalProcess: [""],
           // surgeryDate: ["", [Validators.required]],
           // surgeryLocation: ["", [Validators.required]],
         })
@@ -124,8 +124,6 @@ export class ImplantsEditComponent implements OnInit {
     });
   }
 
-
-
   /*
   add removal process
   */ 
@@ -146,7 +144,7 @@ export class ImplantsEditComponent implements OnInit {
   saveImplant(implantData) {
     this.validationError = false
     for(let index in implantData.removalSection){
-      if((implantData.removalSection[index].removalProcess =="" )){
+      if((implantData.removalSection[index].removalProcess =="")){
         delete implantData.removalSection[index];  
       } else {
         this.removaProcessError[index] = false
@@ -182,9 +180,9 @@ export class ImplantsEditComponent implements OnInit {
       }
       
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
-        fd.append('addBy', "admin");
+        fd.append('addBy', "user");
         fd.append('implantId', this.id);
-        fd.append('deletedimage', JSON.stringify(this.deleteArray ));
+     //   fd.append('deletedimage', JSON.stringify(this.deleteArray ));
         //fd.append('deletedprocess', JSON.stringify(this.deleteArray ));
         
        // this.api.apiRequest('post', 'implant/editImageToCollection', fd).subscribe(result => {

@@ -22,7 +22,7 @@
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width mat-headline">
                                                     <input matInput placeholder="* Implant manufacture" class="capitalize" formControlName="implantManufacture" [(ngModel)]="searchByString"
-                                                        (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete]="auto">
+                                                        (keyup)="filterManufacture()" name="implantManufacture" [matAutocomplete]="auto" readonly >
                                                     <mat-error class="error--handing" *ngIf="form.controls['implantManufacture'].hasError('required') && (form.controls['implantManufacture'].dirty || form.controls['implantManufacture'].touched)">
                                                         {{ "The implant's manufactuerer name cannot be blank ." }}
                                                     </mat-error>
@@ -41,7 +41,7 @@
                                             <div class="form-group">
                                                 <mat-form-field class="example--full--width mat-headline">
                                                     <input matInput placeholder="* Implant name/brand" class="capitalize" formControlName="label" name="label" [matAutocomplete]="autoName"
-                                                        [(ngModel)]="searchName" (keyup)="filterName()">
+                                                        [(ngModel)]="searchName" (keyup)="filterName()" readonly>
                                                     <!-- [matAutocomplete]="autoName" [(ngModel)]="searchName" -->
                                                     <mat-error class="error--handing" *ngIf="form.controls['label'].hasError('required') && (form.controls['label'].dirty || form.controls['label'].touched)">
                                                         {{ "The implant's name/brand cannot be blank " }}
@@ -65,13 +65,12 @@
                                             <div formArrayName="removalSection">
                                                 <div class="removal--process" *ngFor="let unit of form.controls.removalSection.controls; let i=index">
                                                     <div [formGroupName]="i">
-                                                        <mat-icon class="cursor--pointer icon--delete" (click)="delete(i);" *ngIf="i > 0">delete</mat-icon>
                                                         <div class="row form-group">
                                                             <div class="col-lg-12">
                                                                 <mat-form-field class="example--full--width mat-headline">
                                                                     <textarea matInput placeholder=" Removal Process" formControlName="removalProcess" name="removalProcess" cdkTextareaAutosize
                                                                         #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
-                                                                        cdkAutosizeMaxRows="5"></textarea>
+                                                                        cdkAutosizeMaxRows="5" readonly></textarea>
                                                                 </mat-form-field>
                                                             </div>
                                                         </div>
@@ -106,11 +105,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="add--more mb-1">
+                                            <!-- <div class="add--more mb-1">
                                                 <button type="button" mat-button class="add--more--btn" (click)="addRow();">
                                                     <mat-icon>add_circle_outline</mat-icon>Add More
                                                 </button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <div class="row col-md-12 form--bottom">

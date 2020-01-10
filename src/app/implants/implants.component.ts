@@ -65,10 +65,11 @@ export class ImplantsComponent implements OnInit {
       label: ['', [ Validators.required, Validators.maxLength(150)]],
       implantManufacture: ['', [ Validators.required, Validators.maxLength(150)]], //,[ Validators.required, Validators.maxLength(150)],this.manufacturerValidate
       removalSection: this.fb.array([
+        // as per client feedback we have remova surgury date and location. and remova as mendetrory removal process
         this.fb.group({
-          removalProcess: ['', Validators.required],
-          surgeryDate: ["", [Validators.required]],
-          surgeryLocation: ['', [Validators.required]]
+          removalProcess: ['', ]
+          // surgeryDate: ["", [Validators.required]],
+          // surgeryLocation: ['', [Validators.required]]
         })
      ])  
     })
@@ -82,26 +83,26 @@ export class ImplantsComponent implements OnInit {
    */
   private getRemovalProcess() {
     return this.fb.group({
-      removalProcess: ['', ],
-      surgeryDate: [""],
-      surgeryLocation: ['']
+      removalProcess: ['', ]
+      // surgeryDate: [""],
+      // surgeryLocation: ['']
     });
   }
 
 
   // compare password validate
-  removaProcessValidation(control: AbstractControl){
-    let removalProcess = control.get('removalProcess').value
-    let surgeryDate = control.get('surgeryDate').value
-    let surgeryLocation = control.get('surgeryLocation').value
-    if ((removalProcess.trim() == "") && (surgeryDate.trim() == "") && (surgeryLocation.trim() == "")) {
-        control.get('removalProcess').setErrors( { requiredProcess: true } )
-        control.get('surgeryDate').setErrors( { requiredProcess: true } )
-        control.get('surgeryLocation').setErrors( { requiredProcess: true } )
-    } else {
-      return null;
-    }
-  }
+  // removaProcessValidation(control: AbstractControl){
+  //   let removalProcess = control.get('removalProcess').value
+  //   let surgeryDate = control.get('surgeryDate').value
+  //   let surgeryLocation = control.get('surgeryLocation').value
+  //   if ((removalProcess.trim() == "") && (surgeryDate.trim() == "") && (surgeryLocation.trim() == "")) {
+  //       control.get('removalProcess').setErrors( { requiredProcess: true } )
+  //       control.get('surgeryDate').setErrors( { requiredProcess: true } )
+  //       control.get('surgeryLocation').setErrors( { requiredProcess: true } )
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   // validation for manufecture
 
@@ -135,7 +136,7 @@ export class ImplantsComponent implements OnInit {
   imageUpload(event) {
       const dialogRef = this.dialog.open(AddImageImplantComponent,{
         width: "620px",
-        disableClose: false,
+        disableClose: true,
         panelClass:"nopad--modal",
         data:event
       });
@@ -158,9 +159,9 @@ export class ImplantsComponent implements OnInit {
         }
 
         } else {
-          this.imageError = true;
-          this.croppedImage = ""; 
-          this.uploadedFile = undefined
+          // this.imageError = true;
+          // this.croppedImage = ""; 
+          // this.uploadedFile = undefined
         } 
       })
   }
@@ -201,13 +202,8 @@ export class ImplantsComponent implements OnInit {
   saveImplant(implantData) {
     this.validationError = false
     for(let index in implantData.removalSection){
-      if((implantData.removalSection[index].removalProcess =="") && (implantData.removalSection[index].surgeryDate == "") && (implantData.removalSection[index].surgeryLocation == "")){
+      if((implantData.removalSection[index].removalProcess =="")){
         delete implantData.removalSection[index];  
-      } else if ((implantData.removalSection[index].removalProcess =="") || (implantData.removalSection[index].surgeryDate == "") || (implantData.removalSection[index].surgeryLocation == "")) {
-        this.removaProcessError[index] = true
-        this.validationError = true
-      } else {
-        this.removaProcessError[index] = false
       }
     }
     if(this.uploadedFile !== undefined && this.uploadedFile.name !="" && !this.validationError) {
@@ -239,7 +235,7 @@ export class ImplantsComponent implements OnInit {
         if(result.status == "success"){
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
           this.implantForm.resetForm();
-          this.router.navigate(['/', 'admin', 'implant-edit',result.data.image._id ])
+          this.router.navigate(['/', 'admin', 'implant-add',result.data.image._id ])
         } else {
           this.snack.open("Successfully added image for training!", 'OK', { duration: 3000 })
         }

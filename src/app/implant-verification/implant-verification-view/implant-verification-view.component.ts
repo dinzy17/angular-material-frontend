@@ -74,9 +74,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       implantManufacture: ["", [ Validators.required, Validators.maxLength(150)]],
       removalSection: this.fb.array([
         this.fb.group({
-          removalProcess: ["", Validators.required],
-          surgeryDate: ["", [Validators.required]],
-          surgeryLocation: ["", [Validators.required]],
+          removalProcess: ["", Validators.required]
+          // surgeryDate: ["", [Validators.required]],
+          // surgeryLocation: ["", [Validators.required]],
         })
      ])  
     })
@@ -96,8 +96,8 @@ export class ImplantVerificationViewComponent implements OnInit {
             this.addRow();
           }
           this.form.controls.removalSection['controls'][i]['controls']['removalProcess'].setValue(this.implantDetail.removImplant[i].removalProcess);
-          this.form.controls.removalSection['controls'][i]['controls']['surgeryDate'].setValue(this.implantDetail.removImplant[i].surgeryDate);    
-          this.form.controls.removalSection['controls'][i]['controls']['surgeryLocation'].setValue(this.implantDetail.removImplant[i].surgeryLocation);    
+          // this.form.controls.removalSection['controls'][i]['controls']['surgeryDate'].setValue(this.implantDetail.removImplant[i].surgeryDate);    
+          // this.form.controls.removalSection['controls'][i]['controls']['surgeryLocation'].setValue(this.implantDetail.removImplant[i].surgeryLocation);    
         }
         this.viewImageData = this.implantDetail.imageData
         this.implantDetail.imageData.map((o)=> {
@@ -130,20 +130,6 @@ export class ImplantVerificationViewComponent implements OnInit {
   }
 
 
-  // compare password validate
-  removaProcessValidation(control: AbstractControl){
-    let removalProcess = control.get('removalProcess').value
-    let surgeryDate = control.get('surgeryDate').value
-    let surgeryLocation = control.get('surgeryLocation').value
-    if ((removalProcess.trim() == "") && (surgeryDate.trim() == "") && (surgeryLocation.trim() == "")) {
-        control.get('removalProcess').setErrors( { requiredProcess: true } )
-        control.get('surgeryDate').setErrors( { requiredProcess: true } )
-        control.get('surgeryLocation').setErrors( { requiredProcess: true } )
-    } else {
-      return null;
-    }
-  }
-
   /*
   add removal process
   */ 
@@ -174,7 +160,7 @@ export class ImplantVerificationViewComponent implements OnInit {
     const dialogRefView = this.dialog.open(ImageViewComponent,{
       width: "620px",
       panelClass: "nopad--modal",
-      disableClose: false,
+      disableClose: true,
       data:this.viewImageData[i]
     });
   }

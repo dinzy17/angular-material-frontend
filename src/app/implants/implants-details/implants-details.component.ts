@@ -97,7 +97,7 @@ export class ImplantsDetailsComponent implements OnInit {
     const dialogRefView = this.dialog.open(ImageViewComponent,{
       width: "620px",
       panelClass: "nopad--modal",
-      disableClose: false,
+      disableClose: true,
       data:this.viewImageData[i]
     });
   }
