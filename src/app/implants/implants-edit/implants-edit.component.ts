@@ -61,7 +61,7 @@ export class ImplantsEditComponent implements OnInit {
   displayHighlite: boolean = false
   data: any = {}
   viewImageData: any = {}
-  deleteArray: any  = ["5e15b5963481fc63ba911f70"]
+  deleteArray: any  = ["5e182eb607a48e077462a735"]
   imageEvent: any
   constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private api: APIService, private snack: MatSnackBar, private router:Router, private dialog: MatDialog) { }
 
@@ -199,9 +199,9 @@ export class ImplantsEditComponent implements OnInit {
       }
       
         fd.append('removeImplant', JSON.stringify(implantData.removalSection));
-        fd.append('addBy', "admin");
+        fd.append('addBy', "user");
         fd.append('implantId', this.id);
-        //fd.append('deletedimage', JSON.stringify(this.deleteArray ));
+        fd.append('deletedimage', JSON.stringify(this.deleteArray ));
         //fd.append('deletedprocess', JSON.stringify(this.deleteArray ));
         
        // this.api.apiRequest('post', 'implant/editImageToCollection', fd).subscribe(result => {

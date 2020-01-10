@@ -185,8 +185,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve implant and added for training!", 'OK', { duration: 3000 })
-          this.getDetail()
           this.loaderHide()
+          //this.getDetail()
+          this.ngOnInit();
         }  
       },
       err => {
@@ -201,8 +202,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully reject implant", 'OK', { duration: 3000 })
-          this.getDetail()
           this.loaderHide()
+          //this.getDetail()
+          this.ngOnInit();
         }  
       },
       err => {
@@ -217,8 +219,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve removal process", 'OK', { duration: 3000 })
-          this.getDetail()
           this.loaderHide()
+          //this.getDetail()
+          this.ngOnInit();
         }  
       },
       err => {
@@ -233,8 +236,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully reject removal process", 'OK', { duration: 3000 })
-          this.getDetail()
           this.loaderHide()
+          //this.getDetail()
+          this.ngOnInit();
         }  
       },
       err => {
@@ -249,8 +253,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve image and add for training", 'OK', { duration: 3000 })
-          this.getDetail()
+          //this.getDetail()
           this.loaderHide()
+          this.ngOnInit();
         }  
       },
       err => {
@@ -265,8 +270,9 @@ export class ImplantVerificationViewComponent implements OnInit {
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully reject image.", 'OK', { duration: 3000 })
-          this.getDetail()
           this.loaderHide()
+          this.ngOnInit();
+          
         }  
       },
       err => {

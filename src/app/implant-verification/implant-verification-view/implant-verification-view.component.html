@@ -34,7 +34,7 @@
                                                 <div formArrayName="removalSection">
                                                     <div class="removal--process" *ngFor="let unit of form.controls.removalSection.controls; let i=index">
                                                         <div [formGroupName]="i">
-                                                            <div class="row form-group">
+                                                            <div class="row form-group {{i}}">
                                                                 <div class="col-lg-12">
                                                                     <mat-form-field class="example--full--width mat-headline">
                                                                     <textarea matInput placeholder=" Removal Process" formControlName="removalProcess" name="removalProcess" cdkTextareaAutosize
@@ -63,10 +63,10 @@
                                                                     </mat-form-field>
                                                                 </div>
                                                             </div>
-                                                            <div>
-                                                              <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" class="btn btn-theme" *ngIf = "(implantDetail.isNewImplant !== undefined && !implantDetail.isNewImplant) && (implantDetail.removImplant[i].isApproved !== undefined && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant[i].isRejected !== undefined && !implantDetail.removImplant[i].isRejected)" >Approve</button>
-                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn" *ngIf = "(implantDetail.isNewImplant !== undefined && !implantDetail.isNewImplant) && (implantDetail.removImplant[i].isApproved !== undefined && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant[i].isRejected !== undefined && !implantDetail.removImplant[i].isRejected)" >reject</button>
-                                                              <div *ngIf = "(implantDetail.isNewImplant !== undefined && !implantDetail.isNewImplant) && (implantDetail.removImplant[i].isApproved !== undefined && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant[i].isRejected !== undefined && !implantDetail.removImplant[i].isRejected)">
+                                                            <div *ngIf = "(!implantDetail.isNewImplant) && (implantDetail.removImplant && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant && !implantDetail.removImplant[i].isRejected)" >
+                                                              <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" class="btn btn-theme" >Approve</button>
+                                                              <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn"  >reject</button>
+                                                              <div>
                                                               <span><b>Updated By:</b>{{ implantDetail.removImplant[i].userFullName }}</span> <br />
                                                               <span><b>Updated Date:</b>{{ implantDetail.removImplant[i].createdDate | date: 'MM/dd/yyyy' }}</span>  
                                                               </div>
@@ -77,10 +77,11 @@
                                             </div>
                                     </div>
                                 <div class="row col-md-12 form--bottom">
-                                    <button type="button" (click)="approve()"  class="btn btn-theme" *ngIf = "implantDetail.isNewImplant" >Approve</button>
-                                    <button type="button" (click)="reject()" class="btn rejectBtn" *ngIf = "implantDetail.isNewImplant" >reject</button>
+                                    <div *ngIf = "implantDetail.isNewImplant">
+                                    <button type="button" (click)="approve()"  class="btn btn-theme" >Approve</button>
+                                    <button type="button" (click)="reject()" class="btn rejectBtn" >reject</button>
+                                    </div>
                                     <button type="button" (click)="cancel()" class="btn cancelBtn">Cancel</button>
-                
                                    
                                 </div>
                                 <div class="row col-md-12 form--bottom">
@@ -97,10 +98,10 @@
                                             <div class="image--gallery--container">
                                                 <img class="image--gallery" (click)="imageView(i)" [src]="implantDetail.imageData[i].imageName">
                                             </div>
-                                            <div>
-                                                <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected"  class="btn btn-theme">Approve</button>
-                                                <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected" class="btn rejectBtn">reject</button>                          
-                                                <div *ngIf = "!implantDetail.isNewImplant && !implantDetail.imageData[i].isApproved && !implantDetail.imageData[i].isRejected">
+                                            <div *ngIf = "(!implantDetail.isNewImplant) && (implantDetail.imageData && !implantDetail.imageData[i].isApproved) && (implantDetail.imageData && !implantDetail.imageData[i].isRejected)">
+                                                <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" class="btn btn-theme">Approve</button>
+                                                <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" class="btn rejectBtn">reject</button>                          
+                                                <div>
                                                     <span><b>Updated By:</b>{{ implantDetail.imageData[i].userFullName }}</span> <br />
                                                     <span><b>Updated Date:</b>{{ implantDetail.imageData[i].createdDate | date: 'MM/dd/yyyy' }}</span>
                                                 </div>
