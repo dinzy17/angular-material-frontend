@@ -343,6 +343,13 @@ export class ImplantsEditComponent implements OnInit {
         reader.onload = (_event) => { 
         this.croppedImage = reader.result; 
         }
+        let img = new Image();
+        img.onload = () => {
+          this.imageWidth = img.height;
+          this.imageHeight = img.width;
+        
+        }
+        img.src = this.croppedImage; 
       } else {
         //this.imageError = true;
         // this.croppedImage = ""; 

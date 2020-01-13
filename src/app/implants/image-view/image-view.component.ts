@@ -27,6 +27,8 @@ export class ImageViewComponent implements OnInit {
     img.onload = () => {
      var height = img.height;
      var width = img.width;
+     console.log('height', height)
+     console.log('width', width)
      // code here to use the dimensions
      let dispyaImgage = document.getElementById('displayImage') as HTMLInputElement
      var currWidth = dispyaImgage.clientWidth;

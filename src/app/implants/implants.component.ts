@@ -155,7 +155,17 @@ export class ImplantsComponent implements OnInit {
         let reader = new FileReader();
         reader.readAsDataURL(this.uploadedFile); 
         reader.onload = (_event) => { 
-        this.croppedImage = reader.result; 
+        this.croppedImage = reader.result;
+        let img = new Image();
+        img.onload = () => {
+          this.imageWidth = img.height;
+          this.imageHeight = img.width;
+        
+        }
+        img.src = this.croppedImage; 
+        // console.log('reader.result.height', event)
+        // console.log('this.imageWidth', this.imageWidth)
+        // console.log('this.imageHeight', this.imageWidth)
         }
 
         } else {

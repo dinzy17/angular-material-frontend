@@ -56,6 +56,7 @@ export class AddImageImplantComponent implements OnInit {
 
   //function to assign cropper
   imageCropped(event: ImageCroppedEvent) {
+    console.log('event', event);
       this.croppedImage = event.base64;
       this.imageWidth = event.imagePosition.x2
       this.imageHeight = event.imagePosition.y2
