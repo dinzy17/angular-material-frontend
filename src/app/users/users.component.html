@@ -9,7 +9,7 @@
                   <div class="row" >
                       <form class="full-width">
                         <mat-form-field class="full--width">
-                          <input matInput placeholder="Search by Name, Email, Contact Number and Profission" name="searchByString" [(ngModel)]="searchByString" (keyup)="searchBy()">
+                          <input matInput placeholder="Search by name, email, contact number and profission" name="searchByString" [(ngModel)]="searchByString" (keyup)="searchBy()">
                         </mat-form-field>
                       </form>
                     </div>
@@ -17,7 +17,7 @@
                   <table *ngIf="recordsExists" mat-table [dataSource]="usersList" matSort class="mat-elevation-z8 full-width">
                     <ng-container matColumnDef="fullName">
                       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-                      <td mat-cell *matCellDef="let element" class="capitalize"> {{element.fullName}} </td>
+                      <td mat-cell *matCellDef="let element" class="capitalize"> {{ (element.fullName | slice:0:20) + (element.fullName.length > 20 ? '...' : '')}} </td>
                     </ng-container>
               
                     <ng-container matColumnDef="email">
@@ -27,7 +27,7 @@
               
                     <ng-container matColumnDef="profession">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Profession</th>
-                        <td mat-cell *matCellDef="let element"> {{ element.profession }} </td>
+                        <td mat-cell *matCellDef="let element"> {{ (element.profession | slice:0:20) + (element.profession.length > 20 ? '...' : '')}} </td>
                       </ng-container>
 
                       <ng-container matColumnDef="contactNumber">

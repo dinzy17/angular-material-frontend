@@ -4,3 +4,13 @@
 .cursor-pointer{
     cursor: pointer;
 }
+table {
+    table-layout: fixed;
+  }
+  
+  th, td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
