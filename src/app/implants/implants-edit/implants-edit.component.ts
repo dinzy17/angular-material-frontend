@@ -345,8 +345,8 @@ export class ImplantsEditComponent implements OnInit {
         }
         let img = new Image();
         img.onload = () => {
-          this.imageWidth = img.height;
-          this.imageHeight = img.width;
+          this.imageWidth = img.width
+          this.imageHeight = img.height
         
         }
         img.src = this.croppedImage; 

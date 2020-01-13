@@ -158,8 +158,8 @@ export class ImplantsComponent implements OnInit {
         this.croppedImage = reader.result;
         let img = new Image();
         img.onload = () => {
-          this.imageWidth = img.height;
-          this.imageHeight = img.width;
+          this.imageWidth = img.width
+          this.imageHeight = img.height
         
         }
         img.src = this.croppedImage; 
