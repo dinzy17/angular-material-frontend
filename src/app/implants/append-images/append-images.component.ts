@@ -340,6 +340,12 @@ export class AppendImagesComponent implements OnInit {
         reader.readAsDataURL(this.uploadedFile); 
         reader.onload = (_event) => { 
         this.croppedImage = reader.result; 
+        let imgSize = new Image();
+        imgSize.onload = () => {
+          this.imageWidth = imgSize.width
+          this.imageHeight = imgSize.height
+        }
+        imgSize.src = this.croppedImage; 
         }
       } else {
         //this.imageError = true;
