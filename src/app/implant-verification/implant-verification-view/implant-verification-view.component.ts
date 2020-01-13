@@ -235,7 +235,7 @@ export class ImplantVerificationViewComponent implements OnInit {
 
   partialApproveImage(id) {
     this.loader()
-    this.api.apiRequest("post", "verificationImplant/partialApproveImage", { implantId: this.id, id:id }).subscribe(
+    this.api.apiRequest("post", "verificationImplant/partialApproveImage", { implantId: this.id, id:id, implantDetail: this.implantDetail }).subscribe(
       result => {
         if(result.status == "success"){
           this.snack.open("Successfully approve image and add for training", 'OK', { duration: 3000 })

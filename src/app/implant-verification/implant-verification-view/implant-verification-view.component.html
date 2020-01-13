@@ -63,7 +63,7 @@
                                                                     </mat-form-field>
                                                                 </div>
                                                             </div> -->
-                                                            <div *ngIf = "(!implantDetail.isNewImplant) && (implantDetail.removImplant && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant && !implantDetail.removImplant[i].isRejected)" >
+                                                            <div *ngIf = "(implantDetail.removImplant && !implantDetail.removImplant[i].isApproved) && (implantDetail.removImplant && !implantDetail.removImplant[i].isRejected)" >
                                                               <button type="button" (click)="partialApproveRemovalProcess(implantDetail.removImplant[i].id)" class="btn btn-theme" >Approve</button>
                                                               <button type="button" (click)="partialRejectRemovalProcess(implantDetail.removImplant[i].id)" class="btn rejectBtn"  >reject</button>
                                                               <div>
@@ -77,19 +77,19 @@
                                             </div>
                                     </div>
                                 <div class="row col-md-12 form--bottom">
-                                    <div *ngIf = "implantDetail.isNewImplant">
+                                    <!-- <div *ngIf = "implantDetail.isNewImplant">
                                     <button type="button" (click)="approve()"  class="btn btn-theme" >Approve</button>
                                     <button type="button" (click)="reject()" class="btn rejectBtn" >reject</button>
-                                    </div>
+                                    </div> -->
                                     <button type="button" (click)="cancel()" class="btn cancelBtn">Cancel</button>
                                    
                                 </div>
-                                <div class="row col-md-12 form--bottom">
+                                <!-- <div class="row col-md-12 form--bottom">
                                         <div *ngIf = "implantDetail.isNewImplant" >
                                                 <span><b>Updated By:</b>{{ implantDetail.userFullName }}</span> <br />
                                                 <span><b>Updated Date:</b>{{ implantDetail.createdOn | date: 'MM/dd/yyyy' }}</span>
                                             </div>
-                                    </div>
+                                    </div> -->
                             </div>
                             <!-- for change image -->
                             <div class="col-6">
@@ -98,7 +98,7 @@
                                             <div class="image--gallery--container">
                                                 <img class="image--gallery" (click)="imageView(i)" [src]="implantDetail.imageData[i].imageName">
                                             </div>
-                                            <div *ngIf = "(!implantDetail.isNewImplant) && (implantDetail.imageData && !implantDetail.imageData[i].isApproved) && (implantDetail.imageData && !implantDetail.imageData[i].isRejected)">
+                                            <div *ngIf = "(!implantDetail.imageData[i].isApproved) && (implantDetail.imageData && !implantDetail.imageData[i].isRejected)">
                                                 <button type="button" (click)="partialApproveImage(implantDetail.imageData[i].id)" class="btn btn-theme">Approve</button>
                                                 <button type="button" (click)="partialRejectImage(implantDetail.imageData[i].id)" class="btn rejectBtn">reject</button>                          
                                                 <div>
